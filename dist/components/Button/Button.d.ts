@@ -1,4 +1,2 @@
-import { FC } from "react";
-import { ButtonProps } from "./Button.types";
-declare const Button: FC<ButtonProps>;
+declare const Button: () => import("react/jsx-runtime").JSX.Element;
 export default Button;

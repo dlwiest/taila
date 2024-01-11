@@ -2,49 +2,6 @@
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
-/******************************************************************************
-Copyright (c) Microsoft Corporation.
-
-Permission to use, copy, modify, and/or distribute this software for any
-purpose with or without fee is hereby granted.
-
-THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH
-REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY
-AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT,
-INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM
-LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
-OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
-PERFORMANCE OF THIS SOFTWARE.
-***************************************************************************** */
-
-var __assign = function() {
-    __assign = Object.assign || function __assign(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
-};
-
-function __rest(s, e) {
-    var t = {};
-    for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
-        t[p] = s[p];
-    if (s != null && typeof Object.getOwnPropertySymbols === "function")
-        for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
-            if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i]))
-                t[p[i]] = s[p[i]];
-        }
-    return t;
-}
-
-typeof SuppressedError === "function" ? SuppressedError : function (error, suppressed, message) {
-    var e = new Error(message);
-    return e.name = "SuppressedError", e.error = error, e.suppressed = suppressed, e;
-};
-
 var jsxRuntime = {exports: {}};
 
 var reactJsxRuntime_production_min = {};
@@ -4201,35 +4158,7 @@ if (process.env.NODE_ENV === 'production') {
 
 var jsxRuntimeExports = jsxRuntime.exports;
 
-var buttonDefaultStyles = {
-    display: 'inline-flex',
-    alignItems: 'center',
-    justifyContents: 'center',
-    border: 'none',
-    borderRadius: '4px',
-};
-var buttonSizes = {
-    small: {
-        height: '28px',
-        fontSize: '14px',
-        padding: '3px 16px'
-    },
-    medium: {
-        height: '36px',
-        fontSize: '16px',
-        padding: '4px 20px'
-    },
-    large: {
-        height: '48px',
-        fontSize: '20px',
-        padding: '5px 24px'
-    },
-};
-var Button = function (props) {
-    var children = props.children, _a = props.size, size = _a === void 0 ? 'medium' : _a, rest = __rest(props, ["children", "size"]);
-    var buttonStyles = __assign(__assign(__assign({}, rest.style), buttonDefaultStyles), buttonSizes[size]);
-    return (jsxRuntimeExports.jsx("button", __assign({ style: buttonStyles }, rest, { children: children })));
-};
+var Button = function () { return (jsxRuntimeExports.jsx("button", { children: "test" })); };
 
 exports.Button = Button;
 //# sourceMappingURL=index.js.map
