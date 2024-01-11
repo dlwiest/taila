@@ -1,7 +1,15 @@
 {
-  "name": "taila",
-  "version": "0.1.0",
-  "private": true,
+  "name": "@dlwiest/taila",
+  "version": "0.0.1",
+  "main": "dist/index.js",
+  "module": "dist/index.es.js",
+  "files": [
+    "dist"
+  ],
+  "repository": "git://github.com/dlwiest/taila.git",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
   "dependencies": {
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
@@ -17,10 +25,7 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "build": "rollup -c"
   },
   "eslintConfig": {
     "extends": [
@@ -39,5 +44,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^25.0.7",
+    "@rollup/plugin-node-resolve": "^15.2.3"
   }
 }
