@@ -1,15 +1,12 @@
 {
   "name": "@dlwiest/taila",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "main": "dist/index.js",
   "module": "dist/index.es.js",
   "files": [
     "dist"
   ],
   "repository": "git://github.com/dlwiest/taila.git",
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com"
-  },
   "dependencies": {
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
@@ -53,6 +50,7 @@
     "@storybook/addon-interactions": "^7.6.7",
     "@storybook/addon-links": "^7.6.7",
     "@storybook/addon-onboarding": "^1.0.10",
+    "@storybook/addon-styling-webpack": "^0.0.6",
     "@storybook/blocks": "^7.6.7",
     "@storybook/preset-create-react-app": "^7.6.7",
     "@storybook/react": "^7.6.7",
@@ -61,6 +59,7 @@
     "eslint-plugin-storybook": "^0.6.15",
     "prop-types": "^15.8.1",
     "storybook": "^7.6.7",
+    "tailwindcss": "^3.4.1",
     "webpack": "^5.89.0"
   }
 }
