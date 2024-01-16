@@ -1,4 +1,5 @@
 import { Button } from '..';
+import { CheckCircleIcon } from '@heroicons/react/20/solid';
 
 export default {
     title: 'Components/Button',
@@ -29,5 +30,23 @@ export const Variant = () => (
     <div className="space-x-1">
         <Button>Default</Button>
         <Button variant="soft">Soft</Button>
+    </div>
+);
+
+export const Icon = () => (
+    <div className="space-x-1 flex-wrap items-end">
+        <div className="inline-block align-bottom">
+            <Button>
+                <CheckCircleIcon className="-ml-0.5 h-5 w-5" aria-hidden="true" />
+                Before
+            </Button>
+        </div>
+
+        <div className="inline-block align-bottom">
+            <Button>
+                After
+                <CheckCircleIcon className="-ml-0.5 h-5 w-5" aria-hidden="true" />
+            </Button>
+        </div>
     </div>
 );

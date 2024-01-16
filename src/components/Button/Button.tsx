@@ -33,7 +33,7 @@ const Button = ({ color = "blue", size = 'md', variant = 'default', children, ..
 
     return (
         <AriaButton
-            className={`rounded ${backgroundColorClass} ${darkBackgroundColorClass} ${sizeClass} font-semibold ${textColorClass} shadow-sm ${hoverColorClass} ${darkHoverColorClass}`}
+            className={`rounded ${backgroundColorClass} ${darkBackgroundColorClass} ${sizeClass} font-semibold ${textColorClass} shadow-sm ${hoverColorClass} ${darkHoverColorClass} inline-flex items-center gap-x-1.5`}
             {...rest}
         >
             {children}
