@@ -1,3 +1,4 @@
-import { baseColorClasses } from './tailwindClases';
+type ColorKeys = 'slate' | 'gray' | 'zinc' | 'neutral' | 'stone' | 'red' | 'orange' | 'amber' | 'yellow' | 'lime' | 'green' | 'emerald' | 'teal' | 'cyan' | 'sky' | 'blue' | 'indigo' | 'violet' | 'purple' | 'fuchsia' | 'pink' | 'rose';
+export type TailwindColor = ColorKeys;
 
-export type TailwindColor = keyof typeof baseColorClasses | string;
+export type Sizes = 'xs' | 'sm' | 'md' | 'lg' | 'xl';

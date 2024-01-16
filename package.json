@@ -1,16 +1,18 @@
 {
   "name": "@dlwiest/taila",
-  "version": "0.0.12",
+  "version": "0.0.13",
   "main": "dist/index.js",
   "module": "dist/index.es.js",
   "files": [
     "dist"
   ],
   "repository": "git://github.com/dlwiest/taila.git",
+  "dependencies": {
+    "react-aria-components": "^1.0.1"
+  },
   "peerDependencies": {
     "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-aria-components": "^1.0.1"
+    "react-dom": "^18.2.0"
   },
   "devDependencies": {
     "@rollup/plugin-node-resolve": "^15.2.3",
