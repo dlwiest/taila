@@ -1,4 +1,31 @@
-export const baseColorClasses = {
+
+
+export const baseTextColorClasses = {
+    slate: 'text-slate-600',
+    gray: 'text-gray-600',
+    zinc: 'text-zinc-600',
+    neutral: 'text-neutral-600',
+    stone: 'text-stone-600',
+    red: 'text-red-600',
+    orange: 'text-orange-600',
+    amber: 'text-amber-600',
+    yellow: 'text-yellow-600',
+    lime: 'text-lime-600',
+    green: 'text-green-600',
+    emerald: 'text-emerald-600',
+    teal: 'text-teal-600',
+    cyan: 'text-cyan-600',
+    sky: 'text-sky-600',
+    blue: 'text-blue-600',
+    indigo: 'text-indigo-600',
+    violet: 'text-violet-600',
+    purple: 'text-purple-600',
+    fuchsia: 'text-fuchsia-600',
+    pink: 'text-pink-600',
+    rose: 'text-rose-600',
+};
+
+export const baseBgColorClasses = {
     slate: 'bg-slate-600',
     gray: 'bg-gray-600',
     zinc: 'bg-zinc-600',
@@ -23,7 +50,32 @@ export const baseColorClasses = {
     rose: 'bg-rose-600',
 };
 
-export const hoverColorClasses = {
+export const softBaseBgColorClasses = {
+    slate: 'bg-slate-50',
+    gray: 'bg-gray-50',
+    zinc: 'bg-zinc-50',
+    neutral: 'bg-neutral-50',
+    stone: 'bg-stone-50',
+    red: 'bg-red-50',
+    orange: 'bg-orange-50',
+    amber: 'bg-amber-50',
+    yellow: 'bg-yellow-50',
+    lime: 'bg-lime-50',
+    green: 'bg-green-50',
+    emerald: 'bg-emerald-50',
+    teal: 'bg-teal-50',
+    cyan: 'bg-cyan-50',
+    sky: 'bg-sky-50',
+    blue: 'bg-blue-50',
+    indigo: 'bg-indigo-50',
+    violet: 'bg-violet-50',
+    purple: 'bg-purple-50',
+    fuchsia: 'bg-fuchsia-50',
+    pink: 'bg-pink-50',
+    rose: 'bg-rose-50',
+};
+
+export const hoverBgColorClasses = {
     slate: 'hover:bg-slate-500',
     gray: 'hover:bg-gray-500',
     zinc: 'hover:bg-zinc-500',
@@ -48,7 +100,32 @@ export const hoverColorClasses = {
     rose: 'hover:bg-rose-500',
 };
 
-export const darkColorClasses = {
+export const softHoverBgColorClasses = {
+    slate: 'hover:bg-slate-100',
+    gray: 'hover:bg-gray-100',
+    zinc: 'hover:bg-zinc-100',
+    neutral: 'hover:bg-neutral-100',
+    stone: 'hover:bg-stone-100',
+    red: 'hover:bg-red-100',
+    orange: 'hover:bg-orange-100',
+    amber: 'hover:bg-amber-100',
+    yellow: 'hover:bg-yellow-100',
+    lime: 'hover:bg-lime-100',
+    green: 'hover:bg-green-100',
+    emerald: 'hover:bg-emerald-100',
+    teal: 'hover:bg-teal-100',
+    cyan: 'hover:bg-cyan-100',
+    sky: 'hover:bg-sky-100',
+    blue: 'hover:bg-blue-100',
+    indigo: 'hover:bg-indigo-100',
+    violet: 'hover:bg-violet-100',
+    purple: 'hover:bg-purple-100',
+    fuchsia: 'hover:bg-fuchsia-100',
+    pink: 'hover:bg-pink-100',
+    rose: 'hover:bg-rose-100',
+};
+
+export const darkBgColorClasses = {
     slate: 'dark:bg-slate-500',
     gray: 'dark:bg-gray-500',
     zinc: 'dark:bg-zinc-500',
@@ -73,7 +150,7 @@ export const darkColorClasses = {
     rose: 'dark:bg-rose-500',
 };
 
-export const darkHoverColorClasses = {
+export const darkHoverBgColorClasses = {
     slate: 'dark:hover:bg-slate-400',
     gray: 'dark:hover:bg-gray-400',
     zinc: 'dark:hover:bg-zinc-400',
@@ -98,7 +175,7 @@ export const darkHoverColorClasses = {
     rose: 'dark:hover:bg-rose-400',
 };
 
-export const focusClasses = {
+export const focusOutlineClasses = {
     slate: 'focus-visible:outline-slate-600',
     gray: 'focus-visible:outline-gray-600',
     zinc: 'focus-visible:outline-zinc-600',
@@ -123,7 +200,7 @@ export const focusClasses = {
     rose: 'focus-visible:outline-rose-600',
 };
 
-export const darkFocusClasses = {
+export const darkFocusOutlineClasses = {
     slate: 'dark:focus-visible:outline-slate-500',
     gray: 'dark:focus-visible:outline-gray-500',
     zinc: 'dark:focus-visible:outline-zinc-500',

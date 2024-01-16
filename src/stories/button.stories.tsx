@@ -24,3 +24,10 @@ export const Size = () => (
         <Button size="xl">Extra Large</Button>
     </div>
 );
+
+export const Variant = () => (
+    <div className="space-x-1">
+        <Button>Default</Button>
+        <Button variant="soft">Soft</Button>
+    </div>
+);
