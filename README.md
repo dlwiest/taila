@@ -1,46 +1,68 @@
-# Getting Started with Create React App
+# Taila Component Library
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Introduction
 
-## Available Scripts
+**Taila** is a React component library that builds upon [React Aria](https://react-spectrum.adobe.com/react-aria/), integrating it with [Tailwind CSS](https://tailwindcss.com/) to create accessible, stylish components for rapid prototyping. Taila makes it easy to include beautiful, accessible components in your React projects with minimal effort.
 
-In the project directory, you can run:
+## Installation
 
-### `npm start`
+To use Taila in your project, you must have Tailwind CSS installed.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+To install Taila, run:
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+```bash
+npm install @dlwiest/taila
+```
 
-### `npm test`
+### Updating `tailwind.config.js`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+After installation, you need to add Taila to the `content` array in your `tailwind.config.js` file:
 
-### `npm run build`
+```javascript
+module.exports = {
+  // ... other configurations ...
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+  content: [
+    "./node_modules/@dlwiest/taila/**/*.js",
+    "./index.html",
+    "./src/**/*.{js,ts,jsx,tsx}",
+    // other paths...
+  ],
+};
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+This ensures Tailwind correctly applies its styling to Taila components.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Usage
 
-### `npm run eject`
+Here's how you can use the components in Taila. As we add more components, we will update this section with more examples.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### Button
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+The Button component is a basic component in Taila. It accepts a `color` prop to style the button with Tailwind's color classes.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+Example:
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+```jsx
+import { Button } from '@dlwiest/taila';
 
-## Learn More
+<Button color="indigo">Push Me</Button>
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+This will render a button styled with Tailwind's indigo color classes.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Dependencies
+
+- Tailwind CSS
+
+## Contributing
+
+Contributions are welcome! If you'd like to contribute, please fork the repository and use a feature branch. Pull requests are warmly welcome.
+
+## License
+
+This project is licensed under [MIT License](LICENSE.md).
+
+## Contact
+
+If you have any questions or suggestions, feel free to open an issue in the GitHub repository.

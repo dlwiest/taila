@@ -1,6 +1,6 @@
 {
   "name": "@dlwiest/taila",
-  "version": "0.0.5",
+  "version": "0.0.10",
   "main": "dist/index.js",
   "module": "dist/index.es.js",
   "files": [
@@ -8,18 +8,41 @@
   ],
   "repository": "git://github.com/dlwiest/taila.git",
   "dependencies": {
+    "react-aria-components": "^1.0.1"
+  },
+  "peerDependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@rollup/plugin-node-resolve": "^15.2.3",
+    "@storybook/addon-essentials": "^7.6.7",
+    "@storybook/addon-interactions": "^7.6.7",
+    "@storybook/addon-links": "^7.6.7",
+    "@storybook/addon-onboarding": "^1.0.10",
+    "@storybook/addon-styling-webpack": "^0.0.6",
+    "@storybook/blocks": "^7.6.7",
+    "@storybook/preset-create-react-app": "^7.6.7",
+    "@storybook/react": "^7.6.7",
+    "@storybook/react-webpack5": "^7.6.7",
+    "@storybook/test": "^7.6.7",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "@types/jest": "^27.5.2",
     "@types/node": "^16.18.70",
-    "@types/react": "^18.2.47",
+    "@types/react": "^18.2.48",
     "@types/react-dom": "^18.2.18",
+    "eslint-plugin-storybook": "^0.6.15",
+    "prop-types": "^15.8.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1",
+    "storybook": "^7.6.7",
+    "tailwindcss": "^3.4.1",
     "typescript": "^4.9.5",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "webpack": "^5.89.0"
   },
   "scripts": {
     "build": "rollup -c",
@@ -44,22 +67,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "@storybook/addon-essentials": "^7.6.7",
-    "@storybook/addon-interactions": "^7.6.7",
-    "@storybook/addon-links": "^7.6.7",
-    "@storybook/addon-onboarding": "^1.0.10",
-    "@storybook/addon-styling-webpack": "^0.0.6",
-    "@storybook/blocks": "^7.6.7",
-    "@storybook/preset-create-react-app": "^7.6.7",
-    "@storybook/react": "^7.6.7",
-    "@storybook/react-webpack5": "^7.6.7",
-    "@storybook/test": "^7.6.7",
-    "eslint-plugin-storybook": "^0.6.15",
-    "prop-types": "^15.8.1",
-    "storybook": "^7.6.7",
-    "tailwindcss": "^3.4.1",
-    "webpack": "^5.89.0"
   }
 }
