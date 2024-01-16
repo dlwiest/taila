@@ -6,10 +6,9 @@ export default {
 }
 
 export const Color = () => (
-    <div>
+    <div className="space-x-1">
         <Button color="blue">Blue</Button>
         <Button color="green">Green</Button>
         <Button color="red">Red</Button>
-        <Button color="red">Dark Red</Button>
     </div>
 );

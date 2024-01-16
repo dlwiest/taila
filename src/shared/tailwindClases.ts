@@ -1,50 +1,4 @@
-import { jsx } from 'react/jsx-runtime';
-import { Button as Button$1 } from 'react-aria-components';
-
-/******************************************************************************
-Copyright (c) Microsoft Corporation.
-
-Permission to use, copy, modify, and/or distribute this software for any
-purpose with or without fee is hereby granted.
-
-THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH
-REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY
-AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT,
-INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM
-LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
-OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
-PERFORMANCE OF THIS SOFTWARE.
-***************************************************************************** */
-
-var __assign = function() {
-    __assign = Object.assign || function __assign(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
-};
-
-function __rest(s, e) {
-    var t = {};
-    for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
-        t[p] = s[p];
-    if (s != null && typeof Object.getOwnPropertySymbols === "function")
-        for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
-            if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i]))
-                t[p[i]] = s[p[i]];
-        }
-    return t;
-}
-
-typeof SuppressedError === "function" ? SuppressedError : function (error, suppressed, message) {
-    var e = new Error(message);
-    return e.name = "SuppressedError", e.error = error, e.suppressed = suppressed, e;
-};
-
-var baseColorClasses = {
+export const baseColorClasses = {
     slate: 'bg-slate-600',
     gray: 'bg-gray-600',
     zinc: 'bg-zinc-600',
@@ -68,7 +22,8 @@ var baseColorClasses = {
     pink: 'bg-pink-600',
     rose: 'bg-rose-600',
 };
-var hoverColorClasses = {
+
+export const hoverColorClasses = {
     slate: 'hover:bg-slate-500',
     gray: 'hover:bg-gray-500',
     zinc: 'hover:bg-zinc-500',
@@ -92,7 +47,8 @@ var hoverColorClasses = {
     pink: 'hover:bg-pink-500',
     rose: 'hover:bg-rose-500',
 };
-var darkColorClasses = {
+
+export const darkColorClasses = {
     slate: 'dark:bg-slate-500',
     gray: 'dark:bg-gray-500',
     zinc: 'dark:bg-zinc-500',
@@ -116,7 +72,8 @@ var darkColorClasses = {
     pink: 'dark:bg-pink-500',
     rose: 'dark:bg-rose-500',
 };
-var darkHoverColorClasses = {
+
+export const darkHoverColorClasses = {
     slate: 'dark:hover:bg-slate-400',
     gray: 'dark:hover:bg-gray-400',
     zinc: 'dark:hover:bg-zinc-400',
@@ -140,7 +97,8 @@ var darkHoverColorClasses = {
     pink: 'dark:hover:bg-pink-400',
     rose: 'dark:hover:bg-rose-400',
 };
-var focusClasses = {
+
+export const focusClasses = {
     slate: 'focus-visible:outline-slate-600',
     gray: 'focus-visible:outline-gray-600',
     zinc: 'focus-visible:outline-zinc-600',
@@ -164,7 +122,8 @@ var focusClasses = {
     pink: 'focus-visible:outline-pink-600',
     rose: 'focus-visible:outline-rose-600',
 };
-var darkFocusClasses = {
+
+export const darkFocusClasses = {
     slate: 'dark:focus-visible:outline-slate-500',
     gray: 'dark:focus-visible:outline-gray-500',
     zinc: 'dark:focus-visible:outline-zinc-500',
@@ -188,18 +147,3 @@ var darkFocusClasses = {
     pink: 'dark:focus-visible:outline-pink-500',
     rose: 'dark:focus-visible:outline-rose-500',
 };
-
-var Button = function (_a) {
-    var _b = _a.color, color = _b === void 0 ? "blue" : _b, children = _a.children, rest = __rest(_a, ["color", "children"]);
-    var colorKey = color;
-    var colorClass = baseColorClasses[colorKey] || 'bg-blue-600';
-    var hoverColorClass = hoverColorClasses[colorKey] || 'hover:bg-blue-500';
-    var darkColorClass = darkColorClasses[colorKey] || 'dark:bg-blue-500';
-    var darkHoverColorClass = darkHoverColorClasses[colorKey] || 'dark:hover:bg-blue-400';
-    var focusClass = focusClasses[colorKey] || 'focus-visible:outline-blue-600';
-    var darkFocusClass = darkFocusClasses[colorKey] || 'dark:focus-visible:outline-blue-500';
-    return (jsx(Button$1, __assign({ className: "rounded ".concat(colorClass, " ").concat(darkColorClass, " px-2 py-1 text-xs font-semibold text-white shadow-sm ").concat(hoverColorClass, " ").concat(darkHoverColorClass, " ").concat(focusClass, " ").concat(darkFocusClass) }, rest, { children: children })));
-};
-
-export { Button };
-//# sourceMappingURL=index.es.js.map
