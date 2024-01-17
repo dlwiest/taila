@@ -1,4 +1,5 @@
 import { Button as AriaButton } from 'react-aria-components';
+import { twMerge } from 'tailwind-merge';
 import { ButtonProps } from './Button.types';
 import { baseBgColorClasses, baseTextColorClasses, darkBgColorClasses, darkHoverBgColorClasses, hoverBgColorClasses, softBaseBgColorClasses, softHoverBgColorClasses, baseInnerRingClasses, darkInnerRingClasses } from '../../shared/tailwindClases';
 
@@ -10,7 +11,7 @@ const sizeClasses = {
     xl: 'px-3.5 py-2.5 text-sm',
 };
 
-const Button = ({ color = "blue", size = 'md', variant = 'default', children, ...rest }: ButtonProps) => {
+const Button = ({ className, color = "blue", size = 'md', variant = 'default', children, ...rest }: ButtonProps) => {
     const variants = {
         default: {
             textColorClass: 'text-white',
@@ -47,7 +48,7 @@ const Button = ({ color = "blue", size = 'md', variant = 'default', children, ..
 
     return (
         <AriaButton
-            className={`rounded ${backgroundColorClass} ${darkBackgroundColorClass} ${sizeClass} font-semibold ${textColorClass} shadow-sm ${hoverColorClass} ${darkHoverColorClass} inline-flex items-center gap-x-1.5 disabled:opacity-50 disabled:cursor-not-allowed ${ringClass} ${darkRingClass}`}
+            className={twMerge(`rounded ${backgroundColorClass} ${darkBackgroundColorClass} ${sizeClass} font-semibold ${textColorClass} shadow-sm ${hoverColorClass} ${darkHoverColorClass} inline-flex items-center gap-x-1.5 disabled:opacity-50 disabled:cursor-not-allowed ${ringClass} ${darkRingClass}`, className)}
             {...rest}
         >
             {children}

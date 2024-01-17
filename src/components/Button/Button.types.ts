@@ -5,6 +5,7 @@ import { Sizes, TailwindColor } from '../../shared/tailwind.types';
 type ButtonVariants = 'default' | 'soft' | 'outline'
 
 interface ButtonProps extends AriaButtonProps {
+    className?: string;
     color?: TailwindColor;
     size?: Sizes;
     variant?: ButtonVariants;
