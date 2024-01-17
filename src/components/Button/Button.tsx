@@ -1,7 +1,7 @@
 import { Button as AriaButton } from 'react-aria-components';
 import { twMerge } from 'tailwind-merge';
 import { ButtonProps } from './Button.types';
-import { baseBgColorClasses, baseTextColorClasses, darkBgColorClasses, darkHoverBgColorClasses, hoverBgColorClasses, softBaseBgColorClasses, softHoverBgColorClasses, baseInnerRingClasses, darkInnerRingClasses } from '../../shared/tailwindClases';
+import { textColorClasses, bgColorClasses, hoverBgColorClasses, softBgColorClasses, softHoverBgColorClasses, outlineHoverBgColorClasses, innerRingClasses } from '../../shared/tailwindClases';
 
 const sizeClasses = {
     xs: 'px-2 py-1 text-xs',
@@ -15,40 +15,31 @@ const Button = ({ className, color = "blue", size = 'md', variant = 'default', c
     const variants = {
         default: {
             textColorClass: 'text-white',
-            backgroundColorClass: baseBgColorClasses[color],
+            backgroundColorClass: bgColorClasses[color],
             hoverColorClass: hoverBgColorClasses[color],
-            darkBackgroundColorClass: darkBgColorClasses[color],
-            darkHoverColorClass: darkHoverBgColorClasses[color],
             ringClass: '',
-            darkRingClass: '',
         },
         soft: {
-            textColorClass: baseTextColorClasses[color],
-            backgroundColorClass: softBaseBgColorClasses[color],
+            textColorClass: textColorClasses[color],
+            backgroundColorClass: softBgColorClasses[color],
             hoverColorClass: softHoverBgColorClasses[color],
-            darkBackgroundColorClass: softBaseBgColorClasses[color], // TODO - We may want to add a dark mode variant for these
-            darkHoverColorClass: softHoverBgColorClasses[color], // ^
             ringClass: '',
-            darkRingClass: '',
         },
         outline: {
-            textColorClass: baseTextColorClasses[color],
+            textColorClass: `${textColorClasses[color]} hover:text-white`,
             backgroundColorClass: '',
-            hoverColorClass: hoverBgColorClasses[color],
-            darkBackgroundColorClass: darkBgColorClasses[color],
-            darkHoverColorClass: darkHoverBgColorClasses[color],
-            ringClass: baseInnerRingClasses[color],
-            darkRingClass: darkInnerRingClasses[color],
+            hoverColorClass: outlineHoverBgColorClasses[color],
+            ringClass: innerRingClasses[color],
 
         },
     };
 
-    const { textColorClass, backgroundColorClass, hoverColorClass, darkBackgroundColorClass, darkHoverColorClass, ringClass, darkRingClass } = variants[variant];
+    const { textColorClass, backgroundColorClass, hoverColorClass, ringClass } = variants[variant];
     const sizeClass = sizeClasses[size];
 
     return (
         <AriaButton
-            className={twMerge(`rounded ${backgroundColorClass} ${darkBackgroundColorClass} ${sizeClass} font-semibold ${textColorClass} shadow-sm ${hoverColorClass} ${darkHoverColorClass} inline-flex items-center gap-x-1.5 disabled:opacity-50 disabled:cursor-not-allowed ${ringClass} ${darkRingClass}`, className)}
+            className={twMerge(`rounded ${backgroundColorClass} ${sizeClass} font-semibold ${textColorClass} shadow-sm ${hoverColorClass} inline-flex items-center gap-x-1.5 disabled:opacity-50 disabled:cursor-not-allowed ${ringClass}`, className)}
             {...rest}
         >
             {children}
