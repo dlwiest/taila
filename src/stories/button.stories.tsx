@@ -7,7 +7,7 @@ export default {
 };
 
 export const Color = () => (
-    <div className="space-x-1">
+    <div className="space-x-1 space-y-1">
         <Button color="slate">Slate</Button>
         <Button color="gray">Gray</Button>
         <Button color="zinc">Zinc</Button>
@@ -34,7 +34,7 @@ export const Color = () => (
 );
 
 export const Size = () => (
-    <div className="space-x-1">
+    <div className="space-x-1 space-y-1">
         <Button size="xs">Extra Small</Button>
         <Button size="sm">Small</Button>
         <Button size="md">Medium</Button>
@@ -44,7 +44,7 @@ export const Size = () => (
 );
 
 export const Variant = () => (
-    <div className="space-x-1">
+    <div className="space-x-1 space-y-1">
         <Button>Default</Button>
         <Button variant="soft">Soft</Button>
         <Button variant="outline">Outline</Button>
@@ -53,7 +53,7 @@ export const Variant = () => (
 );
 
 export const Icon = () => (
-    <div className="space-x-1 flex-wrap items-end">
+    <div className="space-x-1 space-y-1 flex-wrap items-end">
         <div className="inline-block align-bottom">
             <Button>
                 <CheckCircleIcon className="-ml-0.5 h-5 w-5" aria-hidden="true" />

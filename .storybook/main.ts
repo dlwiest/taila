@@ -8,7 +8,8 @@ const config: StorybookConfig = {
     "@storybook/preset-create-react-app",
     "@storybook/addon-onboarding",
     "@storybook/addon-interactions",
-    "@storybook/addon-styling-webpack"
+    "@storybook/addon-styling-webpack",
+    "storybook-tailwind-dark-mode"
   ],
   framework: {
     name: "@storybook/react-webpack5",

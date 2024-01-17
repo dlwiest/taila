@@ -1,6 +1,6 @@
 {
   "name": "@dlwiest/taila",
-  "version": "0.0.14",
+  "version": "0.0.16",
   "main": "dist/index.js",
   "module": "dist/index.es.js",
   "files": [
@@ -42,6 +42,7 @@
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1",
     "storybook": "^7.6.7",
+    "storybook-tailwind-dark-mode": "^1.0.22",
     "tailwindcss": "^3.4.1",
     "typescript": "^4.9.5",
     "web-vitals": "^2.1.4",
