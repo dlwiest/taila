@@ -30,6 +30,7 @@ export const Variant = () => (
     <div className="space-x-1">
         <Button>Default</Button>
         <Button variant="soft">Soft</Button>
+        <Button isDisabled>Disabled</Button>
     </div>
 );
 
