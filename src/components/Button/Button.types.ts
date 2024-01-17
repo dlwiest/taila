@@ -2,7 +2,7 @@ import { ReactNode } from 'react';
 import { ButtonProps as AriaButtonProps } from 'react-aria-components';
 import { Sizes, TailwindColor } from '../../shared/tailwind.types';
 
-type ButtonVariants = 'default' | 'soft'
+type ButtonVariants = 'default' | 'soft' | 'outline'
 
 interface ButtonProps extends AriaButtonProps {
     color?: TailwindColor;

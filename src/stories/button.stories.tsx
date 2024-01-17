@@ -8,10 +8,27 @@ export default {
 
 export const Color = () => (
     <div className="space-x-1">
-        <Button color="indigo">Indigo</Button>
-        <Button color="sky">Sky</Button>
-        <Button color="teal">Teal</Button>
+        <Button color="slate">Slate</Button>
+        <Button color="gray">Gray</Button>
+        <Button color="zinc">Zinc</Button>
+        <Button color="neutral">Neutral</Button>
+        <Button color="stone">Stone</Button>
+        <Button color="red">Red</Button>
+        <Button color="orange">Orange</Button>
+        <Button color="amber">Amber</Button>
+        <Button color="yellow">Yellow</Button>
         <Button color="lime">Lime</Button>
+        <Button color="green">Green</Button>
+        <Button color="emerald">Emerald</Button>
+        <Button color="teal">Teal</Button>
+        <Button color="cyan">Cyan</Button>
+        <Button color="sky">Sky</Button>
+        <Button color="blue">Blue</Button>
+        <Button color="indigo">Indigo</Button>
+        <Button color="violet">Violet</Button>
+        <Button color="purple">Purple</Button>
+        <Button color="fuchsia">Fuchsia</Button>
+        <Button color="pink">Pink</Button>
         <Button color="rose">Rose</Button>
     </div>
 );
@@ -30,6 +47,7 @@ export const Variant = () => (
     <div className="space-x-1">
         <Button>Default</Button>
         <Button variant="soft">Soft</Button>
+        <Button variant="outline">Outline</Button>
         <Button isDisabled>Disabled</Button>
     </div>
 );
