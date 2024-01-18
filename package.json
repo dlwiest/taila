@@ -8,8 +8,9 @@
   ],
   "repository": "git://github.com/dlwiest/taila.git",
   "dependencies": {
-    "tailwind-merge": "^2.2.0",
-    "react-aria-components": "^1.0.1"
+    "clsx": "^2.1.0",
+    "react-aria-components": "^1.0.1",
+    "tailwind-merge": "^2.2.0"
   },
   "peerDependencies": {
     "react": "^18.2.0",
