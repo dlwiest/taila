@@ -17,3 +17,11 @@ export const Color = () => (
 export const Error = () => (
     <Input placeholder="Error" hasError />
 )
+
+export const Disabled = () => (
+    <div className="space-y-1">
+        <Input placeholder="Normal" />
+        <Input placeholder="Disabled with Placeholder" disabled />
+        <Input value="Disabled with Value" disabled />
+    </div>
+)

@@ -9,7 +9,7 @@ const Input = ({ className, focusColor = 'blue', hasError, ...rest }: InputProps
 
     return (
         <AriaInput
-            className={twMerge(`block w-full rounded-md border-0 py-1.5 px-3 bg-transparent text-gray-900 dark:text-gray-100 shadow-sm ring-1 ring-inset ring-gray-300 dark:ring-gray-600 placeholder:text-gray-400 dark:placeholder:text-gray-500 focus:outline-none ${innerRingClass} ${focusInnerRingClass} sm:text-sm sm:leading-6`, className)}
+            className={twMerge(`block w-full rounded-md border-0 py-1.5 px-3 bg-transparent text-gray-900 dark:text-gray-100 shadow-sm ring-1 ring-inset ring-gray-300 dark:ring-gray-600 placeholder:text-gray-400 dark:placeholder:text-gray-500 focus:outline-none ${innerRingClass} ${focusInnerRingClass} sm:text-sm sm:leading-6 disabled:bg-black dark:disabled:bg-white disabled:bg-opacity-5 dark:disabled:bg-opacity-5 disabled:cursor-not-allowed dark:disabled:text-opacity-70 disabled:text-opacity-70`, className)}
             {...rest}
         />
     )

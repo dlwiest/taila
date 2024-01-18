@@ -8,12 +8,12 @@
   ],
   "repository": "git://github.com/dlwiest/taila.git",
   "dependencies": {
-    "tailwind-merge": "^2.2.0"
+    "tailwind-merge": "^2.2.0",
+    "react-aria-components": "^1.0.1"
   },
   "peerDependencies": {
     "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-aria-components": "^1.0.1"
+    "react-dom": "^18.2.0"
   },
   "devDependencies": {
     "@heroicons/react": "^2.1.1",
