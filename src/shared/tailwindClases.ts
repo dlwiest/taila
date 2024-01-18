@@ -174,3 +174,28 @@ export const innerRingClasses = {
     pink: 'ring-1 ring-inset ring-pink-600 dark:ring-pink-500',
     rose: 'ring-1 ring-inset ring-rose-600 dark:ring-rose-500',
 };
+
+export const focusInnerRingClasses = {
+    slate: 'focus:ring-2 focus:ring-inset focus:ring-slate-600 dark:focus:ring-slate-500',
+    gray: 'focus:ring-2 focus:ring-inset focus:ring-gray-600 dark:focus:ring-gray-500',
+    zinc: 'focus:ring-2 focus:ring-inset focus:ring-zinc-600 dark:focus:ring-zinc-500',
+    neutral: 'focus:ring-2 focus:ring-inset focus:ring-neutral-600 dark:focus:ring-neutral-500',
+    stone: 'focus:ring-2 focus:ring-inset focus:ring-stone-600 dark:focus:ring-stone-500',
+    red: 'focus:ring-2 focus:ring-inset focus:ring-red-600 dark:focus:ring-red-500',
+    orange: 'focus:ring-2 focus:ring-inset focus:ring-orange-600 dark:focus:ring-orange-500',
+    amber: 'focus:ring-2 focus:ring-inset focus:ring-amber-600 dark:focus:ring-amber-500',
+    yellow: 'focus:ring-2 focus:ring-inset focus:ring-yellow-600 dark:focus:ring-yellow-500',
+    lime: 'focus:ring-2 focus:ring-inset focus:ring-lime-600 dark:focus:ring-lime-500',
+    green: 'focus:ring-2 focus:ring-inset focus:ring-green-600 dark:focus:ring-green-500',
+    emerald: 'focus:ring-2 focus:ring-inset focus:ring-emerald-600 dark:focus:ring-emerald-500',
+    teal: 'focus:ring-2 focus:ring-inset focus:ring-teal-600 dark:focus:ring-teal-500',
+    cyan: 'focus:ring-2 focus:ring-inset focus:ring-cyan-600 dark:focus:ring-cyan-500',
+    sky: 'focus:ring-2 focus:ring-inset focus:ring-sky-600 dark:focus:ring-sky-500',
+    blue: 'focus:ring-2 focus:ring-inset focus:ring-blue-600 dark:focus:ring-blue-500',
+    indigo: 'focus:ring-2 focus:ring-inset focus:ring-indigo-600 dark:focus:ring-indigo-500',
+    violet: 'focus:ring-2 focus:ring-inset focus:ring-violet-600 dark:focus:ring-violet-500',
+    purple: 'focus:ring-2 focus:ring-inset focus:ring-purple-600 dark:focus:ring-purple-500',
+    fuchsia: 'focus:ring-2 focus:ring-inset focus:ring-fuchsia-600 dark:focus:ring-fuchsia-500',
+    pink: 'focus:ring-2 focus:ring-inset focus:ring-pink-600 dark:focus:ring-pink-500',
+    rose: 'focus:ring-2 focus:ring-inset focus:ring-rose-600 dark:focus:ring-rose-500',
+};

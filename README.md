@@ -51,6 +51,19 @@ import { Button } from '@dlwiest/taila';
 
 This will render a button styled with Tailwind's indigo color classes.
 
+### Customizing Components
+
+Taila components are designed with customization in mind. You can easily override the default styling by adding additional class names to the `className` prop of any Taila component. This allows you to use Tailwind CSS utility classes to modify the appearance and behavior of the components as needed.
+
+Example:
+```jsx
+import { Button } from '@dlwiest/taila';
+
+<Button className="bg-red-500 hover:bg-red-700">Alert</Button>
+```
+
+In this example, the `Button` component's default background color styling is overridden with background color classes from Tailwind CSS.
+
 ## Dependencies
 
 - Tailwind CSS

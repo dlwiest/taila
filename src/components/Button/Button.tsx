@@ -11,7 +11,7 @@ const sizeClasses = {
     xl: 'px-3.5 py-2.5 text-sm',
 };
 
-const Button = ({ className, color = "blue", size = 'md', variant = 'default', children, ...rest }: ButtonProps) => {
+const Button = ({ className, color = "blue", rounded, size = 'md', variant = 'default', children, ...rest }: ButtonProps) => {
     const variants = {
         default: {
             textColorClass: 'text-white',
@@ -34,12 +34,14 @@ const Button = ({ className, color = "blue", size = 'md', variant = 'default', c
         },
     };
 
+    const roundedClass = rounded ? 'rounded-full' : '';
+
     const { textColorClass, backgroundColorClass, hoverColorClass, ringClass } = variants[variant];
     const sizeClass = sizeClasses[size];
 
     return (
         <AriaButton
-            className={twMerge(`rounded ${backgroundColorClass} ${sizeClass} font-semibold ${textColorClass} shadow-sm ${hoverColorClass} inline-flex items-center gap-x-1.5 disabled:opacity-50 disabled:cursor-not-allowed ${ringClass}`, className)}
+            className={twMerge(`rounded ${backgroundColorClass} ${sizeClass} font-semibold ${textColorClass} shadow-sm ${hoverColorClass} inline-flex items-center gap-x-1.5 disabled:opacity-50 disabled:cursor-not-allowed ${ringClass} ${roundedClass}`, className)}
             {...rest}
         >
             {children}

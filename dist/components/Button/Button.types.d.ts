@@ -5,6 +5,7 @@ type ButtonVariants = 'default' | 'soft' | 'outline';
 interface ButtonProps extends AriaButtonProps {
     className?: string;
     color?: TailwindColor;
+    rounded?: boolean;
     size?: Sizes;
     variant?: ButtonVariants;
     children?: ReactNode;

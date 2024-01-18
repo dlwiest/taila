@@ -1,5 +1,6 @@
 import { Button } from '..';
 import { CheckCircleIcon } from '@heroicons/react/20/solid';
+import { textColorClasses } from '../shared/tailwindClases';
 
 export default {
     title: 'Components/Button',
@@ -7,29 +8,10 @@ export default {
 };
 
 export const Color = () => (
-    <div className="space-x-1 space-y-1">
-        <Button color="slate">Slate</Button>
-        <Button color="gray">Gray</Button>
-        <Button color="zinc">Zinc</Button>
-        <Button color="neutral">Neutral</Button>
-        <Button color="stone">Stone</Button>
-        <Button color="red">Red</Button>
-        <Button color="orange">Orange</Button>
-        <Button color="amber">Amber</Button>
-        <Button color="yellow">Yellow</Button>
-        <Button color="lime">Lime</Button>
-        <Button color="green">Green</Button>
-        <Button color="emerald">Emerald</Button>
-        <Button color="teal">Teal</Button>
-        <Button color="cyan">Cyan</Button>
-        <Button color="sky">Sky</Button>
-        <Button color="blue">Blue</Button>
-        <Button color="indigo">Indigo</Button>
-        <Button color="violet">Violet</Button>
-        <Button color="purple">Purple</Button>
-        <Button color="fuchsia">Fuchsia</Button>
-        <Button color="pink">Pink</Button>
-        <Button color="rose">Rose</Button>
+    <div className="space-y-1 space-x-1">
+        {Object.keys(textColorClasses).map((color) => (
+            <Button key={color} color={color as keyof typeof textColorClasses}>{color.charAt(0).toUpperCase() + color.slice(1)}</Button>
+        ))}
     </div>
 );
 
@@ -48,6 +30,7 @@ export const Variant = () => (
         <Button>Default</Button>
         <Button variant="soft">Soft</Button>
         <Button variant="outline">Outline</Button>
+        <Button rounded>Rounded</Button>
         <Button isDisabled>Disabled</Button>
     </div>
 );
