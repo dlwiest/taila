@@ -27,5 +27,5 @@ export const Disabled = () => (
 )
 
 export const Rounded = () => (
-    <Input placeholder="rounded" rounded className="w-96" />
+    <Input placeholder="Rounded" rounded className="w-96" />
 )

@@ -6,7 +6,7 @@
 
 ## Installation
 
-To use Taila in your project, you must have Tailwind CSS installed.
+To use Taila in your project, you must have Tailwind CSS installed, as well as @tailwindcss/forms and tailwindcss-react-aria-components. You will also need tailwindcss-animate if you want animations.
 
 To install Taila, run:
 
@@ -27,6 +27,12 @@ module.exports = {
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
     // other paths...
+  ],
+  plugins: [
+    require('@tailwindcss/forms'),
+    require('tailwindcss-react-aria-components'),
+    require('tailwindcss-animate') // Needed for animations
+    // other plugins...
   ],
 };
 ```

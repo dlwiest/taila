@@ -21,7 +21,7 @@ const Button = ({ className, color = "blue", rounded, size = 'md', variant = 'de
             ringClass: '',
         },
         soft: {
-            textColorClass: textColorClasses[color],
+            textColorClass: `${textColorClasses[color]} dark:text-white`,
             backgroundColorClass: softBgColorClasses[color],
             hoverColorClass: softHoverBgColorClasses[color],
             ringClass: '',

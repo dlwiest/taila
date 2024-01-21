@@ -1,28 +1,28 @@
 
 
 export const textColorClasses = {
-    slate: 'text-slate-600 dark:text-slate-100',
-    gray: 'text-gray-600 dark:text-gray-100',
-    zinc: 'text-zinc-600 dark:text-zinc-100',
-    neutral: 'text-neutral-600 dark:text-neutral-100',
-    stone: 'text-stone-600 dark:text-stone-100',
-    red: 'text-red-600 dark:text-red-100',
-    orange: 'text-orange-600 dark:text-orange-100',
-    amber: 'text-amber-600 dark:text-amber-100',
-    yellow: 'text-yellow-600 dark:text-yellow-100',
-    lime: 'text-lime-600 dark:text-lime-100',
-    green: 'text-green-600 dark:text-green-100',
-    emerald: 'text-emerald-600 dark:text-emerald-100',
-    teal: 'text-teal-600 dark:text-teal-100',
-    cyan: 'text-cyan-600 dark:text-cyan-100',
-    sky: 'text-sky-600 dark:text-sky-100',
-    blue: 'text-blue-600 dark:text-blue-100',
-    indigo: 'text-indigo-600 dark:text-indigo-100',
-    violet: 'text-violet-600 dark:text-violet-100',
-    purple: 'text-purple-600 dark:text-purple-100',
-    fuchsia: 'text-fuchsia-600 dark:text-fuchsia-100',
-    pink: 'text-pink-600 dark:text-pink-100',
-    rose: 'text-rose-600 dark:text-rose-100',
+    slate: 'text-slate-600 dark:text-slate-300',
+    gray: 'text-gray-600 dark:text-gray-300',
+    zinc: 'text-zinc-600 dark:text-zinc-300',
+    neutral: 'text-neutral-600 dark:text-neutral-300',
+    stone: 'text-stone-600 dark:text-stone-300',
+    red: 'text-red-600 dark:text-red-500',
+    orange: 'text-orange-600 dark:text-orange-500',
+    amber: 'text-amber-600 dark:text-amber-500',
+    yellow: 'text-yellow-600 dark:text-yellow-500',
+    lime: 'text-lime-600 dark:text-lime-500',
+    green: 'text-green-600 dark:text-green-500',
+    emerald: 'text-emerald-600 dark:text-emerald-500',
+    teal: 'text-teal-600 dark:text-teal-500',
+    cyan: 'text-cyan-600 dark:text-cyan-500',
+    sky: 'text-sky-600 dark:text-sky-500',
+    blue: 'text-blue-600 dark:text-blue-500',
+    indigo: 'text-indigo-600 dark:text-indigo-500',
+    violet: 'text-violet-600 dark:text-violet-500',
+    purple: 'text-purple-600 dark:text-purple-500',
+    fuchsia: 'text-fuchsia-600 dark:text-fuchsia-500',
+    pink: 'text-pink-600 dark:text-pink-500',
+    rose: 'text-rose-600 dark:text-rose-500',
 };
 
 export const bgColorClasses = {
@@ -199,3 +199,5 @@ export const focusInnerRingClasses = {
     pink: 'focus:ring-2 focus:ring-inset focus:ring-pink-600 dark:focus:ring-pink-500',
     rose: 'focus:ring-2 focus:ring-inset focus:ring-rose-600 dark:focus:ring-rose-500',
 };
+
+export const disabledInput = 'disabled:bg-black dark:disabled:bg-white disabled:bg-opacity-5 dark:disabled:bg-opacity-5 disabled:cursor-not-allowed dark:disabled:text-opacity-70 disabled:text-opacity-70';
