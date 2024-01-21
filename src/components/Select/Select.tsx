@@ -60,7 +60,7 @@ const Select = <T extends object>({ children, className, focusColor = 'blue', ha
 
                                     return (
                                         <>
-                                            <span className="block truncate">{buttonText}</span>
+                                            <span className="block truncate">{buttonText || '\u00A0'}</span>
                                             <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
                                                 <ChevronUpDownIcon className="h-5 w-5 text-gray-400 dark:text-gray-500" aria-hidden="true" />
                                             </span>

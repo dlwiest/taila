@@ -39,7 +39,7 @@ const Button = ({ className, color = "blue", rounded, size = 'md', variant = 'de
     const sizeClass = sizeClasses[size];
 
     const classes = clsx(
-        'rounded font-semibold shadow-sm inline-flex items-center gap-x-1.5 disabled:opacity-50 disabled:cursor-not-allowed',
+        'rounded font-semibold shadow-sm inline-flex items-center gap-x-1.5 disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none',
         backgroundColorClass,
         sizeClass,
         textColorClass,

@@ -190,3 +190,4 @@ export declare const focusInnerRingClasses: {
     pink: string;
     rose: string;
 };
+export declare const disabledInput = "disabled:bg-black dark:disabled:bg-white disabled:bg-opacity-5 dark:disabled:bg-opacity-5 disabled:cursor-not-allowed dark:disabled:text-opacity-70 disabled:text-opacity-70";
