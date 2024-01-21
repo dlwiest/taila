@@ -61,7 +61,28 @@ All Taila components are built upon React Aria, ensuring they are accessible and
 
 ### Customization
 
-Taila's style customization can be easily extended or overwritten. Provide your own additional class names through the `className` prop for any Taila component. This allows you to apply Tailwind CSS utility classes for personalized component styling.
+Taila components are designed with customization in mind. You can easily override the default styling by adding additional class names to the `className` prop of any Taila component. This allows you to use Tailwind CSS utility classes to modify the appearance and behavior of the components as needed.
+
+Example:
+```jsx
+import { Button } from '@dlwiest/taila';
+
+<Button className="bg-red-500 hover:bg-red-700">Alert</Button>
+```
+
+In this example, the `Button` component's default background color styling and hover state are overridden with background color classes from Tailwind CSS.
+
+### Dark Mode Support
+
+All Taila components automatically apply suitable dark mode classes. These can be overridden in the same way other styles can be, by supplying your own class names. For example:
+
+```jsx
+import { Button } from '@dlwiest/taila';
+
+<Button className="dark:bg-stone-300">Stone</Button>
+```
+
+This allows for easy integration and customization of dark mode styles in your application.
 
 ## Usage
 
@@ -80,19 +101,6 @@ import { Button } from '@dlwiest/taila';
 ```
 
 This will render a button styled with Tailwind's indigo color classes.
-
-### Customizing Components
-
-Taila components are designed with customization in mind. You can easily override the default styling by adding additional class names to the `className` prop of any Taila component. This allows you to use Tailwind CSS utility classes to modify the appearance and behavior of the components as needed.
-
-Example:
-```jsx
-import { Button } from '@dlwiest/taila';
-
-<Button className="bg-red-500 hover:bg-red-700">Alert</Button>
-```
-
-In this example, the `Button` component's default background color styling is overridden with background color classes from Tailwind CSS.
 
 ## Dependencies
 
