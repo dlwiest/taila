@@ -14,9 +14,9 @@ To install Taila, run:
 npm install @dlwiest/taila
 ```
 
-### Updating `tailwind.config.js`
+### Updating \`tailwind.config.js\`
 
-After installation, you need to add Taila to the `content` array in your `tailwind.config.js` file:
+After installation, you need to add Taila to the \`content\` array in your \`tailwind.config.js\` file:
 
 ```javascript
 module.exports = {
@@ -39,13 +39,37 @@ module.exports = {
 
 This ensures Tailwind correctly applies its styling to Taila components.
 
+## Features
+
+### Storybook Integration
+
+Taila includes Storybook to preview the components. To view the stories, follow these steps:
+
+1. Clone the Taila repo.
+2. Change directory (cd) into the repo directory.
+3. Run `npm install` to install dependencies.
+4. Run `npm run storybook` to start Storybook.
+
+### Extending React Aria Components
+
+All Taila components are built upon React Aria, ensuring they are accessible and functionally robust. Current components include:
+
+- Button (extends React Aria Button)
+- Input (extends React Aria TextField)
+- Select (extends React Aria Select)
+- SelectItem (extends React Aria ListBoxItem for use in Select fields)
+
+### Customization
+
+Taila's style customization can be easily extended or overwritten. Provide your own additional class names through the `className` prop for any Taila component. This allows you to apply Tailwind CSS utility classes for personalized component styling.
+
 ## Usage
 
 Here's how you can use the components in Taila. As we add more components, we will update this section with more examples.
 
 ### Button
 
-The Button component is a basic component in Taila. It accepts a `color` prop to style the button with Tailwind's color classes.
+The Button component is a basic component in Taila. It accepts a \`color\` prop to style the button with Tailwind's color classes.
 
 Example:
 
@@ -72,7 +96,10 @@ In this example, the `Button` component's default background color styling is ov
 
 ## Dependencies
 
-- Tailwind CSS
+- tailwindcss
+- @tailwindcss/forms
+- tailwindcss-react-aria-components
+- tailwindcss-animate (optional but recommended for animations)
 
 ## Contributing
 
