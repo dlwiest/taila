@@ -7,16 +7,14 @@ export default {
 };
 
 export const Standard = () => {
-    const onSelectionChange = (newSelection: Selection) => {
-        console.log('new selection', newSelection);
-
-    }
     return (
         <div className="w-96">
-            <MultiSelect aria-label="Standard MultiSelect">
-                <SelectItem id="one" textValue="One">One</SelectItem>
-                <SelectItem id="two" textValue="Two">Two</SelectItem>
-                <SelectItem id="three" textValue="Three">Three</SelectItem>
+            <MultiSelect aria-label="Standard MultiSelect" placeholder="Choose your toppings" className="w-96" defaultSelectedKeys={['cheese']}>
+                <SelectItem id="cheese" textValue="Cheese">Cheese</SelectItem>
+                <SelectItem id="lettuce" textValue="Lettuce">Lettuce</SelectItem>
+                <SelectItem id="tomato" textValue="Tomato">Tomato</SelectItem>
+                <SelectItem id="onion" textValue="Onion">Onion</SelectItem>
+                <SelectItem id="pickles" textValue="Pickles">Pickles</SelectItem>
             </MultiSelect>
         </div>
     );

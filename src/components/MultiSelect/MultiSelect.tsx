@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { SelectValue, Button, Popover, ListBox, DialogTrigger, OverlayArrow, Dialog, ListBoxItem, Selection } from 'react-aria-components';
+import { Button, Popover, ListBox, DialogTrigger, Selection } from 'react-aria-components';
 import clsx from 'clsx';
 import { twMerge } from 'tailwind-merge';
 import { ChevronUpDownIcon } from '@heroicons/react/20/solid';
@@ -7,33 +7,90 @@ import { MultiSelectProps } from './MultiSelect.types';
 import { disabledInput, focusInnerRingClasses, innerRingClasses } from '../../shared/tailwindClases';
 import { getEffectiveBackgroundColor } from '../../utility';
 
-const MultiSelect = <T extends object>({ children, className, focusColor = 'blue', hasError, items, ...rest }: MultiSelectProps<T>) => {
+const MultiSelect = <T extends object>({ children, className, defaultSelectedKeys, focusColor = 'blue', hasError, items, placeholder = 'Select an item', ...rest }: MultiSelectProps<T>) => {
+    const buttonRef = useRef<HTMLButtonElement>(null);
     const listBoxRef = useRef<HTMLDivElement>(null);
+    const labelMapRef = useRef<Map<number | string, string>>();
+
+    const [isOpen, setIsOpen] = useState(false);
+    const [selectedKeys, setSelectedKeys] = useState<(number | string)[]>([]);
+    const [buttonLabel, setButtonLabel] = useState('');
+    const [buttonWidth, setButtonWidth] = useState(0);
+    const [buttonBackgroundColor, setButtonBackgroundColor] = useState('');
 
     useEffect(() => {
-        console.log('listBoxRef or children changed');
-        console.log(listBoxRef.current);
-        if (listBoxRef.current) {
-            const options = listBoxRef.current.querySelectorAll('[role="option"]');
+        if (defaultSelectedKeys) {
+            setSelectedKeys(defaultSelectedKeys);
+        }
+    }, [defaultSelectedKeys]);
+
+    useEffect(() => {
+        if (buttonRef.current) {
+            setButtonWidth(buttonRef.current.clientWidth);
+            setButtonBackgroundColor(getEffectiveBackgroundColor(buttonRef.current));
+        }
+    }, [buttonRef]);
+
+    // TODO - replace this implementation with one that checks either items or children for labels
+    useEffect(() => {
+        if (isOpen && listBoxRef) {
+            const options = listBoxRef.current?.querySelectorAll('[role="option"]');
+
             const keyToLabelMap = new Map();
-            options.forEach((option: Element) => {
+            options?.forEach((option: Element) => {
                 const key = option.getAttribute('data-key');
                 const label = option.textContent;
                 if (key) {
                     keyToLabelMap.set(key, label);
                 }
             });
-            console.log(keyToLabelMap);
+
+            labelMapRef.current = keyToLabelMap;
         }
-    }, [listBoxRef, children]);
+    }, [isOpen]);
+
+    useEffect(() => {
+        const labels: string[] = [];
+
+        selectedKeys.forEach((key) => {
+            if (labelMapRef.current) {
+                const label = labelMapRef.current.get(key);
+                if (label) {
+                    labels.push(label);
+                }
+            }
+        });
+
+        setButtonLabel(labels.join(', '));
+    }, [selectedKeys, labelMapRef]);
 
     const handleSelectionChange = (keys: Selection) => {
-        const values = Array.from(keys);
-        console.log('selected values', values);
+        setSelectedKeys(Array.from(keys));
     };
+
+    const buttonClasses = twMerge(
+        clsx(
+            'relative w-full rounded-md py-1.5 pl-3 pr-10 text-left bg-transparent text-gray-900 dark:text-gray-100 shadow-sm ring-1 ring-inset ring-gray-300 dark:ring-gray-600 focus:outline-none sm:text-sm sm:leading-6',
+            disabledInput,
+            {
+                [innerRingClasses['red']]: hasError,
+                [focusInnerRingClasses['red']]: hasError,
+                [focusInnerRingClasses[focusColor]]: !hasError,
+            },
+        ),
+        className,
+    );
+
     return (
         <DialogTrigger>
-            <Button>Test</Button>
+            <Button className={buttonClasses} ref={buttonRef}>
+                <span className="block truncate">
+                    {!selectedKeys.length ? <span className="text-gray-400 dark:text-gray-500">{placeholder}</span> : buttonLabel}
+                </span>
+                <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
+                    <ChevronUpDownIcon className="h-5 w-5 text-gray-400 dark:text-gray-500" aria-hidden="true" />
+                </span>
+            </Button>
             <Popover
                 className={({ isEntering, isExiting }) => clsx(
                     'rounded-md shadow-sm ring-1 ring-gray-300 dark:ring-gray-600',
@@ -42,11 +99,21 @@ const MultiSelect = <T extends object>({ children, className, focusColor = 'blue
                         'animate-out fade-out ease-in duration-150': isExiting,
                     }
                 )}
-                style={/*{ width: `${buttonWidth}px`, backgroundColor: buttonBackgroundColor }*/{}}
+                style={{ width: `${buttonWidth}px`, backgroundColor: buttonBackgroundColor }}
             >
-                <ListBox ref={listBoxRef} className="w-full max-h-60 overflow-auto bg-whitetext-base focus:outline-none sm:text-sm" items={items} onSelectionChange={handleSelectionChange} selectionMode="multiple" selectionBehavior="toggle">
-                    {children}
-                </ListBox>
+                {({ isEntering, isExiting }) => {
+                    if (isEntering && !isOpen) {
+                        setTimeout(() => setIsOpen(true));
+                    } else if (isExiting && isOpen) {
+                        setTimeout(() => setIsOpen(false));
+                    }
+
+                    return (
+                        <ListBox ref={listBoxRef} className="w-full max-h-60 overflow-auto bg-whitetext-base focus:outline-none sm:text-sm" items={items} onSelectionChange={handleSelectionChange} selectedKeys={selectedKeys} selectionMode="multiple" selectionBehavior="toggle" {...rest}>
+                            {children}
+                        </ListBox>
+                    );
+                }}
             </Popover>
         </DialogTrigger>
     );

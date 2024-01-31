@@ -5,6 +5,7 @@ interface SelectItemProps extends AriaListBoxItemProps {
     children: React.ReactNode;
     className?: string;
     focusColor?: TailwindColor;
+    textValue: string;
 }
 
 export type { SelectItemProps };
