@@ -27,7 +27,7 @@ const Button = ({ className, color = "blue", rounded, size = 'md', variant = 'de
             ringClass: '',
         },
         outline: {
-            textColorClass: `${textColorClasses[color]} hover:text-white`,
+            textColorClass: `${textColorClasses[color]} hover:text-white dark:hover:text-white`,
             backgroundColorClass: '',
             hoverColorClass: outlineHoverBgColorClasses[color],
             ringClass: innerRingClasses[color],
