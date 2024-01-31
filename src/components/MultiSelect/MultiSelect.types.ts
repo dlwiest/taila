@@ -1,15 +1,20 @@
 import { ListBoxProps as AriaListBoxProps } from 'react-aria-components';
 import { TailwindColor } from '../../shared/tailwind.types';
 
-type ChildrenFunction<T> = (item: T) => React.ReactNode;
+type ChildrenFunction = (item: Item) => React.ReactNode;
 
-interface MultiSelectProps<T extends object> extends Omit<AriaListBoxProps<T>, 'children' | 'onSelectionChange'> {
-    children: React.ReactNode | ChildrenFunction<T>;
+type Item = {
+    id: any;
+    name: string;
+}
+
+interface MultiSelectProps extends Omit<AriaListBoxProps<Item>, 'children' | 'onSelectionChange'> {
+    children: React.ReactNode | ChildrenFunction;
     className?: string;
-    defaultSelectedKeys?: (string | number)[];
+    defaultSelectedKeys?: any[];
     focusColor?: TailwindColor;
     hasError?: boolean;
-    items?: Iterable<T>;
+    items?: Iterable<(Item)>;
     placeholder?: string;
 }
 

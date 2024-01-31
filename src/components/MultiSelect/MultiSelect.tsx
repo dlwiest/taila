@@ -7,12 +7,11 @@ import { MultiSelectProps } from './MultiSelect.types';
 import { disabledInput, focusInnerRingClasses, innerRingClasses } from '../../shared/tailwindClases';
 import { getEffectiveBackgroundColor } from '../../utility';
 
-const MultiSelect = <T extends object>({ children, className, defaultSelectedKeys, focusColor = 'blue', hasError, items, placeholder = 'Select an item', ...rest }: MultiSelectProps<T>) => {
+const MultiSelect = ({ children, className, defaultSelectedKeys, focusColor = 'blue', hasError, items, placeholder = 'Select an item', ...rest }: MultiSelectProps) => {
     const buttonRef = useRef<HTMLButtonElement>(null);
     const listBoxRef = useRef<HTMLDivElement>(null);
     const labelMapRef = useRef<Map<number | string, string>>();
 
-    const [isOpen, setIsOpen] = useState(false);
     const [selectedKeys, setSelectedKeys] = useState<(number | string)[]>([]);
     const [buttonLabel, setButtonLabel] = useState('');
     const [buttonWidth, setButtonWidth] = useState(0);
@@ -31,23 +30,28 @@ const MultiSelect = <T extends object>({ children, className, defaultSelectedKey
         }
     }, [buttonRef]);
 
-    // TODO - replace this implementation with one that checks either items or children for labels
     useEffect(() => {
-        if (isOpen && listBoxRef) {
-            const options = listBoxRef.current?.querySelectorAll('[role="option"]');
-
-            const keyToLabelMap = new Map();
-            options?.forEach((option: Element) => {
-                const key = option.getAttribute('data-key');
-                const label = option.textContent;
-                if (key) {
-                    keyToLabelMap.set(key, label);
+        const keyToLabelMap = new Map();
+        if (items) {
+            console.log('using items');
+            console.log(items);
+            for (let item of items) {
+                keyToLabelMap.set(item.id, item.name);
+            }
+        } else if (children && Array.isArray(children)) {
+            console.log('using children');
+            console.log(children);
+            children.forEach((child) => {
+                if (child.props?.id && child.props?.textValue) {
+                    keyToLabelMap.set(child.props.id, child.props.textValue);
                 }
             });
+        }
 
+        if (keyToLabelMap.size) {
             labelMapRef.current = keyToLabelMap;
         }
-    }, [isOpen]);
+    }, [items, children]);
 
     useEffect(() => {
         const labels: string[] = [];
@@ -75,7 +79,7 @@ const MultiSelect = <T extends object>({ children, className, defaultSelectedKey
             {
                 [innerRingClasses['red']]: hasError,
                 [focusInnerRingClasses['red']]: hasError,
-                [focusInnerRingClasses[focusColor]]: !hasError,
+                [focusInnerRingClasses[focusColor as keyof typeof focusInnerRingClasses]]: !hasError,
             },
         ),
         className,
@@ -101,19 +105,9 @@ const MultiSelect = <T extends object>({ children, className, defaultSelectedKey
                 )}
                 style={{ width: `${buttonWidth}px`, backgroundColor: buttonBackgroundColor }}
             >
-                {({ isEntering, isExiting }) => {
-                    if (isEntering && !isOpen) {
-                        setTimeout(() => setIsOpen(true));
-                    } else if (isExiting && isOpen) {
-                        setTimeout(() => setIsOpen(false));
-                    }
-
-                    return (
-                        <ListBox ref={listBoxRef} className="w-full max-h-60 overflow-auto bg-whitetext-base focus:outline-none sm:text-sm" items={items} onSelectionChange={handleSelectionChange} selectedKeys={selectedKeys} selectionMode="multiple" selectionBehavior="toggle" {...rest}>
-                            {children}
-                        </ListBox>
-                    );
-                }}
+                <ListBox ref={listBoxRef} className="w-full max-h-60 overflow-auto bg-whitetext-base focus:outline-none sm:text-sm" items={items} onSelectionChange={handleSelectionChange} selectedKeys={selectedKeys} selectionMode="multiple" selectionBehavior="toggle" {...rest}>
+                    {children}
+                </ListBox>
             </Popover>
         </DialogTrigger>
     );
