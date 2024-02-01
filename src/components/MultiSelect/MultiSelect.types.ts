@@ -16,6 +16,7 @@ interface MultiSelectProps extends Omit<AriaListBoxProps<Item>, 'children' | 'on
     hasError?: boolean;
     isDisabled?: boolean;
     items?: Iterable<(Item)>;
+    onSelectionChange?: (selectedKeys: any[]) => void;
     placeholder?: string;
 }
 

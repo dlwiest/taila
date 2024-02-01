@@ -7,7 +7,7 @@ import { SelectProps } from './Select.types';
 import { disabledInput, focusInnerRingClasses, innerRingClasses } from '../../shared/tailwindClases';
 import { getEffectiveBackgroundColor } from '../../utility';
 
-const Select = <T extends object>({ children, className, focusColor = 'blue', hasError, items, placeholder = 'Select an item', ...rest }: SelectProps<T>) => {
+const Select = ({ children, className, focusColor = 'blue', hasError, items, placeholder = 'Select an item', ...rest }: SelectProps) => {
     const buttonRef = useRef<HTMLButtonElement>(null);
     const [isOpen, setIsOpen] = useState(false);
 

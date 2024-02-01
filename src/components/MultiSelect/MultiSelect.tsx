@@ -7,7 +7,7 @@ import { MultiSelectProps } from './MultiSelect.types';
 import { disabledInput, focusInnerRingClasses, innerRingClasses } from '../../shared/tailwindClases';
 import { getEffectiveBackgroundColor } from '../../utility';
 
-const MultiSelect = ({ children, className, defaultSelectedKeys, focusColor = 'blue', hasError, isDisabled, items, placeholder = 'Select an item', ...rest }: MultiSelectProps) => {
+const MultiSelect = ({ children, className, defaultSelectedKeys, focusColor = 'blue', hasError, isDisabled, items, onSelectionChange, placeholder = 'Select an item', ...rest }: MultiSelectProps) => {
     const buttonRef = useRef<HTMLButtonElement>(null);
     const listBoxRef = useRef<HTMLDivElement>(null);
     const labelMapRef = useRef<Map<number | string, string>>();
@@ -37,6 +37,12 @@ const MultiSelect = ({ children, className, defaultSelectedKeys, focusColor = 'b
             setButtonBackgroundColor(getEffectiveBackgroundColor(buttonRef.current));
         }
     }, [isOpen]);
+
+    useEffect(() => {
+        if (onSelectionChange) {
+            onSelectionChange(selectedKeys);
+        }
+    }, [selectedKeys, onSelectionChange])
 
     useEffect(() => {
         const keyToLabelMap = new Map();

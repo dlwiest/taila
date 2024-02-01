@@ -57,6 +57,7 @@ All Taila components are built upon React Aria, ensuring they are accessible and
 - Button (extends React Aria Button)
 - Input (extends React Aria TextField)
 - Select (extends React Aria Select)
+- MultiSelect (extends React Aria ListBox)
 - SelectItem (extends React Aria ListBoxItem for use in Select fields)
 
 ### Customization
