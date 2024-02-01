@@ -7,11 +7,12 @@ import { MultiSelectProps } from './MultiSelect.types';
 import { disabledInput, focusInnerRingClasses, innerRingClasses } from '../../shared/tailwindClases';
 import { getEffectiveBackgroundColor } from '../../utility';
 
-const MultiSelect = ({ children, className, defaultSelectedKeys, focusColor = 'blue', hasError, items, placeholder = 'Select an item', ...rest }: MultiSelectProps) => {
+const MultiSelect = ({ children, className, defaultSelectedKeys, focusColor = 'blue', hasError, isDisabled, items, placeholder = 'Select an item', ...rest }: MultiSelectProps) => {
     const buttonRef = useRef<HTMLButtonElement>(null);
     const listBoxRef = useRef<HTMLDivElement>(null);
     const labelMapRef = useRef<Map<number | string, string>>();
 
+    const [isOpen, setIsOpen] = useState(false);
     const [selectedKeys, setSelectedKeys] = useState<(number | string)[]>([]);
     const [buttonLabel, setButtonLabel] = useState('');
     const [buttonWidth, setButtonWidth] = useState(0);
@@ -31,16 +32,19 @@ const MultiSelect = ({ children, className, defaultSelectedKeys, focusColor = 'b
     }, [buttonRef]);
 
     useEffect(() => {
+        if (buttonRef.current && isOpen) {
+            setButtonWidth(buttonRef.current.clientWidth);
+            setButtonBackgroundColor(getEffectiveBackgroundColor(buttonRef.current));
+        }
+    }, [isOpen]);
+
+    useEffect(() => {
         const keyToLabelMap = new Map();
         if (items) {
-            console.log('using items');
-            console.log(items);
             for (let item of items) {
                 keyToLabelMap.set(item.id, item.name);
             }
         } else if (children && Array.isArray(children)) {
-            console.log('using children');
-            console.log(children);
             children.forEach((child) => {
                 if (child.props?.id && child.props?.textValue) {
                     keyToLabelMap.set(child.props.id, child.props.textValue);
@@ -87,7 +91,7 @@ const MultiSelect = ({ children, className, defaultSelectedKeys, focusColor = 'b
 
     return (
         <DialogTrigger>
-            <Button className={buttonClasses} ref={buttonRef}>
+            <Button className={buttonClasses} ref={buttonRef} isDisabled={isDisabled}>
                 <span className="block truncate">
                     {!selectedKeys.length ? <span className="text-gray-400 dark:text-gray-500">{placeholder}</span> : buttonLabel}
                 </span>
@@ -105,9 +109,20 @@ const MultiSelect = ({ children, className, defaultSelectedKeys, focusColor = 'b
                 )}
                 style={{ width: `${buttonWidth}px`, backgroundColor: buttonBackgroundColor }}
             >
-                <ListBox ref={listBoxRef} className="w-full max-h-60 overflow-auto bg-whitetext-base focus:outline-none sm:text-sm" items={items} onSelectionChange={handleSelectionChange} selectedKeys={selectedKeys} selectionMode="multiple" selectionBehavior="toggle" {...rest}>
-                    {children}
-                </ListBox>
+                {({ isEntering, isExiting }) => {
+                    if (isEntering && !isOpen) {
+                        setTimeout(() => setIsOpen(true));
+                    } else if (isExiting && isOpen) {
+                        setTimeout(() => setIsOpen(false));
+                    }
+
+                    return (
+                        <ListBox ref={listBoxRef} className="w-full max-h-60 overflow-auto bg-whitetext-base focus:outline-none sm:text-sm" items={items} onSelectionChange={handleSelectionChange} selectedKeys={selectedKeys} selectionMode="multiple" selectionBehavior="toggle" {...rest}>
+                            {children}
+                        </ListBox>
+                    );
+                }}
+
             </Popover>
         </DialogTrigger>
     );

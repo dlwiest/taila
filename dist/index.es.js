@@ -18,17 +18,6 @@ OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
 PERFORMANCE OF THIS SOFTWARE.
 ***************************************************************************** */
 
-var __assign = function() {
-    __assign = Object.assign || function __assign(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
-};
-
 function __rest(s, e) {
     var t = {};
     for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
@@ -13601,7 +13590,7 @@ function getDefaultConfig() {
 }
 const twMerge = /*#__PURE__*/createTailwindMerge(getDefaultConfig);
 
-var textColorClasses = {
+const textColorClasses = {
     slate: 'text-slate-600 dark:text-slate-300',
     gray: 'text-gray-600 dark:text-gray-300',
     zinc: 'text-zinc-600 dark:text-zinc-300',
@@ -13625,7 +13614,7 @@ var textColorClasses = {
     pink: 'text-pink-600 dark:text-pink-500',
     rose: 'text-rose-600 dark:text-rose-500',
 };
-var bgColorClasses = {
+const bgColorClasses = {
     slate: 'bg-slate-600 dark:bg-slate-500',
     gray: 'bg-gray-600 dark:bg-gray-500',
     zinc: 'bg-zinc-600 dark:bg-zinc-500',
@@ -13649,7 +13638,7 @@ var bgColorClasses = {
     pink: 'bg-pink-600 dark:bg-pink-500',
     rose: 'bg-rose-600 dark:bg-rose-500',
 };
-var softBgColorClasses = {
+const softBgColorClasses = {
     slate: 'bg-slate-50 dark:bg-slate-900',
     gray: 'bg-gray-50 dark:bg-gray-900',
     zinc: 'bg-zinc-50 dark:bg-zinc-900',
@@ -13673,7 +13662,7 @@ var softBgColorClasses = {
     pink: 'bg-pink-50 dark:bg-pink-900',
     rose: 'bg-rose-50 dark:bg-rose-900',
 };
-var hoverBgColorClasses = {
+const hoverBgColorClasses = {
     slate: 'hover:bg-slate-500 dark:hover:bg-slate-400',
     gray: 'hover:bg-gray-500 dark:hover:bg-gray-400',
     zinc: 'hover:bg-zinc-500 dark:hover:bg-zinc-400',
@@ -13697,7 +13686,7 @@ var hoverBgColorClasses = {
     pink: 'hover:bg-pink-500 dark:hover:bg-pink-400',
     rose: 'hover:bg-rose-500 dark:hover:bg-rose-400',
 };
-var softHoverBgColorClasses = {
+const softHoverBgColorClasses = {
     slate: 'hover:bg-slate-100 dark:hover:bg-slate-800',
     gray: 'hover:bg-gray-100 dark:hover:bg-gray-800',
     zinc: 'hover:bg-zinc-100 dark:hover:bg-zinc-800',
@@ -13721,7 +13710,7 @@ var softHoverBgColorClasses = {
     pink: 'hover:bg-pink-100 dark:hover:bg-pink-800',
     rose: 'hover:bg-rose-100 dark:hover:bg-rose-800',
 };
-var outlineHoverBgColorClasses = {
+const outlineHoverBgColorClasses = {
     slate: 'hover:bg-slate-600 dark:hover:bg-slate-500',
     gray: 'hover:bg-gray-600 dark:hover:bg-gray-500',
     zinc: 'hover:bg-zinc-600 dark:hover:bg-zinc-500',
@@ -13745,7 +13734,7 @@ var outlineHoverBgColorClasses = {
     pink: 'hover:bg-pink-600 dark:hover:bg-pink-500',
     rose: 'hover:bg-rose-600 dark:hover:bg-rose-500',
 };
-var innerRingClasses = {
+const innerRingClasses = {
     slate: 'ring-1 ring-inset ring-slate-600 dark:ring-slate-500',
     gray: 'ring-1 ring-inset ring-gray-600 dark:ring-gray-500',
     zinc: 'ring-1 ring-inset ring-zinc-600 dark:ring-zinc-500',
@@ -13769,7 +13758,7 @@ var innerRingClasses = {
     pink: 'ring-1 ring-inset ring-pink-600 dark:ring-pink-500',
     rose: 'ring-1 ring-inset ring-rose-600 dark:ring-rose-500',
 };
-var focusInnerRingClasses = {
+const focusInnerRingClasses = {
     slate: 'focus:ring-2 focus:ring-inset focus:ring-slate-600 dark:focus:ring-slate-500',
     gray: 'focus:ring-2 focus:ring-inset focus:ring-gray-600 dark:focus:ring-gray-500',
     zinc: 'focus:ring-2 focus:ring-inset focus:ring-zinc-600 dark:focus:ring-zinc-500',
@@ -13793,18 +13782,18 @@ var focusInnerRingClasses = {
     pink: 'focus:ring-2 focus:ring-inset focus:ring-pink-600 dark:focus:ring-pink-500',
     rose: 'focus:ring-2 focus:ring-inset focus:ring-rose-600 dark:focus:ring-rose-500',
 };
-var disabledInput = 'disabled:bg-black dark:disabled:bg-white disabled:bg-opacity-5 dark:disabled:bg-opacity-5 disabled:cursor-not-allowed dark:disabled:text-opacity-70 disabled:text-opacity-70';
+const disabledInput = 'disabled:bg-black dark:disabled:bg-white disabled:bg-opacity-5 dark:disabled:bg-opacity-5 disabled:cursor-not-allowed dark:disabled:text-opacity-70 disabled:text-opacity-70';
 
-var sizeClasses = {
+const sizeClasses = {
     xs: 'px-2 py-1 text-xs',
     sm: 'px-2 py-1 text-sm',
     md: 'px-2.5 py-1.5 text-sm',
     lg: 'px-3 py-2 text-sm',
     xl: 'px-3.5 py-2.5 text-sm',
 };
-var Button = function (_a) {
-    var className = _a.className, _b = _a.color, color = _b === void 0 ? "blue" : _b, rounded = _a.rounded, _c = _a.size, size = _c === void 0 ? 'md' : _c, _d = _a.variant, variant = _d === void 0 ? 'default' : _d, children = _a.children, rest = __rest(_a, ["className", "color", "rounded", "size", "variant", "children"]);
-    var variants = {
+const Button = (_a) => {
+    var { className, color = "blue", rounded, size = 'md', variant = 'default', children } = _a, rest = __rest(_a, ["className", "color", "rounded", "size", "variant", "children"]);
+    const variants = {
         default: {
             textColorClass: 'text-white',
             backgroundColorClass: bgColorClasses[color],
@@ -13812,34 +13801,33 @@ var Button = function (_a) {
             ringClass: '',
         },
         soft: {
-            textColorClass: "".concat(textColorClasses[color], " dark:text-white"),
+            textColorClass: `${textColorClasses[color]} dark:text-white`,
             backgroundColorClass: softBgColorClasses[color],
             hoverColorClass: softHoverBgColorClasses[color],
             ringClass: '',
         },
         outline: {
-            textColorClass: "".concat(textColorClasses[color], " hover:text-white"),
+            textColorClass: `${textColorClasses[color]} hover:text-white dark:hover:text-white`,
             backgroundColorClass: '',
             hoverColorClass: outlineHoverBgColorClasses[color],
             ringClass: innerRingClasses[color],
         },
     };
-    var _e = variants[variant], textColorClass = _e.textColorClass, backgroundColorClass = _e.backgroundColorClass, hoverColorClass = _e.hoverColorClass, ringClass = _e.ringClass;
-    var sizeClass = sizeClasses[size];
-    var classes = clsx('rounded font-semibold shadow-sm inline-flex items-center gap-x-1.5 disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none', backgroundColorClass, sizeClass, textColorClass, hoverColorClass, ringClass, { 'rounded-full': rounded });
-    return (jsx($d2b4bc8c273e7be6$export$353f5b6fc5456de1, __assign({ className: twMerge(classes, className) }, rest, { children: children })));
+    const { textColorClass, backgroundColorClass, hoverColorClass, ringClass } = variants[variant];
+    const sizeClass = sizeClasses[size];
+    const classes = clsx('rounded font-semibold shadow-sm inline-flex items-center gap-x-1.5 disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none', backgroundColorClass, sizeClass, textColorClass, hoverColorClass, ringClass, { 'rounded-full': rounded });
+    return (jsx($d2b4bc8c273e7be6$export$353f5b6fc5456de1, Object.assign({ className: twMerge(classes, className) }, rest, { children: children })));
 };
 
-var Input = function (_a) {
-    var _b;
-    var className = _a.className, _c = _a.focusColor, focusColor = _c === void 0 ? 'blue' : _c, hasError = _a.hasError, rounded = _a.rounded, rest = __rest(_a, ["className", "focusColor", "hasError", "rounded"]);
-    var classes = clsx('block w-full rounded-md border-0 py-1.5 px-3 bg-transparent text-gray-900 dark:text-gray-100 shadow-sm ring-1 ring-inset ring-gray-300 dark:ring-gray-600 placeholder:text-gray-400 dark:placeholder:text-gray-500 focus:outline-none sm:text-sm sm:leading-6 disabled:bg-black dark:disabled:bg-white disabled:bg-opacity-5 dark:disabled:bg-opacity-5 disabled:cursor-not-allowed dark:disabled:text-opacity-70 disabled:text-opacity-70', disabledInput, (_b = {},
-        _b[innerRingClasses['red']] = hasError,
-        _b[focusInnerRingClasses['red']] = hasError,
-        _b[focusInnerRingClasses[focusColor]] = !hasError,
-        _b['rounded-full'] = rounded,
-        _b));
-    return (jsx($3985021b0ad6602f$export$f5b8910cec6cf069, __assign({ className: twMerge(classes, className) }, rest)));
+const Input = (_a) => {
+    var { className, focusColor = 'blue', hasError, rounded } = _a, rest = __rest(_a, ["className", "focusColor", "hasError", "rounded"]);
+    const classes = clsx('block w-full rounded-md border-0 py-1.5 px-3 bg-transparent text-gray-900 dark:text-gray-100 shadow-sm ring-1 ring-inset ring-gray-300 dark:ring-gray-600 placeholder:text-gray-400 dark:placeholder:text-gray-500 focus:outline-none sm:text-sm sm:leading-6 disabled:bg-black dark:disabled:bg-white disabled:bg-opacity-5 dark:disabled:bg-opacity-5 disabled:cursor-not-allowed dark:disabled:text-opacity-70 disabled:text-opacity-70', disabledInput, {
+        [innerRingClasses['red']]: hasError,
+        [focusInnerRingClasses['red']]: hasError,
+        [focusInnerRingClasses[focusColor]]: !hasError,
+        'rounded-full': rounded,
+    });
+    return (jsx($3985021b0ad6602f$export$f5b8910cec6cf069, Object.assign({ className: twMerge(classes, className) }, rest)));
 };
 
 function CheckIcon({
@@ -13890,9 +13878,9 @@ function ChevronUpDownIcon({
 const ForwardRef = React.forwardRef(ChevronUpDownIcon);
 var ChevronUpDownIcon$1 = ForwardRef;
 
-var getEffectiveBackgroundColor = function (element) {
-    var backgroundColor = getComputedStyle(element).backgroundColor;
-    var currentElement = element;
+const getEffectiveBackgroundColor = (element) => {
+    let backgroundColor = getComputedStyle(element).backgroundColor;
+    let currentElement = element;
     while (backgroundColor === 'rgba(0, 0, 0, 0)' || backgroundColor === 'transparent') {
         if (currentElement.parentElement) {
             currentElement = currentElement.parentElement;
@@ -13905,67 +13893,53 @@ var getEffectiveBackgroundColor = function (element) {
     return (backgroundColor === 'rgba(0, 0, 0, 0)' || backgroundColor === 'transparent') ? 'white' : backgroundColor;
 };
 
-var Select = function (_a) {
-    var _b;
-    var children = _a.children, className = _a.className, _c = _a.focusColor, focusColor = _c === void 0 ? 'blue' : _c, hasError = _a.hasError, items = _a.items, placeholder = _a.placeholder, rest = __rest(_a, ["children", "className", "focusColor", "hasError", "items", "placeholder"]);
-    var buttonRef = useRef(null);
-    var _d = useState(false), isOpen = _d[0], setIsOpen = _d[1];
-    var _e = useState(0), buttonWidth = _e[0], setButtonWidth = _e[1];
-    var _f = useState(''), buttonBackgroundColor = _f[0], setButtonBackgroundColor = _f[1];
-    useEffect(function () {
+const Select = (_a) => {
+    var { children, className, focusColor = 'blue', hasError, items, placeholder = 'Select an item' } = _a, rest = __rest(_a, ["children", "className", "focusColor", "hasError", "items", "placeholder"]);
+    const buttonRef = useRef(null);
+    const [isOpen, setIsOpen] = useState(false);
+    const [buttonWidth, setButtonWidth] = useState(0);
+    const [buttonBackgroundColor, setButtonBackgroundColor] = useState('');
+    useEffect(() => {
         if (buttonRef.current) {
             setButtonWidth(buttonRef.current.clientWidth);
             setButtonBackgroundColor(getEffectiveBackgroundColor(buttonRef.current));
         }
     }, [buttonRef]);
-    useEffect(function () {
+    useEffect(() => {
         if (isOpen && buttonRef.current) {
             setButtonWidth(buttonRef.current.clientWidth);
             setButtonBackgroundColor(getEffectiveBackgroundColor(buttonRef.current));
         }
     }, [isOpen]);
-    var buttonClasses = twMerge(clsx('relative w-full rounded-md py-1.5 pl-3 pr-10 text-left bg-transparent text-gray-900 dark:text-gray-100 shadow-sm ring-1 ring-inset ring-gray-300 dark:ring-gray-600 focus:outline-none sm:text-sm sm:leading-6', disabledInput, (_b = {},
-        _b[innerRingClasses['red']] = hasError,
-        _b[focusInnerRingClasses['red']] = hasError,
-        _b[focusInnerRingClasses[focusColor]] = !hasError,
-        _b)), className);
-    return (jsx($82d7e5349645de74$export$ef9b1a59e592288f, __assign({}, rest, { children: function (_a) {
-            var isOpen = _a.isOpen;
-            setTimeout(function () {
+    const buttonClasses = twMerge(clsx('relative w-full rounded-md py-1.5 pl-3 pr-10 text-left bg-transparent text-gray-900 dark:text-gray-100 shadow-sm ring-1 ring-inset ring-gray-300 dark:ring-gray-600 focus:outline-none sm:text-sm sm:leading-6', disabledInput, {
+        [innerRingClasses['red']]: hasError,
+        [focusInnerRingClasses['red']]: hasError,
+        [focusInnerRingClasses[focusColor]]: !hasError,
+    }), className);
+    return (jsx($82d7e5349645de74$export$ef9b1a59e592288f, Object.assign({}, rest, { children: ({ isOpen }) => {
+            setTimeout(() => {
                 setIsOpen(isOpen);
             });
-            return (jsxs(Fragment, { children: [jsx($d2b4bc8c273e7be6$export$353f5b6fc5456de1, { className: buttonClasses, ref: buttonRef, children: jsx($82d7e5349645de74$export$e288731fd71264f0, { children: function (_a) {
-                                var isPlaceholder = _a.isPlaceholder, selectedText = _a.selectedText;
-                                var buttonText = isPlaceholder ? jsx("span", { className: "text-gray-400 dark:text-gray-500", children: placeholder || 'Select an item' }) : selectedText;
-                                return (jsxs(Fragment, { children: [jsx("span", { className: "block truncate", children: buttonText || '\u00A0' }), jsx("span", { className: "pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2", children: jsx(ChevronUpDownIcon$1, { className: "h-5 w-5 text-gray-400 dark:text-gray-500", "aria-hidden": "true" }) })] }));
-                            } }) }), jsx($07b14b47974efb58$export$5b6b19405a83ff9d, { className: function (_a) {
-                            var isEntering = _a.isEntering, isExiting = _a.isExiting;
-                            return clsx('rounded-md shadow-sm ring-1 ring-gray-300 dark:ring-gray-600', {
-                                'animate-in fade-in ease-out duration-200': isEntering,
-                                'animate-out fade-out ease-in duration-150': isExiting,
-                            });
-                        }, style: { width: "".concat(buttonWidth, "px"), backgroundColor: buttonBackgroundColor }, children: jsx($eed445e0843c11d0$export$41f133550aa26f48, { className: "w-full max-h-60 overflow-auto bg-whitetext-base focus:outline-none sm:text-sm", items: items, children: children }) })] }));
+            return (jsxs(Fragment, { children: [jsx($d2b4bc8c273e7be6$export$353f5b6fc5456de1, { className: buttonClasses, ref: buttonRef, children: jsx($82d7e5349645de74$export$e288731fd71264f0, { children: ({ isPlaceholder, selectedText }) => {
+                                const buttonText = isPlaceholder ? jsx("span", { className: "text-gray-400 dark:text-gray-500", children: placeholder }) : selectedText;
+                                return (jsxs(Fragment, { children: [jsx("span", { className: "block truncate", children: buttonText }), jsx("span", { className: "pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2", children: jsx(ChevronUpDownIcon$1, { className: "h-5 w-5 text-gray-400 dark:text-gray-500", "aria-hidden": "true" }) })] }));
+                            } }) }), jsx($07b14b47974efb58$export$5b6b19405a83ff9d, { className: ({ isEntering, isExiting }) => clsx('rounded-md shadow-sm ring-1 ring-gray-300 dark:ring-gray-600', {
+                            'animate-in fade-in ease-out duration-200': isEntering,
+                            'animate-out fade-out ease-in duration-150': isExiting,
+                        }), style: { width: `${buttonWidth}px`, backgroundColor: buttonBackgroundColor }, children: jsx($eed445e0843c11d0$export$41f133550aa26f48, { className: "w-full max-h-60 overflow-auto bg-whitetext-base focus:outline-none sm:text-sm", items: items, children: children }) })] }));
         } })));
 };
 
-var SelectItem = function (_a) {
-    var children = _a.children, className = _a.className, _b = _a.focusColor, focusColor = _b === void 0 ? 'blue' : _b, rest = __rest(_a, ["children", "className", "focusColor"]);
-    return (jsx($eed445e0843c11d0$export$a11e76429ed99b4, __assign({ className: function (_a) {
-            var _b;
-            var isHovered = _a.isHovered;
-            return (twMerge(clsx('relative cursor-default select-none py-2 pl-3 pr-9 focus:outline-none cursor-pointer text-gray-900 dark:text-gray-100 hover:text-white', (_b = {},
-                _b[bgColorClasses[focusColor]] = isHovered,
-                _b)), className));
-        } }, rest, { children: function (_a) {
-            var _b;
-            var isHovered = _a.isHovered, isSelected = _a.isSelected;
-            return (jsxs(Fragment, { children: [jsx("div", { className: clsx('block truncate', {
-                            'font-semibold': isSelected,
-                            'font-normal': !isSelected
-                        }), children: children || '\u00A0' }), isSelected ? (jsx("span", { className: clsx('absolute inset-y-0 right-0 flex items-center pr-4', (_b = {},
-                            _b[textColorClasses[focusColor]] = !isHovered,
-                            _b)), children: jsx(CheckIcon$1, { className: "h-5 w-5", "aria-hidden": "true" }) })) : null] }));
-        } })));
+const SelectItem = (_a) => {
+    var { children, className, focusColor = 'blue' } = _a, rest = __rest(_a, ["children", "className", "focusColor"]);
+    return (jsx($eed445e0843c11d0$export$a11e76429ed99b4, Object.assign({ className: ({ isHovered }) => (twMerge(clsx('relative cursor-default select-none py-2 pl-3 pr-9 focus:outline-none cursor-pointer text-gray-900 dark:text-gray-100 hover:text-white', {
+            [bgColorClasses[focusColor]]: isHovered,
+        }), className)) }, rest, { children: ({ isHovered, isSelected }) => (jsxs(Fragment, { children: [jsx("div", { className: clsx('block truncate', {
+                        'font-semibold': isSelected,
+                        'font-normal': !isSelected
+                    }), children: children || '\u00A0' }), isSelected ? (jsx("span", { className: clsx('absolute inset-y-0 right-0 flex items-center pr-4', {
+                        [textColorClasses[focusColor]]: !isHovered,
+                    }), children: jsx(CheckIcon$1, { className: "h-5 w-5", "aria-hidden": "true" }) })) : null] })) })));
 };
 
 export { Button, Input, Select, SelectItem };

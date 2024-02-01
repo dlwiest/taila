@@ -14,6 +14,7 @@ interface MultiSelectProps extends Omit<AriaListBoxProps<Item>, 'children' | 'on
     defaultSelectedKeys?: any[];
     focusColor?: TailwindColor;
     hasError?: boolean;
+    isDisabled?: boolean;
     items?: Iterable<(Item)>;
     placeholder?: string;
 }

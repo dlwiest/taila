@@ -19,3 +19,35 @@ export const Standard = () => {
         </div>
     );
 };
+
+export const Error = () => (
+    <div className="w-96">
+        <MultiSelect hasError aria-label="Error Select">
+            <SelectItem id="one" textValue="One">One</SelectItem>
+            <SelectItem id="two" textValue="Two">Two</SelectItem>
+            <SelectItem id="three" textValue="Three">Three</SelectItem>
+        </MultiSelect>
+    </div>
+);
+
+export const Disabled = () => (
+    <div className="space-y-1 w-96">
+        <MultiSelect placeholder="Normal" aria-label="Normal Select">
+            <SelectItem id="one" textValue="One">One</SelectItem>
+            <SelectItem id="two" textValue="Two">Two</SelectItem>
+            <SelectItem id="three" textValue="Three">Three</SelectItem>
+        </MultiSelect>
+
+        <MultiSelect placeholder="Disabled" isDisabled aria-label="Disabled Select">
+            <SelectItem id="one" textValue="One">One</SelectItem>
+            <SelectItem id="two" textValue="Two">Two</SelectItem>
+            <SelectItem id="three" textValue="Three">Three</SelectItem>
+        </MultiSelect>
+
+        <MultiSelect placeholder="Disabled" defaultSelectedKeys={["one"]} isDisabled aria-label="Disabled with Selection">
+            <SelectItem id="one" textValue="Disabled with Selection">Disabled with Selection</SelectItem>
+            <SelectItem id="two" textValue="Two">Two</SelectItem>
+            <SelectItem id="three" textValue="Three">Three</SelectItem>
+        </MultiSelect>
+    </div>
+);
