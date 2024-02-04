@@ -100,7 +100,7 @@ const MultiSelect = ({ children, className, defaultSelectedKeys, focusColor = 'b
         <DialogTrigger>
             <Button className={buttonClasses} ref={buttonRef} isDisabled={isDisabled}>
                 <span className="block truncate">
-                    {!selectedKeys.length ? <span className="text-gray-400 dark:text-gray-500">{placeholder}</span> : buttonLabel}
+                    {!selectedKeys.length ? <span className="text-gray-400 dark:text-gray-500">{placeholder}</span> : buttonLabel || '\u00A0'}
                 </span>
                 <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
                     <ChevronUpDownIcon className="h-5 w-5 text-gray-400 dark:text-gray-500" aria-hidden="true" />

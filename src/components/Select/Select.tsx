@@ -53,7 +53,7 @@ const Select = ({ children, className, focusColor = 'blue', hasError, items, pla
                         <Button className={buttonClasses} ref={buttonRef}>
                             <SelectValue>
                                 {({ isPlaceholder, selectedText }) => {
-                                    const buttonText = isPlaceholder ? <span className="text-gray-400 dark:text-gray-500">{placeholder}</span> : selectedText
+                                    const buttonText = isPlaceholder ? <span className="text-gray-400 dark:text-gray-500">{placeholder}</span> : selectedText || '\u00A0'
 
                                     return (
                                         <>

@@ -29,7 +29,7 @@ export const Standard = () => {
 export const Error = () => (
     <div className="w-96">
         <MultiSelect hasError aria-label="Error Select">
-            <SelectItem id="one" textValue="One">One</SelectItem>
+            <SelectItem id="one" textValue=""> </SelectItem>
             <SelectItem id="two" textValue="Two">Two</SelectItem>
             <SelectItem id="three" textValue="Three">Three</SelectItem>
         </MultiSelect>

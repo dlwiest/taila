@@ -14089,7 +14089,7 @@ const Select = (_a) => {
                 setIsOpen(isOpen);
             });
             return (jsxRuntime.jsxs(jsxRuntime.Fragment, { children: [jsxRuntime.jsx($d2b4bc8c273e7be6$export$353f5b6fc5456de1, Object.assign({ className: buttonClasses, ref: buttonRef }, { children: jsxRuntime.jsx($82d7e5349645de74$export$e288731fd71264f0, { children: ({ isPlaceholder, selectedText }) => {
-                                const buttonText = isPlaceholder ? jsxRuntime.jsx("span", Object.assign({ className: "text-gray-400 dark:text-gray-500" }, { children: placeholder })) : selectedText;
+                                const buttonText = isPlaceholder ? jsxRuntime.jsx("span", Object.assign({ className: "text-gray-400 dark:text-gray-500" }, { children: placeholder })) : selectedText || '\u00A0';
                                 return (jsxRuntime.jsxs(jsxRuntime.Fragment, { children: [jsxRuntime.jsx("span", Object.assign({ className: "block truncate" }, { children: buttonText })), jsxRuntime.jsx("span", Object.assign({ className: "pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2" }, { children: jsxRuntime.jsx(ChevronUpDownIcon$1, { className: "h-5 w-5 text-gray-400 dark:text-gray-500", "aria-hidden": "true" }) }))] }));
                             } }) })), jsxRuntime.jsx($07b14b47974efb58$export$5b6b19405a83ff9d, Object.assign({ className: ({ isEntering, isExiting }) => clsx('rounded-md shadow-sm ring-1 ring-gray-300 dark:ring-gray-600', {
                             'animate-in fade-in ease-out duration-200': isEntering,
@@ -14105,7 +14105,7 @@ const SelectItem = (_a) => {
         }), className)) }, rest, { children: ({ isHovered, isSelected }) => (jsxRuntime.jsxs(jsxRuntime.Fragment, { children: [jsxRuntime.jsx("div", Object.assign({ className: clsx('block truncate', {
                         'font-semibold': isSelected,
                         'font-normal': !isSelected
-                    }) }, { children: children || '\u00A0' })), isSelected ? (jsxRuntime.jsx("span", Object.assign({ className: clsx('absolute inset-y-0 right-0 flex items-center pr-4', {
+                    }) }, { children: typeof children !== 'string' || children.trim() !== '' ? children : '\u00A0' })), isSelected ? (jsxRuntime.jsx("span", Object.assign({ className: clsx('absolute inset-y-0 right-0 flex items-center pr-4', {
                         [textColorClasses[focusColor]]: !isHovered,
                     }) }, { children: jsxRuntime.jsx(CheckIcon$1, { className: "h-5 w-5", "aria-hidden": "true" }) }))) : null] })) })));
 };

@@ -29,7 +29,7 @@ const SelectItem = ({ children, className, focusColor = 'blue', ...rest }: Selec
                             'font-normal': !isSelected
                         }
                     )}>
-                        {children || '\u00A0'}
+                        {typeof children !== 'string' || children.trim() !== '' ? children : '\u00A0'}
                     </div>
 
                     {isSelected ? (
