@@ -6,15 +6,21 @@ export default {
     component: MultiSelect,
 };
 
+const TOPPINGS = [
+    { id: 'cheese', name: 'Cheese' },
+    { id: 'lettuce', name: 'Lettuce' },
+    { id: 'tomato', name: 'Tomato' },
+    { id: 'onion', name: 'Onion' },
+    { id: 'pickles', name: 'Pickles' },
+]
+
 export const Standard = () => {
     return (
         <div className="w-96">
-            <MultiSelect aria-label="Standard MultiSelect" placeholder="Choose your toppings" className="w-96" onSelectionChange={(newSelection) => console.log(newSelection)}>
-                <SelectItem id="cheese" textValue="Cheese">Cheese</SelectItem>
-                <SelectItem id="lettuce" textValue="Lettuce">Lettuce</SelectItem>
-                <SelectItem id="tomato" textValue="Tomato">Tomato</SelectItem>
-                <SelectItem id="onion" textValue="Onion">Onion</SelectItem>
-                <SelectItem id="pickles" textValue="Pickles">Pickles</SelectItem>
+            <MultiSelect aria-label="Standard MultiSelect" placeholder="Choose your toppings" className="w-96" items={TOPPINGS} onSelectionChange={(e) => console.log(e)}>
+                {TOPPINGS.map((topping) => (
+                    <SelectItem id={topping.id} textValue={topping.name}>{topping.name}</SelectItem>
+                ))}
             </MultiSelect>
         </div>
     );

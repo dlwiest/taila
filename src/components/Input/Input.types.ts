@@ -5,6 +5,7 @@ interface InputProps extends AriaInputProps {
     className?: string;
     focusColor?: TailwindColor;
     hasError?: boolean;
+    isDisabled?: boolean;
     rounded?: boolean;
 };
 

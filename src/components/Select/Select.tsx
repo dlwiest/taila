@@ -21,6 +21,7 @@ const Select = ({ children, className, focusColor = 'blue', hasError, items, pla
         }
     }, [buttonRef]);
 
+    // TODO -- it might be more performant and reliable to monitor dark mode status and button ref
     useEffect(() => {
         if (isOpen && buttonRef.current) {
             setButtonWidth(buttonRef.current.clientWidth);
@@ -33,9 +34,8 @@ const Select = ({ children, className, focusColor = 'blue', hasError, items, pla
             'relative w-full rounded-md py-1.5 pl-3 pr-10 text-left bg-transparent text-gray-900 dark:text-gray-100 shadow-sm ring-1 ring-inset ring-gray-300 dark:ring-gray-600 focus:outline-none sm:text-sm sm:leading-6',
             disabledInput,
             {
-                [innerRingClasses['red']]: hasError,
-                [focusInnerRingClasses['red']]: hasError,
-                [focusInnerRingClasses[focusColor]]: !hasError,
+                [innerRingClasses[hasError ? 'red' : 'gray']]: hasError,
+                [hasError ? focusInnerRingClasses['red'] : focusInnerRingClasses[focusColor]]: true,
             },
         ),
         className,

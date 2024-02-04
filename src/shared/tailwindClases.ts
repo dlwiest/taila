@@ -150,6 +150,31 @@ export const outlineHoverBgColorClasses = {
     rose: 'hover:bg-rose-600 dark:hover:bg-rose-500',
 };
 
+export const ringColorClasses = {
+    slate: 'ring-slate-600 dark:ring-slate-500',
+    gray: 'ring-gray-600 dark:ring-gray-500',
+    zinc: 'ring-zinc-600 dark:ring-zinc-500',
+    neutral: 'ring-neutral-600 dark:ring-neutral-500',
+    stone: 'ring-stone-600 dark:ring-stone-500',
+    red: 'ring-red-600 dark:ring-red-500',
+    orange: 'ring-orange-600 dark:ring-orange-500',
+    amber: 'ring-amber-600 dark:ring-amber-500',
+    yellow: 'ring-yellow-600 dark:ring-yellow-500',
+    lime: 'ring-lime-600 dark:ring-lime-500',
+    green: 'ring-green-600 dark:ring-green-500',
+    emerald: 'ring-emerald-600 dark:ring-emerald-500',
+    teal: 'ring-teal-600 dark:ring-teal-500',
+    cyan: 'ring-cyan-600 dark:ring-cyan-500',
+    sky: 'ring-sky-600 dark:ring-sky-500',
+    blue: 'ring-blue-600 dark:ring-blue-500',
+    indigo: 'ring-indigo-600 dark:ring-indigo-500',
+    violet: 'ring-violet-600 dark:ring-violet-500',
+    purple: 'ring-purple-600 dark:ring-purple-500',
+    fuchsia: 'ring-fuchsia-600 dark:ring-fuchsia-500',
+    pink: 'ring-pink-600 dark:ring-pink-500',
+    rose: 'ring-rose-600 dark:ring-rose-500',
+};
+
 export const innerRingClasses = {
     slate: 'ring-1 ring-inset ring-slate-600 dark:ring-slate-500',
     gray: 'ring-1 ring-inset ring-gray-600 dark:ring-gray-500',

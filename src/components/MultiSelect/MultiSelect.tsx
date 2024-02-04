@@ -31,6 +31,7 @@ const MultiSelect = ({ children, className, defaultSelectedKeys, focusColor = 'b
         }
     }, [buttonRef]);
 
+    // TODO -- it might be more performant and reliable to monitor dark mode status and button ref
     useEffect(() => {
         if (buttonRef.current && isOpen) {
             setButtonWidth(buttonRef.current.clientWidth);
@@ -42,14 +43,14 @@ const MultiSelect = ({ children, className, defaultSelectedKeys, focusColor = 'b
         if (onSelectionChange) {
             onSelectionChange(selectedKeys);
         }
-    }, [selectedKeys, onSelectionChange])
+    }, [selectedKeys, onSelectionChange]);
 
     useEffect(() => {
         const keyToLabelMap = new Map();
         if (items) {
-            for (let item of items) {
+            Array.from(items).forEach(item => {
                 keyToLabelMap.set(item.id, item.name);
-            }
+            });
         } else if (children && Array.isArray(children)) {
             children.forEach((child) => {
                 if (child.props?.id && child.props?.textValue) {

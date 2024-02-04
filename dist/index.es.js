@@ -4118,6 +4118,33 @@ function $701a24aa0da5b062$export$ea18c227d4417cc3(props, ref) {
     };
 }
 
+
+/*
+ * Copyright 2020 Adobe. All rights reserved.
+ * This file is licensed to you under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License. You may obtain a copy
+ * of the License at http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software distributed under
+ * the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR REPRESENTATIONS
+ * OF ANY KIND, either express or implied. See the License for the specific language
+ * governing permissions and limitations under the License.
+ */ 
+
+function $55f54f7887471b58$export$51e84d46ca0bc451(props, state, ref) {
+    const { isSelected: isSelected } = state;
+    const { isPressed: isPressed, buttonProps: buttonProps } = ($701a24aa0da5b062$export$ea18c227d4417cc3)({
+        ...props,
+        onPress: ($ff5963eb1fccf552$export$e08e3b67e392101e)(state.toggle, props.onPress)
+    }, ref);
+    return {
+        isPressed: isPressed,
+        buttonProps: ($3ef42575df84b30b$export$9d1611c77c2fe928)(buttonProps, {
+            "aria-pressed": isSelected
+        })
+    };
+}
+
 /*
  * Copyright 2023 Adobe. All rights reserved.
  * This file is licensed to you under the Apache License, Version 2.0 (the "License");
@@ -4491,6 +4518,45 @@ function $2baaea4c71418dea$export$294aa081a6c6f55d(props) {
         errorMessageProps: {
             id: errorMessageId
         }
+    };
+}
+
+/*
+ * Copyright 2020 Adobe. All rights reserved.
+ * This file is licensed to you under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License. You may obtain a copy
+ * of the License at http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software distributed under
+ * the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR REPRESENTATIONS
+ * OF ANY KIND, either express or implied. See the License for the specific language
+ * governing permissions and limitations under the License.
+ */ /*
+ * Copyright 2020 Adobe. All rights reserved.
+ * This file is licensed to you under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License. You may obtain a copy
+ * of the License at http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software distributed under
+ * the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR REPRESENTATIONS
+ * OF ANY KIND, either express or implied. See the License for the specific language
+ * governing permissions and limitations under the License.
+ */ 
+function $3017fa7ffdddec74$export$8042c6c013fd5226(props = {}) {
+    let { isReadOnly: isReadOnly } = props;
+    // have to provide an empty function so useControlledState doesn't throw a fit
+    // can't use useControlledState's prop calling because we need the event object from the change
+    let [isSelected, setSelected] = ($458b0a5536c1a7cf$export$40bfa8c7b0832715)(props.isSelected, props.defaultSelected || false, props.onChange);
+    function updateSelected(value) {
+        if (!isReadOnly) setSelected(value);
+    }
+    function toggleState() {
+        if (!isReadOnly) setSelected(!isSelected);
+    }
+    return {
+        isSelected: isSelected,
+        setSelected: updateSelected,
+        toggle: toggleState
     };
 }
 
@@ -11078,6 +11144,58 @@ function $bcdf0525bf22703d$var$TextField(props, ref) {
  * A text field allows a user to enter a plain text value with a keyboard.
  */ (forwardRef)($bcdf0525bf22703d$var$TextField);
 
+
+/*
+ * Copyright 2022 Adobe. All rights reserved.
+ * This file is licensed to you under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License. You may obtain a copy
+ * of the License at http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software distributed under
+ * the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR REPRESENTATIONS
+ * OF ANY KIND, either express or implied. See the License for the specific language
+ * governing permissions and limitations under the License.
+ */ 
+
+
+
+const $efde0372d7a700fe$export$43506d75ebd2e218 = /*#__PURE__*/ (createContext)({});
+function $efde0372d7a700fe$var$ToggleButton(props, ref) {
+    [props, ref] = ($64fa3d84918910a7$export$29f1550f4b0d4415)(props, ref, $efde0372d7a700fe$export$43506d75ebd2e218);
+    let state = ($3017fa7ffdddec74$export$8042c6c013fd5226)(props);
+    let { buttonProps: buttonProps, isPressed: isPressed } = ($55f54f7887471b58$export$51e84d46ca0bc451)(props, state, ref);
+    let { focusProps: focusProps, isFocused: isFocused, isFocusVisible: isFocusVisible } = ($f7dceffc5ad7768b$export$4e328f61c538687f)(props);
+    let { hoverProps: hoverProps, isHovered: isHovered } = ($6179b936705e76d3$export$ae780daf29e6d456)(props);
+    let renderProps = ($64fa3d84918910a7$export$4d86445c2cf5e3)({
+        ...props,
+        values: {
+            isHovered: isHovered,
+            isPressed: isPressed,
+            isFocused: isFocused,
+            isSelected: state.isSelected,
+            isFocusVisible: isFocusVisible,
+            isDisabled: props.isDisabled || false,
+            state: state
+        },
+        defaultClassName: "react-aria-ToggleButton"
+    });
+    return /*#__PURE__*/ (React__default).createElement("button", {
+        ...($3ef42575df84b30b$export$9d1611c77c2fe928)(buttonProps, focusProps, hoverProps),
+        ...renderProps,
+        ref: ref,
+        slot: props.slot || undefined,
+        "data-focused": isFocused || undefined,
+        "data-disabled": props.isDisabled || undefined,
+        "data-pressed": isPressed || undefined,
+        "data-selected": state.isSelected || undefined,
+        "data-hovered": isHovered || undefined,
+        "data-focus-visible": isFocusVisible || undefined
+    });
+}
+/**
+ * A toggle button allows a user to toggle a selection on or off, for example switching between two states or modes.
+ */ const $efde0372d7a700fe$export$d2b052e7b4be1756 = /*#__PURE__*/ (forwardRef)($efde0372d7a700fe$var$ToggleButton);
+
 const CLASS_PART_SEPARATOR = '-';
 function createClassUtils(config) {
   const classMap = createClassMap(config);
@@ -13734,6 +13852,30 @@ const outlineHoverBgColorClasses = {
     pink: 'hover:bg-pink-600 dark:hover:bg-pink-500',
     rose: 'hover:bg-rose-600 dark:hover:bg-rose-500',
 };
+const ringColorClasses = {
+    slate: 'ring-slate-600 dark:ring-slate-500',
+    gray: 'ring-gray-600 dark:ring-gray-500',
+    zinc: 'ring-zinc-600 dark:ring-zinc-500',
+    neutral: 'ring-neutral-600 dark:ring-neutral-500',
+    stone: 'ring-stone-600 dark:ring-stone-500',
+    red: 'ring-red-600 dark:ring-red-500',
+    orange: 'ring-orange-600 dark:ring-orange-500',
+    amber: 'ring-amber-600 dark:ring-amber-500',
+    yellow: 'ring-yellow-600 dark:ring-yellow-500',
+    lime: 'ring-lime-600 dark:ring-lime-500',
+    green: 'ring-green-600 dark:ring-green-500',
+    emerald: 'ring-emerald-600 dark:ring-emerald-500',
+    teal: 'ring-teal-600 dark:ring-teal-500',
+    cyan: 'ring-cyan-600 dark:ring-cyan-500',
+    sky: 'ring-sky-600 dark:ring-sky-500',
+    blue: 'ring-blue-600 dark:ring-blue-500',
+    indigo: 'ring-indigo-600 dark:ring-indigo-500',
+    violet: 'ring-violet-600 dark:ring-violet-500',
+    purple: 'ring-purple-600 dark:ring-purple-500',
+    fuchsia: 'ring-fuchsia-600 dark:ring-fuchsia-500',
+    pink: 'ring-pink-600 dark:ring-pink-500',
+    rose: 'ring-rose-600 dark:ring-rose-500',
+};
 const innerRingClasses = {
     slate: 'ring-1 ring-inset ring-slate-600 dark:ring-slate-500',
     gray: 'ring-1 ring-inset ring-gray-600 dark:ring-gray-500',
@@ -13820,14 +13962,13 @@ const Button = (_a) => {
 };
 
 const Input = (_a) => {
-    var { className, focusColor = 'blue', hasError, rounded } = _a, rest = __rest(_a, ["className", "focusColor", "hasError", "rounded"]);
+    var { className, focusColor = 'blue', hasError, isDisabled, rounded } = _a, rest = __rest(_a, ["className", "focusColor", "hasError", "isDisabled", "rounded"]);
     const classes = clsx('block w-full rounded-md border-0 py-1.5 px-3 bg-transparent text-gray-900 dark:text-gray-100 shadow-sm ring-1 ring-inset ring-gray-300 dark:ring-gray-600 placeholder:text-gray-400 dark:placeholder:text-gray-500 focus:outline-none sm:text-sm sm:leading-6 disabled:bg-black dark:disabled:bg-white disabled:bg-opacity-5 dark:disabled:bg-opacity-5 disabled:cursor-not-allowed dark:disabled:text-opacity-70 disabled:text-opacity-70', disabledInput, {
         [innerRingClasses['red']]: hasError,
-        [focusInnerRingClasses['red']]: hasError,
-        [focusInnerRingClasses[focusColor]]: !hasError,
+        [hasError ? focusInnerRingClasses['red'] : focusInnerRingClasses[focusColor]]: true,
         'rounded-full': rounded,
     });
-    return (jsx($3985021b0ad6602f$export$f5b8910cec6cf069, Object.assign({ className: twMerge(classes, className) }, rest)));
+    return (jsx($3985021b0ad6602f$export$f5b8910cec6cf069, Object.assign({ className: twMerge(classes, className), disabled: isDisabled || rest.disabled }, rest)));
 };
 
 function CheckIcon({
@@ -13905,6 +14046,7 @@ const Select = (_a) => {
             setButtonBackgroundColor(getEffectiveBackgroundColor(buttonRef.current));
         }
     }, [buttonRef]);
+    // TODO -- it might be more performant and reliable to monitor dark mode status and button ref
     useEffect(() => {
         if (isOpen && buttonRef.current) {
             setButtonWidth(buttonRef.current.clientWidth);
@@ -13912,21 +14054,20 @@ const Select = (_a) => {
         }
     }, [isOpen]);
     const buttonClasses = twMerge(clsx('relative w-full rounded-md py-1.5 pl-3 pr-10 text-left bg-transparent text-gray-900 dark:text-gray-100 shadow-sm ring-1 ring-inset ring-gray-300 dark:ring-gray-600 focus:outline-none sm:text-sm sm:leading-6', disabledInput, {
-        [innerRingClasses['red']]: hasError,
-        [focusInnerRingClasses['red']]: hasError,
-        [focusInnerRingClasses[focusColor]]: !hasError,
+        [innerRingClasses[hasError ? 'red' : 'gray']]: hasError,
+        [hasError ? focusInnerRingClasses['red'] : focusInnerRingClasses[focusColor]]: true,
     }), className);
     return (jsx($82d7e5349645de74$export$ef9b1a59e592288f, Object.assign({}, rest, { children: ({ isOpen }) => {
             setTimeout(() => {
                 setIsOpen(isOpen);
             });
-            return (jsxs(Fragment, { children: [jsx($d2b4bc8c273e7be6$export$353f5b6fc5456de1, { className: buttonClasses, ref: buttonRef, children: jsx($82d7e5349645de74$export$e288731fd71264f0, { children: ({ isPlaceholder, selectedText }) => {
-                                const buttonText = isPlaceholder ? jsx("span", { className: "text-gray-400 dark:text-gray-500", children: placeholder }) : selectedText;
-                                return (jsxs(Fragment, { children: [jsx("span", { className: "block truncate", children: buttonText }), jsx("span", { className: "pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2", children: jsx(ChevronUpDownIcon$1, { className: "h-5 w-5 text-gray-400 dark:text-gray-500", "aria-hidden": "true" }) })] }));
-                            } }) }), jsx($07b14b47974efb58$export$5b6b19405a83ff9d, { className: ({ isEntering, isExiting }) => clsx('rounded-md shadow-sm ring-1 ring-gray-300 dark:ring-gray-600', {
+            return (jsxs(Fragment, { children: [jsx($d2b4bc8c273e7be6$export$353f5b6fc5456de1, Object.assign({ className: buttonClasses, ref: buttonRef }, { children: jsx($82d7e5349645de74$export$e288731fd71264f0, { children: ({ isPlaceholder, selectedText }) => {
+                                const buttonText = isPlaceholder ? jsx("span", Object.assign({ className: "text-gray-400 dark:text-gray-500" }, { children: placeholder })) : selectedText;
+                                return (jsxs(Fragment, { children: [jsx("span", Object.assign({ className: "block truncate" }, { children: buttonText })), jsx("span", Object.assign({ className: "pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2" }, { children: jsx(ChevronUpDownIcon$1, { className: "h-5 w-5 text-gray-400 dark:text-gray-500", "aria-hidden": "true" }) }))] }));
+                            } }) })), jsx($07b14b47974efb58$export$5b6b19405a83ff9d, Object.assign({ className: ({ isEntering, isExiting }) => clsx('rounded-md shadow-sm ring-1 ring-gray-300 dark:ring-gray-600', {
                             'animate-in fade-in ease-out duration-200': isEntering,
                             'animate-out fade-out ease-in duration-150': isExiting,
-                        }), style: { width: `${buttonWidth}px`, backgroundColor: buttonBackgroundColor }, children: jsx($eed445e0843c11d0$export$41f133550aa26f48, { className: "w-full max-h-60 overflow-auto bg-whitetext-base focus:outline-none sm:text-sm", items: items, children: children }) })] }));
+                        }), style: { width: `${buttonWidth}px`, backgroundColor: buttonBackgroundColor } }, { children: jsx($eed445e0843c11d0$export$41f133550aa26f48, Object.assign({ className: "w-full max-h-60 overflow-auto bg-whitetext-base focus:outline-none sm:text-sm", items: items }, { children: children })) }))] }));
         } })));
 };
 
@@ -13934,13 +14075,18 @@ const SelectItem = (_a) => {
     var { children, className, focusColor = 'blue' } = _a, rest = __rest(_a, ["children", "className", "focusColor"]);
     return (jsx($eed445e0843c11d0$export$a11e76429ed99b4, Object.assign({ className: ({ isHovered }) => (twMerge(clsx('relative cursor-default select-none py-2 pl-3 pr-9 focus:outline-none cursor-pointer text-gray-900 dark:text-gray-100 hover:text-white', {
             [bgColorClasses[focusColor]]: isHovered,
-        }), className)) }, rest, { children: ({ isHovered, isSelected }) => (jsxs(Fragment, { children: [jsx("div", { className: clsx('block truncate', {
+        }), className)) }, rest, { children: ({ isHovered, isSelected }) => (jsxs(Fragment, { children: [jsx("div", Object.assign({ className: clsx('block truncate', {
                         'font-semibold': isSelected,
                         'font-normal': !isSelected
-                    }), children: children || '\u00A0' }), isSelected ? (jsx("span", { className: clsx('absolute inset-y-0 right-0 flex items-center pr-4', {
+                    }) }, { children: children || '\u00A0' })), isSelected ? (jsx("span", Object.assign({ className: clsx('absolute inset-y-0 right-0 flex items-center pr-4', {
                         [textColorClasses[focusColor]]: !isHovered,
-                    }), children: jsx(CheckIcon$1, { className: "h-5 w-5", "aria-hidden": "true" }) })) : null] })) })));
+                    }) }, { children: jsx(CheckIcon$1, { className: "h-5 w-5", "aria-hidden": "true" }) }))) : null] })) })));
 };
 
-export { Button, Input, Select, SelectItem };
+const ToggleSwitch = (_a) => {
+    var { className, color = 'blue', hasError } = _a, rest = __rest(_a, ["className", "color", "hasError"]);
+    return (jsx($efde0372d7a700fe$export$d2b052e7b4be1756, Object.assign({}, rest, { className: "focus:outline-none" }, { children: ({ isSelected, isFocused }) => (jsx("div", Object.assign({ className: clsx(clsx(isFocused ? `ring-2 ${ringColorClasses[hasError ? 'red' : color]}` : 'ring-0', hasError ? innerRingClasses['red'] : '', rest.isDisabled ? 'opacity-50 cursor-not-allowed' : '', 'rounded-full pt-1')) }, { children: jsx("div", Object.assign({ className: "px-1" }, { children: jsx("div", Object.assign({ className: twMerge(clsx(isSelected ? bgColorClasses[hasError ? 'red' : color] : 'bg-gray-200 dark:bg-gray-700', rest.isDisabled ? 'cursor-not-allowed' : 'cursor-pointer', 'relative inline-flex h-6 w-11 flex-shrink-0 rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out'), className) }, { children: jsx("span", { "aria-hidden": "true", className: clsx(isSelected ? 'translate-x-5' : 'translate-x-0', rest.isDisabled ? 'cursor-not-allowed' : '', 'pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out') }) })) })) }))) })));
+};
+
+export { Button, Input, Select, SelectItem, ToggleSwitch };
 //# sourceMappingURL=index.es.js.map
