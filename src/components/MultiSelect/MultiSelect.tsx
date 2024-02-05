@@ -106,7 +106,7 @@ const MultiSelect = ({ children, className, defaultSelectedKeys, focusColor = 'b
                     <ChevronUpDownIcon className="h-5 w-5 text-gray-400 dark:text-gray-500" aria-hidden="true" />
                 </span>
             </Button>
-            <Popover
+            {children && <Popover
                 className={({ isEntering, isExiting }) => clsx(
                     'rounded-md shadow-sm ring-1 ring-gray-300 dark:ring-gray-600',
                     {
@@ -130,7 +130,7 @@ const MultiSelect = ({ children, className, defaultSelectedKeys, focusColor = 'b
                     );
                 }}
 
-            </Popover>
+            </Popover>}
         </DialogTrigger>
     );
 };

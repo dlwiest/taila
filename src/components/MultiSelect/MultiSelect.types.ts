@@ -9,7 +9,7 @@ type Item = {
 }
 
 interface MultiSelectProps extends Omit<AriaListBoxProps<Item>, 'children' | 'onSelectionChange'> {
-    children: React.ReactNode | ChildrenFunction;
+    children?: React.ReactNode | ChildrenFunction;
     className?: string;
     defaultSelectedKeys?: any[];
     focusColor?: TailwindColor;

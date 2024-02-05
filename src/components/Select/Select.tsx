@@ -53,7 +53,7 @@ const Select = ({ children, className, focusColor = 'blue', hasError, items, pla
                         <Button className={buttonClasses} ref={buttonRef}>
                             <SelectValue>
                                 {({ isPlaceholder, selectedText }) => {
-                                    const buttonText = isPlaceholder ? <span className="text-gray-400 dark:text-gray-500">{placeholder}</span> : selectedText || '\u00A0'
+                                    const buttonText = isPlaceholder ? <span className="text-gray-400 dark:text-gray-500">{placeholder}</span> : selectedText || '\u00A0';
 
                                     return (
                                         <>
@@ -67,7 +67,7 @@ const Select = ({ children, className, focusColor = 'blue', hasError, items, pla
                             </SelectValue>
                         </Button>
 
-                        <Popover
+                        {children && <Popover
                             className={({ isEntering, isExiting }) => clsx(
                                 'rounded-md shadow-sm ring-1 ring-gray-300 dark:ring-gray-600',
                                 {
@@ -80,7 +80,7 @@ const Select = ({ children, className, focusColor = 'blue', hasError, items, pla
                             <ListBox className="w-full max-h-60 overflow-auto bg-whitetext-base focus:outline-none sm:text-sm" items={items}>
                                 {children}
                             </ListBox>
-                        </Popover>
+                        </Popover>}
                     </>
                 );
             }}

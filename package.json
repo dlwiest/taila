@@ -71,7 +71,10 @@
       "react-app",
       "react-app/jest",
       "plugin:storybook/recommended"
-    ]
+    ],
+    "rules": {
+      "testing-library/no-unnecessary-act": "off"
+    }
   },
   "browserslist": {
     "production": [

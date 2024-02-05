@@ -9,7 +9,7 @@ type Item = {
 }
 
 interface SelectProps extends Omit<AriaSelectProps<Item>, 'children'> {
-    children: React.ReactNode | ChildrenFunction;
+    children?: React.ReactNode | ChildrenFunction;
     className?: string;
     focusColor?: TailwindColor;
     hasError?: boolean;
