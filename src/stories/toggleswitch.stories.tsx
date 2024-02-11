@@ -1,5 +1,7 @@
+import { MoonIcon, SunIcon } from '@heroicons/react/20/solid';
 import { ToggleSwitch } from '..';
 import { textColorClasses } from '../shared/tailwindClases';
+import { useState } from 'react';
 
 export default {
     title: 'Components/ToggleSwitch',
@@ -17,7 +19,7 @@ export const Color = () => (
     </div>
 );
 
-export const Error = () => <ToggleSwitch hasError />
+export const Error = () => <ToggleSwitch hasError />;
 
 export const Disabled = () => (
     <div className="space-y-1 flex flex-col">
@@ -31,4 +33,19 @@ export const Disabled = () => (
             <ToggleSwitch isDisabled />
         </div>
     </div>
-)
+);
+
+export const Icon = () => {
+    const [darkMode, setDarkMode] = useState(false);
+    console.log(darkMode);
+
+    return (
+        <ToggleSwitch onChange={setDarkMode} color={darkMode ? 'purple' : 'yellow'}>
+            {darkMode ? (
+                <MoonIcon className="h-4 w-4 mt-0.5 ml-0.5" aria-hidden="true" data-testid="icon" />
+            ) : (
+                <SunIcon className="h-4 w-4 mt-0.5 ml-0.5" aria-hidden="true" data-testid="icon" />
+            )}
+        </ToggleSwitch>
+    );
+};

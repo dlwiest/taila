@@ -2,9 +2,9 @@ import clsx from 'clsx';
 import { twMerge } from 'tailwind-merge';
 import { ToggleButton } from 'react-aria-components';
 import { ToggleSwitchProps } from './ToggleSwitch.types';
-import { bgColorClasses, innerRingClasses, ringColorClasses } from '../../shared/tailwindClases';
+import { bgColorClasses, innerRingClasses, ringColorClasses, textColorClasses } from '../../shared/tailwindClases';
 
-const ToggleSwitch = ({ className, color = 'blue', hasError, ...rest }: ToggleSwitchProps) => {
+const ToggleSwitch = ({ children, className, color = 'blue', hasError, ...rest }: ToggleSwitchProps) => {
     return (
         <ToggleButton {...rest} className="focus:outline-none">
             {({ isSelected, isFocused }) => (
@@ -29,9 +29,10 @@ const ToggleSwitch = ({ className, color = 'blue', hasError, ...rest }: ToggleSw
                                 className={clsx(
                                     isSelected ? 'translate-x-5' : 'translate-x-0',
                                     rest.isDisabled ? 'cursor-not-allowed' : '',
-                                    'pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out',
+                                    'pointer-events-none relative inline-block items-center justify-center h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out',
+                                    textColorClasses[color],
                                 )}
-                            />
+                            >{children}</span>
                         </div>
                     </div>
                 </div>
