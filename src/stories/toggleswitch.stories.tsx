@@ -40,7 +40,7 @@ export const Icon = () => {
     console.log(darkMode);
 
     return (
-        <ToggleSwitch onChange={setDarkMode} color={darkMode ? 'purple' : 'yellow'}>
+        <ToggleSwitch onChange={setDarkMode} focusColor="blue" color={darkMode ? 'purple' : 'yellow'}>
             {darkMode ? (
                 <MoonIcon className="h-4 w-4 mt-0.5 ml-0.5" aria-hidden="true" data-testid="icon" />
             ) : (

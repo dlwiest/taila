@@ -4,13 +4,13 @@ import { ToggleButton } from 'react-aria-components';
 import { ToggleSwitchProps } from './ToggleSwitch.types';
 import { bgColorClasses, innerRingClasses, ringColorClasses, textColorClasses } from '../../shared/tailwindClases';
 
-const ToggleSwitch = ({ children, className, color = 'blue', hasError, ...rest }: ToggleSwitchProps) => {
+const ToggleSwitch = ({ children, className, color = 'blue', focusColor, hasError, ...rest }: ToggleSwitchProps) => {
     return (
         <ToggleButton {...rest} className="focus:outline-none">
             {({ isSelected, isFocused }) => (
                 <div className={clsx(
                         clsx(
-                            isFocused ? `ring-2 ${ringColorClasses[hasError ? 'red' : color]}` : 'ring-0',
+                            isFocused ? `ring-2 ${ringColorClasses[hasError ? 'red' : focusColor ? focusColor : color]}` : 'ring-0',
                             hasError ? innerRingClasses['red'] : '',
                             rest.isDisabled ? 'opacity-50 cursor-not-allowed' : '',
                             'rounded-full pt-1',

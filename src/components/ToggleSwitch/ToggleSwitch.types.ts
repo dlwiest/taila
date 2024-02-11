@@ -6,6 +6,7 @@ interface ToggleSwitchProps extends AriaToggleButtonProps {
     children?: ReactNode;
     className?: string;
     color?: TailwindColor;
+    focusColor?: TailwindColor;
     hasError?: boolean;
 };
 
