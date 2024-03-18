@@ -1263,6 +1263,52 @@ function $62d8ded9296f3872$export$2bb74740c4e19def(node, checkForOverflow) {
  * governing permissions and limitations under the License.
  */ 
 
+// @ts-ignore
+let $5df64b3807dc15ee$var$visualViewport = typeof document !== "undefined" && window.visualViewport;
+function $5df64b3807dc15ee$export$d699905dd57c73ca() {
+    let isSSR = ($b5e257d569688ac6$export$535bd6ca7f90a273)();
+    let [size, setSize] = (React.useState)(()=>isSSR ? {
+            width: 0,
+            height: 0
+        } : $5df64b3807dc15ee$var$getViewportSize());
+    (React.useEffect)(()=>{
+        // Use visualViewport api to track available height even on iOS virtual keyboard opening
+        let onResize = ()=>{
+            setSize((size)=>{
+                let newSize = $5df64b3807dc15ee$var$getViewportSize();
+                if (newSize.width === size.width && newSize.height === size.height) return size;
+                return newSize;
+            });
+        };
+        if (!$5df64b3807dc15ee$var$visualViewport) window.addEventListener("resize", onResize);
+        else $5df64b3807dc15ee$var$visualViewport.addEventListener("resize", onResize);
+        return ()=>{
+            if (!$5df64b3807dc15ee$var$visualViewport) window.removeEventListener("resize", onResize);
+            else $5df64b3807dc15ee$var$visualViewport.removeEventListener("resize", onResize);
+        };
+    }, []);
+    return size;
+}
+function $5df64b3807dc15ee$var$getViewportSize() {
+    return {
+        width: ($5df64b3807dc15ee$var$visualViewport === null || $5df64b3807dc15ee$var$visualViewport === void 0 ? void 0 : $5df64b3807dc15ee$var$visualViewport.width) || window.innerWidth,
+        height: ($5df64b3807dc15ee$var$visualViewport === null || $5df64b3807dc15ee$var$visualViewport === void 0 ? void 0 : $5df64b3807dc15ee$var$visualViewport.height) || window.innerHeight
+    };
+}
+
+
+/*
+ * Copyright 2020 Adobe. All rights reserved.
+ * This file is licensed to you under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License. You may obtain a copy
+ * of the License at http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software distributed under
+ * the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR REPRESENTATIONS
+ * OF ANY KIND, either express or implied. See the License for the specific language
+ * governing permissions and limitations under the License.
+ */ 
+
 let $ef06256079686ba0$var$descriptionId = 0;
 const $ef06256079686ba0$var$descriptionNodes = new Map();
 function $ef06256079686ba0$export$f8aeda7b10753fa1(description) {
@@ -6001,6 +6047,41 @@ function $337b884510726a0d$export$c6fdb837b070b4ff(props) {
     }, /*#__PURE__*/ (React__default["default"]).createElement(($f1ab8c75478c6f73$export$cf75428e0b9ed1ea), null, contents));
     return /*#__PURE__*/ ($dGqE5$reactdom__default["default"]).createPortal(contents, portalContainer);
 }
+function $337b884510726a0d$export$14c98a7594375490() {
+    let ctx = (React.useContext)($337b884510726a0d$export$a2200b96afd16271);
+    let setContain = ctx === null || ctx === void 0 ? void 0 : ctx.setContain;
+    ($f0a04ccd8dbdd83b$export$e5c5a5f917a5871c)(()=>{
+        setContain === null || setContain === void 0 ? void 0 : setContain(true);
+    }, [
+        setContain
+    ]);
+}
+
+
+
+function $8ac8429251c45e4b$export$dbc0f175b25fb0fb(props, state, ref) {
+    let { overlayProps: overlayProps, underlayProps: underlayProps } = ($a11501f3d1d39e6c$export$ea8f71083e90600f)({
+        ...props,
+        isOpen: state.isOpen,
+        onClose: state.close
+    }, ref);
+    ($49c51c25361d4cd2$export$ee0f7cc6afcd1c18)({
+        isDisabled: !state.isOpen
+    });
+    ($337b884510726a0d$export$14c98a7594375490)();
+    (React.useEffect)(()=>{
+        if (state.isOpen) return ($5e3802645cc19319$export$1c3ebcada18427bf)([
+            ref.current
+        ]);
+    }, [
+        state.isOpen,
+        ref
+    ]);
+    return {
+        modalProps: ($3ef42575df84b30b$export$9d1611c77c2fe928)(overlayProps),
+        underlayProps: underlayProps
+    };
+}
 
 /*
  * Copyright 2020 Adobe. All rights reserved.
@@ -7790,6 +7871,86 @@ function $2d73ec29415bd339$export$712718f7aec83d5(props, ref) {
         isInvalid: isInvalid,
         validationErrors: validationErrors,
         validationDetails: validationDetails
+    };
+}
+
+/*
+ * Copyright 2020 Adobe. All rights reserved.
+ * This file is licensed to you under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License. You may obtain a copy
+ * of the License at http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software distributed under
+ * the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR REPRESENTATIONS
+ * OF ANY KIND, either express or implied. See the License for the specific language
+ * governing permissions and limitations under the License.
+ */ /*
+ * Copyright 2020 Adobe. All rights reserved.
+ * This file is licensed to you under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License. You may obtain a copy
+ * of the License at http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software distributed under
+ * the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR REPRESENTATIONS
+ * OF ANY KIND, either express or implied. See the License for the specific language
+ * governing permissions and limitations under the License.
+ */ 
+
+
+
+function $40df3f8667284809$export$d55e7ee900f34e93(props, ref) {
+    let { role: role = "dialog" } = props;
+    let titleId = ($bdb11010cef70236$export$b4cc09c592e8fdb8)();
+    titleId = props["aria-label"] ? undefined : titleId;
+    let isRefocusing = (React.useRef)(false);
+    // Focus the dialog itself on mount, unless a child element is already focused.
+    (React.useEffect)(()=>{
+        if (ref.current && !ref.current.contains(document.activeElement)) {
+            ($6a99195332edec8b$export$80f3e147d781571c)(ref.current);
+            // Safari on iOS does not move the VoiceOver cursor to the dialog
+            // or announce that it has opened until it has rendered. A workaround
+            // is to wait for half a second, then blur and re-focus the dialog.
+            let timeout = setTimeout(()=>{
+                if (document.activeElement === ref.current) {
+                    isRefocusing.current = true;
+                    if (ref.current) {
+                        ref.current.blur();
+                        ($6a99195332edec8b$export$80f3e147d781571c)(ref.current);
+                    }
+                    isRefocusing.current = false;
+                }
+            }, 500);
+            return ()=>{
+                clearTimeout(timeout);
+            };
+        }
+    }, [
+        ref
+    ]);
+    ($337b884510726a0d$export$14c98a7594375490)();
+    // We do not use aria-modal due to a Safari bug which forces the first focusable element to be focused
+    // on mount when inside an iframe, no matter which element we programmatically focus.
+    // See https://bugs.webkit.org/show_bug.cgi?id=211934.
+    // useModal sets aria-hidden on all elements outside the dialog, so the dialog will behave as a modal
+    // even without aria-modal on the dialog itself.
+    return {
+        dialogProps: {
+            ...($65484d02dcb7eb3e$export$457c3d6518dd4c6f)(props, {
+                labelable: true
+            }),
+            role: role,
+            tabIndex: -1,
+            "aria-labelledby": props["aria-labelledby"] || titleId,
+            // Prevent blur events from reaching useOverlay, which may cause
+            // popovers to close. Since focus is contained within the dialog,
+            // we don't want this to occur due to the above useEffect.
+            onBlur: (e)=>{
+                if (isRefocusing.current) e.stopPropagation();
+            }
+        },
+        titleProps: {
+            id: titleId
+        }
     };
 }
 
@@ -10039,6 +10200,48 @@ function $d2b4bc8c273e7be6$var$Button(props, ref) {
  */ const $d2b4bc8c273e7be6$export$353f5b6fc5456de1 = /*#__PURE__*/ ($64fa3d84918910a7$export$86427a43e3e48ebb)($d2b4bc8c273e7be6$var$Button);
 
 
+/*
+ * Copyright 2022 Adobe. All rights reserved.
+ * This file is licensed to you under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License. You may obtain a copy
+ * of the License at http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software distributed under
+ * the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR REPRESENTATIONS
+ * OF ANY KIND, either express or implied. See the License for the specific language
+ * governing permissions and limitations under the License.
+ */ 
+
+
+
+
+
+/*
+ * Copyright 2022 Adobe. All rights reserved.
+ * This file is licensed to you under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License. You may obtain a copy
+ * of the License at http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software distributed under
+ * the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR REPRESENTATIONS
+ * OF ANY KIND, either express or implied. See the License for the specific language
+ * governing permissions and limitations under the License.
+ */ 
+
+const $5cb03073d3f54797$export$d688439359537581 = /*#__PURE__*/ (React.createContext)({});
+function $5cb03073d3f54797$var$Heading(props, ref) {
+    [props, ref] = ($64fa3d84918910a7$export$29f1550f4b0d4415)(props, ref, $5cb03073d3f54797$export$d688439359537581);
+    let { children: children, level: level = 3, className: className, ...domProps } = props;
+    let Element = `h${level}`;
+    return /*#__PURE__*/ (React__default["default"]).createElement(Element, {
+        ...domProps,
+        ref: ref,
+        className: className !== null && className !== void 0 ? className : "react-aria-Heading"
+    }, children);
+}
+const $5cb03073d3f54797$export$a8a3e93435678ff9 = /*#__PURE__*/ (React.forwardRef)($5cb03073d3f54797$var$Heading);
+
+
 
 /*
  * Copyright 2022 Adobe. All rights reserved.
@@ -10741,7 +10944,60 @@ function $07b14b47974efb58$var$PopoverInner({ state: state, isExiting: isExiting
         onDismiss: state.close
     })));
 }
+
+
+
+
+const $de32f1b87079253c$export$8b93a07348a7730c = /*#__PURE__*/ (React.createContext)(null);
 const $de32f1b87079253c$export$d2f961adcb0afbe = /*#__PURE__*/ (React.createContext)(null);
+function $de32f1b87079253c$var$Dialog(props, ref) {
+    let originalAriaLabelledby = props["aria-labelledby"];
+    [props, ref] = ($64fa3d84918910a7$export$29f1550f4b0d4415)(props, ref, $de32f1b87079253c$export$8b93a07348a7730c);
+    let { dialogProps: dialogProps, titleProps: titleProps } = ($40df3f8667284809$export$d55e7ee900f34e93)({
+        ...props,
+        // Only pass aria-labelledby from props, not context.
+        // Context is used as a fallback below.
+        "aria-labelledby": originalAriaLabelledby
+    }, ref);
+    let state = (React.useContext)($de32f1b87079253c$export$d2f961adcb0afbe);
+    let children = props.children;
+    if (typeof children === "function") children = children({
+        close: (state === null || state === void 0 ? void 0 : state.close) || (()=>{})
+    });
+    if (!dialogProps["aria-label"] && !dialogProps["aria-labelledby"]) {
+        // If aria-labelledby exists on props, we know it came from context.
+        // Use that as a fallback in case there is no title slot.
+        if (props["aria-labelledby"]) dialogProps["aria-labelledby"] = props["aria-labelledby"];
+        else console.warn('If a Dialog does not contain a <Heading slot="title">, it must have an aria-label or aria-labelledby attribute for accessibility.');
+    }
+    var _props_className;
+    return /*#__PURE__*/ (React__default["default"]).createElement("section", {
+        ...($65484d02dcb7eb3e$export$457c3d6518dd4c6f)(props),
+        ...dialogProps,
+        ref: ref,
+        slot: props.slot || undefined,
+        style: props.style,
+        className: (_props_className = props.className) !== null && _props_className !== void 0 ? _props_className : "react-aria-Dialog"
+    }, /*#__PURE__*/ (React__default["default"]).createElement(($64fa3d84918910a7$export$2881499e37b75b9a), {
+        values: [
+            [
+                ($5cb03073d3f54797$export$d688439359537581),
+                {
+                    slots: {
+                        [($64fa3d84918910a7$export$8e0ef2c5844bfb6b)]: {},
+                        title: {
+                            ...titleProps,
+                            level: 2
+                        }
+                    }
+                }
+            ]
+        ]
+    }, children));
+}
+/**
+ * A dialog is an overlay shown above other content in an application.
+ */ const $de32f1b87079253c$export$3ddf2d174ce01153 = /*#__PURE__*/ (React.forwardRef)($de32f1b87079253c$var$Dialog);
 
 
 
@@ -10829,6 +11085,146 @@ $df39c1238ae2b5f3$exports = {
     "zh-CN": $c9a532d1c973af61$exports,
     "zh-TW": $34de119f14549a4b$exports
 };
+
+
+/*
+ * Copyright 2022 Adobe. All rights reserved.
+ * This file is licensed to you under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License. You may obtain a copy
+ * of the License at http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software distributed under
+ * the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR REPRESENTATIONS
+ * OF ANY KIND, either express or implied. See the License for the specific language
+ * governing permissions and limitations under the License.
+ */ 
+
+
+
+
+
+const $f3f84453ead64de5$export$ab57792b9b6974a6 = /*#__PURE__*/ (React.createContext)(null);
+const $f3f84453ead64de5$var$InternalModalContext = /*#__PURE__*/ (React.createContext)(null);
+function $f3f84453ead64de5$var$Modal(props, ref) {
+    let ctx = (React.useContext)($f3f84453ead64de5$var$InternalModalContext);
+    if (ctx) return /*#__PURE__*/ (React__default["default"]).createElement($f3f84453ead64de5$var$ModalContent, {
+        ...props,
+        modalRef: ref
+    }, props.children);
+    let { isDismissable: isDismissable, isKeyboardDismissDisabled: isKeyboardDismissDisabled, isOpen: isOpen, defaultOpen: defaultOpen, onOpenChange: onOpenChange, children: children, isEntering: isEntering, isExiting: isExiting, UNSTABLE_portalContainer: UNSTABLE_portalContainer, ...otherProps } = props;
+    return /*#__PURE__*/ (React__default["default"]).createElement($f3f84453ead64de5$export$8948f78d83984c69, {
+        isDismissable: isDismissable,
+        isKeyboardDismissDisabled: isKeyboardDismissDisabled,
+        isOpen: isOpen,
+        defaultOpen: defaultOpen,
+        onOpenChange: onOpenChange,
+        isEntering: isEntering,
+        isExiting: isExiting,
+        UNSTABLE_portalContainer: UNSTABLE_portalContainer
+    }, /*#__PURE__*/ (React__default["default"]).createElement($f3f84453ead64de5$var$ModalContent, {
+        ...otherProps,
+        modalRef: ref
+    }, children));
+}
+/**
+ * A modal is an overlay element which blocks interaction with elements outside it.
+ */ const $f3f84453ead64de5$export$2b77a92f1a5ad772 = /*#__PURE__*/ (React.forwardRef)($f3f84453ead64de5$var$Modal);
+function $f3f84453ead64de5$var$ModalOverlayWithForwardRef(props, ref) {
+    [props, ref] = ($64fa3d84918910a7$export$29f1550f4b0d4415)(props, ref, $f3f84453ead64de5$export$ab57792b9b6974a6);
+    let contextState = (React.useContext)(($de32f1b87079253c$export$d2f961adcb0afbe));
+    let localState = ($fc909762b330b746$export$61c6a8c84e605fb6)(props);
+    let state = props.isOpen != null || props.defaultOpen != null || !contextState ? localState : contextState;
+    let objectRef = ($df56164dff5785e2$export$4338b53315abf666)(ref);
+    let modalRef = (React.useRef)(null);
+    let isOverlayExiting = ($64fa3d84918910a7$export$45fda7c47f93fd48)(objectRef, state.isOpen);
+    let isModalExiting = ($64fa3d84918910a7$export$45fda7c47f93fd48)(modalRef, state.isOpen);
+    let isExiting = isOverlayExiting || isModalExiting || props.isExiting || false;
+    let isSSR = ($b5e257d569688ac6$export$535bd6ca7f90a273)();
+    if (!state.isOpen && !isExiting || isSSR) return null;
+    return /*#__PURE__*/ (React__default["default"]).createElement($f3f84453ead64de5$var$ModalOverlayInner, {
+        ...props,
+        state: state,
+        isExiting: isExiting,
+        overlayRef: objectRef,
+        modalRef: modalRef
+    });
+}
+const $f3f84453ead64de5$export$8948f78d83984c69 = /*#__PURE__*/ (React.forwardRef)($f3f84453ead64de5$var$ModalOverlayWithForwardRef);
+function $f3f84453ead64de5$var$ModalOverlayInner({ UNSTABLE_portalContainer: UNSTABLE_portalContainer, ...props }) {
+    let modalRef = props.modalRef;
+    let { state: state } = props;
+    let { modalProps: modalProps, underlayProps: underlayProps } = ($8ac8429251c45e4b$export$dbc0f175b25fb0fb)(props, state, modalRef);
+    let entering = ($64fa3d84918910a7$export$6d3443f2c48bfc20)(props.overlayRef) || props.isEntering || false;
+    let renderProps = ($64fa3d84918910a7$export$4d86445c2cf5e3)({
+        ...props,
+        defaultClassName: "react-aria-ModalOverlay",
+        values: {
+            isEntering: entering,
+            isExiting: props.isExiting,
+            state: state
+        }
+    });
+    let viewport = ($5df64b3807dc15ee$export$d699905dd57c73ca)();
+    let style = {
+        ...renderProps.style,
+        "--visual-viewport-height": viewport.height + "px"
+    };
+    return /*#__PURE__*/ (React__default["default"]).createElement(($337b884510726a0d$export$c6fdb837b070b4ff), {
+        isExiting: props.isExiting,
+        portalContainer: UNSTABLE_portalContainer
+    }, /*#__PURE__*/ (React__default["default"]).createElement("div", {
+        ...($3ef42575df84b30b$export$9d1611c77c2fe928)(($65484d02dcb7eb3e$export$457c3d6518dd4c6f)(props), underlayProps),
+        ...renderProps,
+        style: style,
+        ref: props.overlayRef,
+        "data-entering": entering || undefined,
+        "data-exiting": props.isExiting || undefined
+    }, /*#__PURE__*/ (React__default["default"]).createElement(($64fa3d84918910a7$export$2881499e37b75b9a), {
+        values: [
+            [
+                $f3f84453ead64de5$var$InternalModalContext,
+                {
+                    modalProps: modalProps,
+                    modalRef: modalRef,
+                    isExiting: props.isExiting,
+                    isDismissable: props.isDismissable
+                }
+            ],
+            [
+                ($de32f1b87079253c$export$d2f961adcb0afbe),
+                state
+            ]
+        ]
+    }, renderProps.children)));
+}
+function $f3f84453ead64de5$var$ModalContent(props) {
+    let { modalProps: modalProps, modalRef: modalRef, isExiting: isExiting, isDismissable: isDismissable } = (React.useContext)($f3f84453ead64de5$var$InternalModalContext);
+    let state = (React.useContext)(($de32f1b87079253c$export$d2f961adcb0afbe));
+    let mergedRefs = (React.useMemo)(()=>($5dc95899b306f630$export$c9058316764c140e)(props.modalRef, modalRef), [
+        props.modalRef,
+        modalRef
+    ]);
+    let ref = ($df56164dff5785e2$export$4338b53315abf666)(mergedRefs);
+    let entering = ($64fa3d84918910a7$export$6d3443f2c48bfc20)(ref);
+    let renderProps = ($64fa3d84918910a7$export$4d86445c2cf5e3)({
+        ...props,
+        defaultClassName: "react-aria-Modal",
+        values: {
+            isEntering: entering,
+            isExiting: isExiting,
+            state: state
+        }
+    });
+    return /*#__PURE__*/ (React__default["default"]).createElement("div", {
+        ...($3ef42575df84b30b$export$9d1611c77c2fe928)(($65484d02dcb7eb3e$export$457c3d6518dd4c6f)(props), modalProps),
+        ...renderProps,
+        ref: ref,
+        "data-entering": entering || undefined,
+        "data-exiting": isExiting || undefined
+    }, isDismissable && /*#__PURE__*/ (React__default["default"]).createElement(($86ea4cb521eb2e37$export$2317d149ed6f78c4), {
+        onDismiss: state.close
+    }), renderProps.children);
+}
 
 
 /*
@@ -13998,6 +14394,25 @@ const Input = (_a) => {
     return (jsxRuntime.jsx($3985021b0ad6602f$export$f5b8910cec6cf069, Object.assign({ className: twMerge(classes, className), disabled: isDisabled || rest.disabled }, rest)));
 };
 
+const sizeValues = {
+    sm: "300px",
+    md: "500px",
+    lg: "800px",
+    xl: "1140px",
+};
+const Modal = (_a) => {
+    var { ariaLabel, ariaLabeledBy, children, className, overlayClassName, footer, header, size = 'md' } = _a, rest = __rest(_a, ["ariaLabel", "ariaLabeledBy", "children", "className", "overlayClassName", "footer", "header", "size"]);
+    return (jsxRuntime.jsx($f3f84453ead64de5$export$8948f78d83984c69, Object.assign({ isDismissable: true, className: ({ isEntering, isExiting }) => clsx('bg-gray-500 bg-opacity-75 fixed w-screen h-screen top-0 left-0', {
+            'animate-in fade-in ease-out duration-200': isEntering,
+            'animate-out fade-out ease-in duration-150': isExiting,
+        }) }, rest, { children: ({ isEntering, isExiting }) => (jsxRuntime.jsx("div", Object.assign({ className: "flex justify-center items-center h-full w-full" }, { children: jsxRuntime.jsx($f3f84453ead64de5$export$2b77a92f1a5ad772, Object.assign({ className: "w-full px-1 flex justify-center", style: { marginTop: '-10vh' } }, { children: jsxRuntime.jsxs($de32f1b87079253c$export$3ddf2d174ce01153, Object.assign({ className: clsx("bg-white dark:bg-zinc-900 outline-none rounded-lg px-4 py-4 shadow-xl max-w-full", {
+                        'animate-in zoom-in-95 ease-out duration-200': isEntering,
+                        'animate-out zoom-out-95 ease-in duration-150': isExiting,
+                    }), style: { width: sizeValues[size] }, "aria-label": ariaLabel, "aria-labelledby": ariaLabeledBy }, { children: [header &&
+                            jsxRuntime.jsx($5cb03073d3f54797$export$a8a3e93435678ff9, Object.assign({ slot: "title", className: "mb-2" }, { children: header })), children, footer &&
+                            jsxRuntime.jsx("div", Object.assign({ className: "mt-4" }, { children: footer }))] })) })) }))) })));
+};
+
 function CheckIcon({
   title,
   titleId,
@@ -14117,6 +14532,7 @@ const ToggleSwitch = (_a) => {
 
 exports.Button = Button;
 exports.Input = Input;
+exports.Modal = Modal;
 exports.Select = Select;
 exports.SelectItem = SelectItem;
 exports.ToggleSwitch = ToggleSwitch;

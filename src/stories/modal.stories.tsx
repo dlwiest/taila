@@ -55,12 +55,11 @@ export const Size = () => {
             </div>
 
             <Modal
-                isDismissable
                 isOpen={isModalOpen}
                 onOpenChange={onCloseModal}
                 size={modalSize}
                 ariaLabel="Test Modal"
-                header={<h3 className="text-lg font-semibold leading-6 text-gray-800 dark:text-gray-100">{modalSizeMap[modalSize!]} Modal</h3>}
+                header={<span className="text-lg font-semibold leading-6 text-gray-800 dark:text-gray-100">{modalSizeMap[modalSize!]} Modal</span>}
                 footer={<div className="flex flex-row-reverse"><Button variant="outline" onPress={onCloseModal}>Close</Button></div>}
             >
                 <p className="text-gray-800 dark:text-gray-100">Add your modal content here.</p>
