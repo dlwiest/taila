@@ -546,7 +546,7 @@ function $8ae05eaa5c114e9c$export$7f54fc3180508a52(fn) {
     // @ts-ignore
     return (useCallback)((...args)=>{
         const f = ref.current;
-        return f(...args);
+        return f === null || f === void 0 ? void 0 : f(...args);
     }, []);
 }
 
@@ -557,6 +557,7 @@ function $1dbecbe27a04f9af$export$14d238f342723f25(defaultValue) {
     // Store the function in a ref so we can always access the current version
     // which has the proper `value` in scope.
     let nextRef = ($8ae05eaa5c114e9c$export$7f54fc3180508a52)(()=>{
+        if (!effect.current) return;
         // Run the generator to the next yield.
         let newValue = effect.current.next();
         // If the generator is done, reset the effect.
@@ -799,7 +800,7 @@ function $7215afc6de606d6b$var$supportsPreventScroll() {
     if ($7215afc6de606d6b$var$supportsPreventScrollCached == null) {
         $7215afc6de606d6b$var$supportsPreventScrollCached = false;
         try {
-            var focusElem = document.createElement("div");
+            let focusElem = document.createElement("div");
             focusElem.focus({
                 get preventScroll () {
                     $7215afc6de606d6b$var$supportsPreventScrollCached = true;
@@ -813,9 +814,9 @@ function $7215afc6de606d6b$var$supportsPreventScroll() {
     return $7215afc6de606d6b$var$supportsPreventScrollCached;
 }
 function $7215afc6de606d6b$var$getScrollableElements(element) {
-    var parent = element.parentNode;
-    var scrollableElements = [];
-    var rootScrollingElement = document.scrollingElement || document.documentElement;
+    let parent = element.parentNode;
+    let scrollableElements = [];
+    let rootScrollingElement = document.scrollingElement || document.documentElement;
     while(parent instanceof HTMLElement && parent !== rootScrollingElement){
         if (parent.offsetHeight < parent.scrollHeight || parent.offsetWidth < parent.scrollWidth) scrollableElements.push({
             element: parent,
@@ -982,7 +983,11 @@ let $bbed8b41f857bcc0$var$transitionsByElement = new Map();
 let $bbed8b41f857bcc0$var$transitionCallbacks = new Set();
 function $bbed8b41f857bcc0$var$setupGlobalEvents() {
     if (typeof window === "undefined") return;
+    function isTransitionEvent(event) {
+        return "propertyName" in event;
+    }
     let onTransitionStart = (e)=>{
+        if (!isTransitionEvent(e) || !e.target) return;
         // Add the transitioning property to the list for this element.
         let transitions = $bbed8b41f857bcc0$var$transitionsByElement.get(e.target);
         if (!transitions) {
@@ -991,11 +996,14 @@ function $bbed8b41f857bcc0$var$setupGlobalEvents() {
             // The transitioncancel event must be registered on the element itself, rather than as a global
             // event. This enables us to handle when the node is deleted from the document while it is transitioning.
             // In that case, the cancel event would have nowhere to bubble to so we need to handle it directly.
-            e.target.addEventListener("transitioncancel", onTransitionEnd);
+            e.target.addEventListener("transitioncancel", onTransitionEnd, {
+                once: true
+            });
         }
         transitions.add(e.propertyName);
     };
     let onTransitionEnd = (e)=>{
+        if (!isTransitionEvent(e) || !e.target) return;
         // Remove property from list of transitioning properties.
         let properties = $bbed8b41f857bcc0$var$transitionsByElement.get(e.target);
         if (!properties) return;
@@ -1130,7 +1138,7 @@ function $313b98861ee5dd6c$export$d6875122194c7b44(props, defaultLabel) {
  * governing permissions and limitations under the License.
  */ 
 function $df56164dff5785e2$export$4338b53315abf666(forwardedRef) {
-    const objRef = (useRef)();
+    const objRef = (useRef)(null);
     return (useMemo)(()=>({
             get current () {
                 return objRef.current;
@@ -1194,7 +1202,7 @@ function $e7801be82b4b2a53$export$4debdb1a3f0fa79e(context, ref) {
         if (context && context.ref && ref) {
             context.ref.current = ref.current;
             return ()=>{
-                context.ref.current = null;
+                if (context.ref) context.ref.current = null;
             };
         }
     });
@@ -1212,9 +1220,10 @@ function $e7801be82b4b2a53$export$4debdb1a3f0fa79e(context, ref) {
  * OF ANY KIND, either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  */ function $62d8ded9296f3872$export$cfa2225e87938781(node, checkForOverflow) {
-    if ($62d8ded9296f3872$export$2bb74740c4e19def(node, checkForOverflow)) node = node.parentElement;
-    while(node && !$62d8ded9296f3872$export$2bb74740c4e19def(node, checkForOverflow))node = node.parentElement;
-    return node || document.scrollingElement || document.documentElement;
+    let scrollableNode = node;
+    if ($62d8ded9296f3872$export$2bb74740c4e19def(scrollableNode, checkForOverflow)) scrollableNode = scrollableNode.parentElement;
+    while(scrollableNode && !$62d8ded9296f3872$export$2bb74740c4e19def(scrollableNode, checkForOverflow))scrollableNode = scrollableNode.parentElement;
+    return scrollableNode || document.scrollingElement || document.documentElement;
 }
 function $62d8ded9296f3872$export$2bb74740c4e19def(node, checkForOverflow) {
     let style = window.getComputedStyle(node);
@@ -1264,8 +1273,8 @@ function $5df64b3807dc15ee$export$d699905dd57c73ca() {
 }
 function $5df64b3807dc15ee$var$getViewportSize() {
     return {
-        width: ($5df64b3807dc15ee$var$visualViewport === null || $5df64b3807dc15ee$var$visualViewport === void 0 ? void 0 : $5df64b3807dc15ee$var$visualViewport.width) || window.innerWidth,
-        height: ($5df64b3807dc15ee$var$visualViewport === null || $5df64b3807dc15ee$var$visualViewport === void 0 ? void 0 : $5df64b3807dc15ee$var$visualViewport.height) || window.innerHeight
+        width: $5df64b3807dc15ee$var$visualViewport && ($5df64b3807dc15ee$var$visualViewport === null || $5df64b3807dc15ee$var$visualViewport === void 0 ? void 0 : $5df64b3807dc15ee$var$visualViewport.width) || window.innerWidth,
+        height: $5df64b3807dc15ee$var$visualViewport && ($5df64b3807dc15ee$var$visualViewport === null || $5df64b3807dc15ee$var$visualViewport === void 0 ? void 0 : $5df64b3807dc15ee$var$visualViewport.height) || window.innerHeight
     };
 }
 
@@ -1285,7 +1294,7 @@ function $5df64b3807dc15ee$var$getViewportSize() {
 let $ef06256079686ba0$var$descriptionId = 0;
 const $ef06256079686ba0$var$descriptionNodes = new Map();
 function $ef06256079686ba0$export$f8aeda7b10753fa1(description) {
-    let [id, setId] = (useState)(undefined);
+    let [id, setId] = (useState)();
     ($f0a04ccd8dbdd83b$export$e5c5a5f917a5871c)(()=>{
         if (!description) return;
         let desc = $ef06256079686ba0$var$descriptionNodes.get(description);
@@ -1305,7 +1314,7 @@ function $ef06256079686ba0$export$f8aeda7b10753fa1(description) {
         } else setId(desc.element.id);
         desc.refCount++;
         return ()=>{
-            if (--desc.refCount === 0) {
+            if (desc && --desc.refCount === 0) {
                 desc.element.remove();
                 $ef06256079686ba0$var$descriptionNodes.delete(description);
             }
@@ -1336,7 +1345,7 @@ function $e9faafb641e167db$export$90fc3a17d93f704c(ref, event, handler, options)
     let handleEvent = ($8ae05eaa5c114e9c$export$7f54fc3180508a52)(handler);
     let isDisabled = handler == null;
     (useEffect)(()=>{
-        if (isDisabled) return;
+        if (isDisabled || !ref.current) return;
         let element = ref.current;
         element.addEventListener(event, handleEvent, options);
         return ()=>{
@@ -1590,6 +1599,7 @@ function _class_private_field_set(receiver, privateMap, value) {
 
 
 
+
 /*
  * Copyright 2020 Adobe. All rights reserved.
  * This file is licensed to you under the Apache License, Version 2.0 (the "License");
@@ -1655,7 +1665,6 @@ function $14c0b72509d70225$export$b0d6fa1ab32e3295(target) {
         }
     }
 }
-
 
 
 /*
@@ -1808,8 +1817,13 @@ function $f6c31cce2adf654f$export$45712eceda6fad21(props) {
                         state.isPressed = true;
                         shouldStopPropagation = triggerPressStart(e, "keyboard");
                         // Focus may move before the key up event, so register the event on the document
-                        // instead of the same element where the key down event occurred.
-                        addGlobalListener(($431fbd86ca7dc216$export$b204af158042fbac)(e.currentTarget), "keyup", onKeyUp, false);
+                        // instead of the same element where the key down event occurred. Make it capturing so that it will trigger
+                        // before stopPropagation from useKeyboard on a child element may happen and thus we can still call triggerPress for the parent element.
+                        let originalTarget = e.currentTarget;
+                        let pressUp = (e)=>{
+                            if ($f6c31cce2adf654f$var$isValidKeyboardEvent(e, originalTarget) && !e.repeat && originalTarget.contains(e.target) && state.target) triggerPressUp($f6c31cce2adf654f$var$createEvent(state.target, e), "keyboard");
+                        };
+                        addGlobalListener(($431fbd86ca7dc216$export$b204af158042fbac)(e.currentTarget), "keyup", ($ff5963eb1fccf552$export$e08e3b67e392101e)(pressUp, onKeyUp), true);
                     }
                     if (shouldStopPropagation) e.stopPropagation();
                     // Keep track of the keydown events that occur while the Meta (e.g. Command) key is held.
@@ -1821,9 +1835,6 @@ function $f6c31cce2adf654f$export$45712eceda6fad21(props) {
                     // https://bugzilla.mozilla.org/show_bug.cgi?id=1299553
                     if (e.metaKey && ($c87311424ea30a05$export$9ac100e40613ea10)()) (_state_metaKeyEvents = state.metaKeyEvents) === null || _state_metaKeyEvents === void 0 ? void 0 : _state_metaKeyEvents.set(e.key, e.nativeEvent);
                 } else if (e.key === "Meta") state.metaKeyEvents = new Map();
-            },
-            onKeyUp (e) {
-                if ($f6c31cce2adf654f$var$isValidKeyboardEvent(e.nativeEvent, e.currentTarget) && !e.repeat && e.currentTarget.contains(e.target) && state.target) triggerPressUp($f6c31cce2adf654f$var$createEvent(state.target, e), "keyboard");
             },
             onClick (e) {
                 if (e && !e.currentTarget.contains(e.target)) return;
@@ -1852,9 +1863,8 @@ function $f6c31cce2adf654f$export$45712eceda6fad21(props) {
                 var _state_metaKeyEvents1;
                 if ($f6c31cce2adf654f$var$shouldPreventDefaultKeyboard(e.target, e.key)) e.preventDefault();
                 let target = e.target;
-                let shouldStopPropagation = triggerPressEnd($f6c31cce2adf654f$var$createEvent(state.target, e), "keyboard", state.target.contains(target));
+                triggerPressEnd($f6c31cce2adf654f$var$createEvent(state.target, e), "keyboard", state.target.contains(target));
                 removeAllGlobalListeners();
-                if (shouldStopPropagation) e.stopPropagation();
                 // If a link was triggered with a key other than Enter, open the URL ourselves.
                 // This means the link has a role override, and the default browser behavior
                 // only applies when using the Enter key.
@@ -2397,7 +2407,7 @@ function $a1ea59d68270f0dd$export$f8168d8dd8fd66e6(props) {
 
 let $507fabe10e71c6fb$var$currentModality = null;
 let $507fabe10e71c6fb$var$changeHandlers = new Set();
-let $507fabe10e71c6fb$var$hasSetupGlobalListeners = false;
+let $507fabe10e71c6fb$export$d90243b58daecda7 = new Map(); // We use a map here to support setting event listeners across multiple document objects.
 let $507fabe10e71c6fb$var$hasEventBeforeFocus = false;
 let $507fabe10e71c6fb$var$hasBlurredWindowRecently = false;
 // Only Tab or Esc keys will make focus visible on text input elements
@@ -2456,39 +2466,82 @@ function $507fabe10e71c6fb$var$handleWindowBlur() {
 }
 /**
  * Setup global event listeners to control when keyboard focus style should be visible.
- */ function $507fabe10e71c6fb$var$setupGlobalFocusEvents() {
-    if (typeof window === "undefined" || $507fabe10e71c6fb$var$hasSetupGlobalListeners) return;
+ */ function $507fabe10e71c6fb$var$setupGlobalFocusEvents(element) {
+    if (typeof window === "undefined" || $507fabe10e71c6fb$export$d90243b58daecda7.get(($431fbd86ca7dc216$export$f21a1ffae260145a)(element))) return;
+    const windowObject = ($431fbd86ca7dc216$export$f21a1ffae260145a)(element);
+    const documentObject = ($431fbd86ca7dc216$export$b204af158042fbac)(element);
     // Programmatic focus() calls shouldn't affect the current input modality.
     // However, we need to detect other cases when a focus event occurs without
     // a preceding user event (e.g. screen reader focus). Overriding the focus
     // method on HTMLElement.prototype is a bit hacky, but works.
-    let focus = HTMLElement.prototype.focus;
-    HTMLElement.prototype.focus = function() {
+    let focus = windowObject.HTMLElement.prototype.focus;
+    windowObject.HTMLElement.prototype.focus = function() {
         $507fabe10e71c6fb$var$hasEventBeforeFocus = true;
         focus.apply(this, arguments);
     };
-    document.addEventListener("keydown", $507fabe10e71c6fb$var$handleKeyboardEvent, true);
-    document.addEventListener("keyup", $507fabe10e71c6fb$var$handleKeyboardEvent, true);
-    document.addEventListener("click", $507fabe10e71c6fb$var$handleClickEvent, true);
+    documentObject.addEventListener("keydown", $507fabe10e71c6fb$var$handleKeyboardEvent, true);
+    documentObject.addEventListener("keyup", $507fabe10e71c6fb$var$handleKeyboardEvent, true);
+    documentObject.addEventListener("click", $507fabe10e71c6fb$var$handleClickEvent, true);
     // Register focus events on the window so they are sure to happen
     // before React's event listeners (registered on the document).
-    window.addEventListener("focus", $507fabe10e71c6fb$var$handleFocusEvent, true);
-    window.addEventListener("blur", $507fabe10e71c6fb$var$handleWindowBlur, false);
+    windowObject.addEventListener("focus", $507fabe10e71c6fb$var$handleFocusEvent, true);
+    windowObject.addEventListener("blur", $507fabe10e71c6fb$var$handleWindowBlur, false);
     if (typeof PointerEvent !== "undefined") {
-        document.addEventListener("pointerdown", $507fabe10e71c6fb$var$handlePointerEvent, true);
-        document.addEventListener("pointermove", $507fabe10e71c6fb$var$handlePointerEvent, true);
-        document.addEventListener("pointerup", $507fabe10e71c6fb$var$handlePointerEvent, true);
+        documentObject.addEventListener("pointerdown", $507fabe10e71c6fb$var$handlePointerEvent, true);
+        documentObject.addEventListener("pointermove", $507fabe10e71c6fb$var$handlePointerEvent, true);
+        documentObject.addEventListener("pointerup", $507fabe10e71c6fb$var$handlePointerEvent, true);
     } else {
-        document.addEventListener("mousedown", $507fabe10e71c6fb$var$handlePointerEvent, true);
-        document.addEventListener("mousemove", $507fabe10e71c6fb$var$handlePointerEvent, true);
-        document.addEventListener("mouseup", $507fabe10e71c6fb$var$handlePointerEvent, true);
+        documentObject.addEventListener("mousedown", $507fabe10e71c6fb$var$handlePointerEvent, true);
+        documentObject.addEventListener("mousemove", $507fabe10e71c6fb$var$handlePointerEvent, true);
+        documentObject.addEventListener("mouseup", $507fabe10e71c6fb$var$handlePointerEvent, true);
     }
-    $507fabe10e71c6fb$var$hasSetupGlobalListeners = true;
+    // Add unmount handler
+    windowObject.addEventListener("beforeunload", ()=>{
+        $507fabe10e71c6fb$var$tearDownWindowFocusTracking(element);
+    }, {
+        once: true
+    });
+    $507fabe10e71c6fb$export$d90243b58daecda7.set(windowObject, {
+        focus: focus
+    });
 }
-if (typeof document !== "undefined") {
-    if (document.readyState !== "loading") $507fabe10e71c6fb$var$setupGlobalFocusEvents();
-    else document.addEventListener("DOMContentLoaded", $507fabe10e71c6fb$var$setupGlobalFocusEvents);
+const $507fabe10e71c6fb$var$tearDownWindowFocusTracking = (element, loadListener)=>{
+    const windowObject = ($431fbd86ca7dc216$export$f21a1ffae260145a)(element);
+    const documentObject = ($431fbd86ca7dc216$export$b204af158042fbac)(element);
+    if (loadListener) documentObject.removeEventListener("DOMContentLoaded", loadListener);
+    if (!$507fabe10e71c6fb$export$d90243b58daecda7.has(windowObject)) return;
+    windowObject.HTMLElement.prototype.focus = $507fabe10e71c6fb$export$d90243b58daecda7.get(windowObject).focus;
+    documentObject.removeEventListener("keydown", $507fabe10e71c6fb$var$handleKeyboardEvent, true);
+    documentObject.removeEventListener("keyup", $507fabe10e71c6fb$var$handleKeyboardEvent, true);
+    documentObject.removeEventListener("click", $507fabe10e71c6fb$var$handleClickEvent, true);
+    windowObject.removeEventListener("focus", $507fabe10e71c6fb$var$handleFocusEvent, true);
+    windowObject.removeEventListener("blur", $507fabe10e71c6fb$var$handleWindowBlur, false);
+    if (typeof PointerEvent !== "undefined") {
+        documentObject.removeEventListener("pointerdown", $507fabe10e71c6fb$var$handlePointerEvent, true);
+        documentObject.removeEventListener("pointermove", $507fabe10e71c6fb$var$handlePointerEvent, true);
+        documentObject.removeEventListener("pointerup", $507fabe10e71c6fb$var$handlePointerEvent, true);
+    } else {
+        documentObject.removeEventListener("mousedown", $507fabe10e71c6fb$var$handlePointerEvent, true);
+        documentObject.removeEventListener("mousemove", $507fabe10e71c6fb$var$handlePointerEvent, true);
+        documentObject.removeEventListener("mouseup", $507fabe10e71c6fb$var$handlePointerEvent, true);
+    }
+    $507fabe10e71c6fb$export$d90243b58daecda7.delete(windowObject);
+};
+function $507fabe10e71c6fb$export$2f1888112f558a7d(element) {
+    const documentObject = ($431fbd86ca7dc216$export$b204af158042fbac)(element);
+    let loadListener;
+    if (documentObject.readyState !== "loading") $507fabe10e71c6fb$var$setupGlobalFocusEvents(element);
+    else {
+        loadListener = ()=>{
+            $507fabe10e71c6fb$var$setupGlobalFocusEvents(element);
+        };
+        documentObject.addEventListener("DOMContentLoaded", loadListener);
+    }
+    return ()=>$507fabe10e71c6fb$var$tearDownWindowFocusTracking(element, loadListener);
 }
+// Server-side rendering does not have the document object defined
+// eslint-disable-next-line no-restricted-globals
+if (typeof document !== "undefined") $507fabe10e71c6fb$export$2f1888112f558a7d();
 function $507fabe10e71c6fb$export$b9b3dfddab17db27() {
     return $507fabe10e71c6fb$var$currentModality !== "pointer";
 }
@@ -2529,8 +2582,12 @@ const $507fabe10e71c6fb$var$nonTextInputTypes = new Set([
  * focus visible style can be properly set.
  */ function $507fabe10e71c6fb$var$isKeyboardFocusEvent(isTextInput, modality, e) {
     var _e_target;
-    isTextInput = isTextInput || (e === null || e === void 0 ? void 0 : e.target) instanceof HTMLInputElement && !$507fabe10e71c6fb$var$nonTextInputTypes.has(e === null || e === void 0 ? void 0 : (_e_target = e.target) === null || _e_target === void 0 ? void 0 : _e_target.type) || (e === null || e === void 0 ? void 0 : e.target) instanceof HTMLTextAreaElement || (e === null || e === void 0 ? void 0 : e.target) instanceof HTMLElement && (e === null || e === void 0 ? void 0 : e.target.isContentEditable);
-    return !(isTextInput && modality === "keyboard" && e instanceof KeyboardEvent && !$507fabe10e71c6fb$var$FOCUS_VISIBLE_INPUT_KEYS[e.key]);
+    const IHTMLInputElement = typeof window !== "undefined" ? ($431fbd86ca7dc216$export$f21a1ffae260145a)(e === null || e === void 0 ? void 0 : e.target).HTMLInputElement : HTMLInputElement;
+    const IHTMLTextAreaElement = typeof window !== "undefined" ? ($431fbd86ca7dc216$export$f21a1ffae260145a)(e === null || e === void 0 ? void 0 : e.target).HTMLTextAreaElement : HTMLTextAreaElement;
+    const IHTMLElement = typeof window !== "undefined" ? ($431fbd86ca7dc216$export$f21a1ffae260145a)(e === null || e === void 0 ? void 0 : e.target).HTMLElement : HTMLElement;
+    const IKeyboardEvent = typeof window !== "undefined" ? ($431fbd86ca7dc216$export$f21a1ffae260145a)(e === null || e === void 0 ? void 0 : e.target).KeyboardEvent : KeyboardEvent;
+    isTextInput = isTextInput || (e === null || e === void 0 ? void 0 : e.target) instanceof IHTMLInputElement && !$507fabe10e71c6fb$var$nonTextInputTypes.has(e === null || e === void 0 ? void 0 : (_e_target = e.target) === null || _e_target === void 0 ? void 0 : _e_target.type) || (e === null || e === void 0 ? void 0 : e.target) instanceof IHTMLTextAreaElement || (e === null || e === void 0 ? void 0 : e.target) instanceof IHTMLElement && (e === null || e === void 0 ? void 0 : e.target.isContentEditable);
+    return !(isTextInput && modality === "keyboard" && e instanceof IKeyboardEvent && !$507fabe10e71c6fb$var$FOCUS_VISIBLE_INPUT_KEYS[e.key]);
 }
 function $507fabe10e71c6fb$export$ec71b4b83ac08ec3(fn, deps, opts) {
     $507fabe10e71c6fb$var$setupGlobalFocusEvents();
@@ -4908,6 +4965,7 @@ let $edcf132a9284368a$var$visualViewport = typeof document !== "undefined" && wi
 function $edcf132a9284368a$var$getContainerDimensions(containerNode) {
     let width = 0, height = 0, totalWidth = 0, totalHeight = 0, top = 0, left = 0;
     let scroll = {};
+    let isPinchZoomedIn = ($edcf132a9284368a$var$visualViewport === null || $edcf132a9284368a$var$visualViewport === void 0 ? void 0 : $edcf132a9284368a$var$visualViewport.scale) > 1;
     if (containerNode.tagName === "BODY") {
         let documentElement = document.documentElement;
         totalWidth = documentElement.clientWidth;
@@ -4918,12 +4976,29 @@ function $edcf132a9284368a$var$getContainerDimensions(containerNode) {
         height = (_visualViewport_height = $edcf132a9284368a$var$visualViewport === null || $edcf132a9284368a$var$visualViewport === void 0 ? void 0 : $edcf132a9284368a$var$visualViewport.height) !== null && _visualViewport_height !== void 0 ? _visualViewport_height : totalHeight;
         scroll.top = documentElement.scrollTop || containerNode.scrollTop;
         scroll.left = documentElement.scrollLeft || containerNode.scrollLeft;
+        // The goal of the below is to get a top/left value that represents the top/left of the visual viewport with
+        // respect to the layout viewport origin. This combined with the scrollTop/scrollLeft will allow us to calculate
+        // coordinates/values with respect to the visual viewport or with respect to the layout viewport.
+        if ($edcf132a9284368a$var$visualViewport) {
+            top = $edcf132a9284368a$var$visualViewport.offsetTop;
+            left = $edcf132a9284368a$var$visualViewport.offsetLeft;
+        }
     } else {
         ({ width: width, height: height, top: top, left: left } = $edcf132a9284368a$var$getOffset(containerNode));
         scroll.top = containerNode.scrollTop;
         scroll.left = containerNode.scrollLeft;
         totalWidth = width;
         totalHeight = height;
+    }
+    if (($c87311424ea30a05$export$78551043582a6a98)() && (containerNode.tagName === "BODY" || containerNode.tagName === "HTML") && isPinchZoomedIn) {
+        // Safari will report a non-zero scrollTop/Left for the non-scrolling body/HTML element when pinch zoomed in unlike other browsers.
+        // Set to zero for parity calculations so we get consistent positioning of overlays across all browsers.
+        // Also switch to visualViewport.pageTop/pageLeft so that we still accomodate for scroll positioning for body/HTML elements that are actually scrollable
+        // before pinch zoom happens
+        scroll.top = 0;
+        scroll.left = 0;
+        top = $edcf132a9284368a$var$visualViewport.pageTop;
+        left = $edcf132a9284368a$var$visualViewport.pageLeft;
     }
     return {
         width: width,
@@ -4943,6 +5018,7 @@ function $edcf132a9284368a$var$getScroll(node) {
         height: node.scrollHeight
     };
 }
+// Determines the amount of space required when moving the overlay to ensure it remains in the boundary
 function $edcf132a9284368a$var$getDelta(axis, offset, size, // The dimensions of the boundary element that the popover is
 // positioned within (most of the time this is the <body>).
 boundaryDimensions, // The dimensions of the containing block element that the popover is
@@ -4950,13 +5026,20 @@ boundaryDimensions, // The dimensions of the containing block element that the p
 // Usually this is the same as the boundary element, but if the popover
 // is portaled somewhere other than the body and has an ancestor with
 // position: relative/absolute, it will be different.
-containerDimensions, padding) {
+containerDimensions, padding, containerOffsetWithBoundary) {
     let containerScroll = containerDimensions.scroll[axis];
-    let boundaryHeight = boundaryDimensions[$edcf132a9284368a$var$AXIS_SIZE[axis]];
-    let startEdgeOffset = offset - padding - containerScroll;
-    let endEdgeOffset = offset + padding - containerScroll + size;
-    if (startEdgeOffset < 0) return -startEdgeOffset;
-    else if (endEdgeOffset > boundaryHeight) return Math.max(boundaryHeight - endEdgeOffset, -startEdgeOffset);
+    // The height/width of the boundary. Matches the axis along which we are adjusting the overlay position
+    let boundarySize = boundaryDimensions[$edcf132a9284368a$var$AXIS_SIZE[axis]];
+    // Calculate the edges of the boundary (accomodating for the boundary padding) and the edges of the overlay.
+    // Note that these values are with respect to the visual viewport (aka 0,0 is the top left of the viewport)
+    let boundaryStartEdge = boundaryDimensions.scroll[$edcf132a9284368a$var$AXIS[axis]] + padding;
+    let boundaryEndEdge = boundarySize + boundaryDimensions.scroll[$edcf132a9284368a$var$AXIS[axis]] - padding;
+    let startEdgeOffset = offset - containerScroll + containerOffsetWithBoundary[axis] - boundaryDimensions[$edcf132a9284368a$var$AXIS[axis]];
+    let endEdgeOffset = offset - containerScroll + size + containerOffsetWithBoundary[axis] - boundaryDimensions[$edcf132a9284368a$var$AXIS[axis]];
+    // If any of the overlay edges falls outside of the boundary, shift the overlay the required amount to align one of the overlay's
+    // edges with the closest boundary edge.
+    if (startEdgeOffset < boundaryStartEdge) return boundaryStartEdge - startEdgeOffset;
+    else if (endEdgeOffset > boundaryEndEdge) return Math.max(boundaryEndEdge - endEdgeOffset, boundaryStartEdge - startEdgeOffset);
     else return 0;
 }
 function $edcf132a9284368a$var$getMargins(node) {
@@ -5000,7 +5083,6 @@ function $edcf132a9284368a$var$computePosition(childOffset, boundaryDimensions, 
      /* else {
     the overlay top should match the button top
   } */ 
-    // add the crossOffset from props
     position[crossAxis] += crossOffset;
     // overlay top overlapping arrow with button bottom
     const minPosition = childOffset[crossAxis] - overlaySize[crossSize] + arrowSize + arrowBoundaryOffset;
@@ -5018,14 +5100,20 @@ function $edcf132a9284368a$var$computePosition(childOffset, boundaryDimensions, 
     } else position[axis] = Math.floor(childOffset[axis] + childOffset[size] + offset);
     return position;
 }
-function $edcf132a9284368a$var$getMaxHeight(position, boundaryDimensions, containerOffsetWithBoundary, childOffset, margins, padding) {
-    return position.top != null ? Math.max(0, boundaryDimensions.height + boundaryDimensions.top + boundaryDimensions.scroll.top // this is the bottom of the boundary
-     - (containerOffsetWithBoundary.top + position.top // this is the top of the overlay
-    ) - (margins.top + margins.bottom + padding // save additional space for margin and padding
-    )) : Math.max(0, childOffset.top + containerOffsetWithBoundary.top // this is the top of the trigger
+function $edcf132a9284368a$var$getMaxHeight(position, boundaryDimensions, containerOffsetWithBoundary, isContainerPositioned, margins, padding, overlayHeight, heightGrowthDirection) {
+    const containerHeight = isContainerPositioned ? containerOffsetWithBoundary.height : boundaryDimensions[$edcf132a9284368a$var$TOTAL_SIZE.height];
+    // For cases where position is set via "bottom" instead of "top", we need to calculate the true overlay top with respect to the boundary. Reverse calculate this with the same method
+    // used in computePosition.
+    let overlayTop = position.top != null ? containerOffsetWithBoundary.top + position.top : containerOffsetWithBoundary.top + (containerHeight - position.bottom - overlayHeight);
+    let maxHeight = heightGrowthDirection !== "top" ? // We want the distance between the top of the overlay to the bottom of the boundary
+    Math.max(0, boundaryDimensions.height + boundaryDimensions.top + boundaryDimensions.scroll.top // this is the bottom of the boundary
+     - overlayTop // this is the top of the overlay
+     - (margins.top + margins.bottom + padding // save additional space for margin and padding
+    )) : Math.max(0, overlayTop + overlayHeight // this is the bottom of the overlay
      - (boundaryDimensions.top + boundaryDimensions.scroll.top // this is the top of the boundary
     ) - (margins.top + margins.bottom + padding // save additional space for margin and padding
     ));
+    return Math.min(boundaryDimensions.height - padding * 2, maxHeight);
 }
 function $edcf132a9284368a$var$getAvailableSpace(boundaryDimensions, containerOffsetWithBoundary, childOffset, margins, padding, placementInfo) {
     let { placement: placement, axis: axis, size: size } = placementInfo;
@@ -5050,13 +5138,22 @@ function $edcf132a9284368a$export$6839422d1f33cee9(placementInput, childOffset, 
             normalizedOffset = offset;
         }
     }
-    let delta = $edcf132a9284368a$var$getDelta(crossAxis, position[crossAxis], overlaySize[crossSize], boundaryDimensions, containerDimensions, padding);
+    // Determine the direction the height of the overlay can grow so that we can choose how to calculate the max height
+    let heightGrowthDirection = "bottom";
+    if (placementInfo.axis === "top") {
+        if (placementInfo.placement === "top") heightGrowthDirection = "top";
+        else if (placementInfo.placement === "bottom") heightGrowthDirection = "bottom";
+    } else if (placementInfo.crossAxis === "top") {
+        if (placementInfo.crossPlacement === "top") heightGrowthDirection = "bottom";
+        else if (placementInfo.crossPlacement === "bottom") heightGrowthDirection = "top";
+    }
+    let delta = $edcf132a9284368a$var$getDelta(crossAxis, position[crossAxis], overlaySize[crossSize], boundaryDimensions, containerDimensions, padding, containerOffsetWithBoundary);
     position[crossAxis] += delta;
-    let maxHeight = $edcf132a9284368a$var$getMaxHeight(position, boundaryDimensions, containerOffsetWithBoundary, childOffset, margins, padding);
+    let maxHeight = $edcf132a9284368a$var$getMaxHeight(position, boundaryDimensions, containerOffsetWithBoundary, isContainerPositioned, margins, padding, overlaySize.height, heightGrowthDirection);
     if (userSetMaxHeight && userSetMaxHeight < maxHeight) maxHeight = userSetMaxHeight;
     overlaySize.height = Math.min(overlaySize.height, maxHeight);
     position = $edcf132a9284368a$var$computePosition(childOffset, boundaryDimensions, overlaySize, placementInfo, normalizedOffset, crossOffset, containerOffsetWithBoundary, isContainerPositioned, arrowSize, arrowBoundaryOffset);
-    delta = $edcf132a9284368a$var$getDelta(crossAxis, position[crossAxis], overlaySize[crossSize], boundaryDimensions, containerDimensions, padding);
+    delta = $edcf132a9284368a$var$getDelta(crossAxis, position[crossAxis], overlaySize[crossSize], boundaryDimensions, containerDimensions, padding, containerOffsetWithBoundary);
     position[crossAxis] += delta;
     let arrowPosition = {};
     // All values are transformed so that 0 is at the top/left of the overlay depending on the orientation
@@ -5098,7 +5195,14 @@ function $edcf132a9284368a$export$b3ceb0cbf1056d98(opts) {
     let scrollSize = $edcf132a9284368a$var$getScroll(scrollNode);
     let boundaryDimensions = $edcf132a9284368a$var$getContainerDimensions(boundaryElement);
     let containerDimensions = $edcf132a9284368a$var$getContainerDimensions(container);
+    // If the container is the HTML element wrapping the body element, the retrieved scrollTop/scrollLeft will be equal to the
+    // body element's scroll. Set the container's scroll values to 0 since the overlay's edge position value in getDelta don't then need to be further offset
+    // by the container scroll since they are essentially the same containing element and thus in the same coordinate system
     let containerOffsetWithBoundary = boundaryElement.tagName === "BODY" ? $edcf132a9284368a$var$getOffset(container) : $edcf132a9284368a$var$getPosition(container, boundaryElement);
+    if (container.tagName === "HTML" && boundaryElement.tagName === "BODY") {
+        containerDimensions.scroll.top = 0;
+        containerDimensions.scroll.left = 0;
+    }
     return $edcf132a9284368a$export$6839422d1f33cee9(placement, childOffset, overlaySize, scrollSize, margins, padding, shouldFlip, boundaryDimensions, containerDimensions, containerOffsetWithBoundary, offset, crossOffset, isContainerPositioned, maxHeight, arrowSize, arrowBoundaryOffset);
 }
 function $edcf132a9284368a$var$getOffset(node) {
@@ -5234,8 +5338,21 @@ function $2a41e45df1593e64$export$d39e1813b3bdd0e1(props) {
         arrowBoundaryOffset,
         arrowSize
     ];
+    // Note, the position freezing breaks if body sizes itself dynamicly with the visual viewport but that might
+    // just be a non-realistic use case
+    // Upon opening a overlay, record the current visual viewport scale so we can freeze the overlay styles
+    let lastScale = (useRef)($2a41e45df1593e64$var$visualViewport === null || $2a41e45df1593e64$var$visualViewport === void 0 ? void 0 : $2a41e45df1593e64$var$visualViewport.scale);
+    (useEffect)(()=>{
+        if (isOpen) lastScale.current = $2a41e45df1593e64$var$visualViewport === null || $2a41e45df1593e64$var$visualViewport === void 0 ? void 0 : $2a41e45df1593e64$var$visualViewport.scale;
+    }, [
+        isOpen
+    ]);
     let updatePosition = (useCallback)(()=>{
         if (shouldUpdatePosition === false || !isOpen || !overlayRef.current || !targetRef.current || !scrollRef.current || !boundaryElement) return;
+        if (($2a41e45df1593e64$var$visualViewport === null || $2a41e45df1593e64$var$visualViewport === void 0 ? void 0 : $2a41e45df1593e64$var$visualViewport.scale) !== lastScale.current) return;
+        // Always reset the overlay's previous max height if not defined by the user so that we can compensate for
+        // RAC collections populating after a second render and properly set a correct max height + positioning when it populates.
+        if (!maxHeight && overlayRef.current) overlayRef.current.style.maxHeight = "none";
         let position = ($edcf132a9284368a$export$b3ceb0cbf1056d98)({
             placement: $2a41e45df1593e64$var$translateRTL(placement, direction),
             overlayNode: overlayRef.current,
@@ -5281,11 +5398,16 @@ function $2a41e45df1593e64$export$d39e1813b3bdd0e1(props) {
             }, 500);
             updatePosition();
         };
+        // Only reposition the overlay if a scroll event happens immediately as a result of resize (aka the virtual keyboard has appears)
+        // We don't want to reposition the overlay if the user has pinch zoomed in and is scrolling the viewport around.
+        let onScroll = ()=>{
+            if (isResizing.current) onResize();
+        };
         $2a41e45df1593e64$var$visualViewport === null || $2a41e45df1593e64$var$visualViewport === void 0 ? void 0 : $2a41e45df1593e64$var$visualViewport.addEventListener("resize", onResize);
-        $2a41e45df1593e64$var$visualViewport === null || $2a41e45df1593e64$var$visualViewport === void 0 ? void 0 : $2a41e45df1593e64$var$visualViewport.addEventListener("scroll", onResize);
+        $2a41e45df1593e64$var$visualViewport === null || $2a41e45df1593e64$var$visualViewport === void 0 ? void 0 : $2a41e45df1593e64$var$visualViewport.addEventListener("scroll", onScroll);
         return ()=>{
             $2a41e45df1593e64$var$visualViewport === null || $2a41e45df1593e64$var$visualViewport === void 0 ? void 0 : $2a41e45df1593e64$var$visualViewport.removeEventListener("resize", onResize);
-            $2a41e45df1593e64$var$visualViewport === null || $2a41e45df1593e64$var$visualViewport === void 0 ? void 0 : $2a41e45df1593e64$var$visualViewport.removeEventListener("scroll", onResize);
+            $2a41e45df1593e64$var$visualViewport === null || $2a41e45df1593e64$var$visualViewport === void 0 ? void 0 : $2a41e45df1593e64$var$visualViewport.removeEventListener("scroll", onScroll);
         };
     }, [
         updatePosition
@@ -6387,7 +6509,8 @@ function $ae20dd8cbca75726$export$d6daf82dcd84e87c(options) {
             let element = scrollRef.current.querySelector(`[data-key="${CSS.escape(manager.focusedKey.toString())}"]`);
             if (element && (modality === "keyboard" || autoFocusRef.current)) {
                 if (!isVirtualized) ($2f04cbc44ee30ce0$export$53a0910f038337bd)(scrollRef.current, element);
-                ($2f04cbc44ee30ce0$export$c826860796309d1b)(element, {
+                // Avoid scroll in iOS VO, since it may cause overlay to close (i.e. RAC submenu)
+                if (modality !== "virtual") ($2f04cbc44ee30ce0$export$c826860796309d1b)(element, {
                     containingElement: ref.current
                 });
             }
@@ -6716,7 +6839,7 @@ class $2a25aae57d74318e$export$a05409b8bb224a5a {
         let key = this.collection.getFirstKey();
         while(key != null){
             let item = this.collection.getItem(key);
-            if (item.type === "item" && !this.disabledKeys.has(key)) return key;
+            if ((item === null || item === void 0 ? void 0 : item.type) === "item" && !this.disabledKeys.has(key)) return key;
             key = this.collection.getKeyAfter(key);
         }
         return null;
@@ -7730,120 +7853,6 @@ function $168583247155ddda$export$dc9c12ed27dd1b49(props, state, ref) {
             autoFocus: state.focusStrategy || true,
             onClose: state.close
         }
-    };
-}
-
-/*
- * Copyright 2020 Adobe. All rights reserved.
- * This file is licensed to you under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License. You may obtain a copy
- * of the License at http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software distributed under
- * the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR REPRESENTATIONS
- * OF ANY KIND, either express or implied. See the License for the specific language
- * governing permissions and limitations under the License.
- */ /*
- * Copyright 2020 Adobe. All rights reserved.
- * This file is licensed to you under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License. You may obtain a copy
- * of the License at http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software distributed under
- * the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR REPRESENTATIONS
- * OF ANY KIND, either express or implied. See the License for the specific language
- * governing permissions and limitations under the License.
- */ 
-
-
-
-
-
-
-function $2d73ec29415bd339$export$712718f7aec83d5(props, ref) {
-    let { inputElementType: inputElementType = "input", isDisabled: isDisabled = false, isRequired: isRequired = false, isReadOnly: isReadOnly = false, type: type = "text", validationBehavior: validationBehavior = "aria" } = props;
-    let [value, setValue] = ($458b0a5536c1a7cf$export$40bfa8c7b0832715)(props.value, props.defaultValue || "", props.onChange);
-    let { focusableProps: focusableProps } = ($e6afbd83fe6ebbd2$export$4c014de7c8940b4c)(props, ref);
-    let validationState = ($e5be200c675c3b3a$export$fc1a364ae1f3ff10)({
-        ...props,
-        value: value
-    });
-    let { isInvalid: isInvalid, validationErrors: validationErrors, validationDetails: validationDetails } = validationState.displayValidation;
-    let { labelProps: labelProps, fieldProps: fieldProps, descriptionProps: descriptionProps, errorMessageProps: errorMessageProps } = ($2baaea4c71418dea$export$294aa081a6c6f55d)({
-        ...props,
-        isInvalid: isInvalid,
-        errorMessage: props.errorMessage || validationErrors
-    });
-    let domProps = ($65484d02dcb7eb3e$export$457c3d6518dd4c6f)(props, {
-        labelable: true
-    });
-    const inputOnlyProps = {
-        type: type,
-        pattern: props.pattern
-    };
-    ($99facab73266f662$export$5add1d006293d136)(ref, value, setValue);
-    ($e93e671b31057976$export$b8473d3665f3a75a)(props, validationState, ref);
-    (useEffect)(()=>{
-        // This works around a React/Chrome bug that prevents textarea elements from validating when controlled.
-        // We prevent React from updating defaultValue (i.e. children) of textarea when `value` changes,
-        // which causes Chrome to skip validation. Only updating `value` is ok in our case since our
-        // textareas are always controlled. React is planning on removing this synchronization in a
-        // future major version.
-        // https://github.com/facebook/react/issues/19474
-        // https://github.com/facebook/react/issues/11896
-        if (ref.current instanceof ($431fbd86ca7dc216$export$f21a1ffae260145a)(ref.current).HTMLTextAreaElement) {
-            let input = ref.current;
-            Object.defineProperty(input, "defaultValue", {
-                get: ()=>input.value,
-                set: ()=>{},
-                configurable: true
-            });
-        }
-    }, [
-        ref
-    ]);
-    return {
-        labelProps: labelProps,
-        inputProps: ($3ef42575df84b30b$export$9d1611c77c2fe928)(domProps, inputElementType === "input" && inputOnlyProps, {
-            disabled: isDisabled,
-            readOnly: isReadOnly,
-            required: isRequired && validationBehavior === "native",
-            "aria-required": isRequired && validationBehavior === "aria" || undefined,
-            "aria-invalid": isInvalid || undefined,
-            "aria-errormessage": props["aria-errormessage"],
-            "aria-activedescendant": props["aria-activedescendant"],
-            "aria-autocomplete": props["aria-autocomplete"],
-            "aria-haspopup": props["aria-haspopup"],
-            value: value,
-            onChange: (e)=>setValue(e.target.value),
-            autoComplete: props.autoComplete,
-            autoCapitalize: props.autoCapitalize,
-            maxLength: props.maxLength,
-            minLength: props.minLength,
-            name: props.name,
-            placeholder: props.placeholder,
-            inputMode: props.inputMode,
-            // Clipboard events
-            onCopy: props.onCopy,
-            onCut: props.onCut,
-            onPaste: props.onPaste,
-            // Composition events
-            onCompositionEnd: props.onCompositionEnd,
-            onCompositionStart: props.onCompositionStart,
-            onCompositionUpdate: props.onCompositionUpdate,
-            // Selection events
-            onSelect: props.onSelect,
-            // Input events
-            onBeforeInput: props.onBeforeInput,
-            onInput: props.onInput,
-            ...focusableProps,
-            ...fieldProps
-        }),
-        descriptionProps: descriptionProps,
-        errorMessageProps: errorMessageProps,
-        isInvalid: isInvalid,
-        validationErrors: validationErrors,
-        validationDetails: validationDetails
     };
 }
 
@@ -9263,7 +9272,10 @@ function $parcel$interopDefault(a) {
  * the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR REPRESENTATIONS
  * OF ANY KIND, either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
- */ /*
+ */ // Mark as a client only package. This will cause a build time error if you try 
+// to import it from a React Server Component in a framework like Next.js.
+
+/*
  * Copyright 2022 Adobe. All rights reserved.
  * This file is licensed to you under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License. You may obtain a copy
@@ -9673,7 +9685,7 @@ class $7135fc7d473fd974$export$b34a105447964f9f extends $7135fc7d473fd974$var$Ba
     updateCollection() {
         for (let element of this.dirtyNodes)if (element instanceof $7135fc7d473fd974$export$dc064fe9e59310fd && element.isConnected) element.updateNode();
         this.dirtyNodes.clear();
-        if (this.mutatedNodes.size) {
+        if (this.mutatedNodes.size || this.collectionMutated) {
             var _this_firstChild, _this_lastChild;
             let collection = this.getMutableCollection();
             for (let element of this.mutatedNodes)if (element.isConnected) collection.addNode(element.node);
@@ -9721,6 +9733,7 @@ class $7135fc7d473fd974$export$b34a105447964f9f extends $7135fc7d473fd974$var$Ba
 function $7135fc7d473fd974$export$727c8fc270210f13(props) {
     let { children: children, items: items, idScope: idScope, addIdAndValue: addIdAndValue, dependencies: dependencies = [] } = props;
     // Invalidate the cache whenever the parent value changes.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     let cache = (useMemo)(()=>new WeakMap(), dependencies);
     return (useMemo)(()=>{
         if (items && typeof children === "function") {
@@ -10670,11 +10683,13 @@ function $eed445e0843c11d0$var$ListBoxItem(props, ref) {
  * A ListBoxItem represents an individual option in a ListBox.
  */ const $eed445e0843c11d0$export$a11e76429ed99b4 = /*#__PURE__*/ (forwardRef)($eed445e0843c11d0$var$ListBoxItem);
 function $eed445e0843c11d0$var$Option({ item: item }) {
+    var _item_props;
     let ref = ($df56164dff5785e2$export$4338b53315abf666)(item.props.ref);
     let state = (useContext)($eed445e0843c11d0$export$7c5906fe4f1f2af2);
     let { dragAndDropHooks: dragAndDropHooks, dragState: dragState, dropState: dropState } = (useContext)(($d8f176866e6dc039$export$d188a835a7bc5783));
     let { optionProps: optionProps, labelProps: labelProps, descriptionProps: descriptionProps, ...states } = ($293f70390ea03370$export$497855f14858aa34)({
-        key: item.key
+        key: item.key,
+        "aria-label": (_item_props = item.props) === null || _item_props === void 0 ? void 0 : _item_props["aria-label"]
     }, state, ref);
     let { hoverProps: hoverProps, isHovered: isHovered } = ($6179b936705e76d3$export$ae780daf29e6d456)({
         isDisabled: !states.allowsSelection && !states.hasAction
@@ -10891,6 +10906,7 @@ function $07b14b47974efb58$var$PopoverInner({ state: state, isExiting: isExiting
         isExiting: isExiting,
         portalContainer: UNSTABLE_portalContainer
     }, !props.isNonModal && state.isOpen && /*#__PURE__*/ (React__default).createElement("div", {
+        "data-testid": "underlay",
         ...underlayProps,
         style: {
             position: "fixed",
@@ -11435,110 +11451,6 @@ function $82d7e5349645de74$var$SelectValue(props, ref) {
  * SelectValue renders the current value of a Select, or a placeholder if no value is selected.
  * It is usually placed within the button element.
  */ const $82d7e5349645de74$export$e288731fd71264f0 = /*#__PURE__*/ (forwardRef)($82d7e5349645de74$var$SelectValue);
-
-
-
-
-
-
-const $216918bed6669f72$export$2dc6166a7e65358c = /*#__PURE__*/ (createContext)({});
-
-
-/*
- * Copyright 2022 Adobe. All rights reserved.
- * This file is licensed to you under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License. You may obtain a copy
- * of the License at http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software distributed under
- * the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR REPRESENTATIONS
- * OF ANY KIND, either express or implied. See the License for the specific language
- * governing permissions and limitations under the License.
- */ 
-
-
-
-
-
-
-
-
-const $bcdf0525bf22703d$export$2129e27b3ef0d483 = /*#__PURE__*/ (createContext)(null);
-function $bcdf0525bf22703d$var$TextField(props, ref) {
-    [props, ref] = ($64fa3d84918910a7$export$29f1550f4b0d4415)(props, ref, $bcdf0525bf22703d$export$2129e27b3ef0d483);
-    let inputRef = (useRef)(null);
-    let [labelRef, label] = ($64fa3d84918910a7$export$9d4c57ee4c6ffdd8)();
-    let [inputElementType, setInputElementType] = (useState)("input");
-    var _props_validationBehavior;
-    let { labelProps: labelProps, inputProps: inputProps, descriptionProps: descriptionProps, errorMessageProps: errorMessageProps, ...validation } = ($2d73ec29415bd339$export$712718f7aec83d5)({
-        ...($64fa3d84918910a7$export$ef03459518577ad4)(props),
-        inputElementType: inputElementType,
-        label: label,
-        validationBehavior: (_props_validationBehavior = props.validationBehavior) !== null && _props_validationBehavior !== void 0 ? _props_validationBehavior : "native"
-    }, inputRef);
-    // Intercept setting the input ref so we can determine what kind of element we have.
-    // useTextField uses this to determine what props to include.
-    let inputOrTextAreaRef = (useCallback)((el)=>{
-        inputRef.current = el;
-        if (el) setInputElementType(el instanceof HTMLTextAreaElement ? "textarea" : "input");
-    }, []);
-    let renderProps = ($64fa3d84918910a7$export$4d86445c2cf5e3)({
-        ...props,
-        values: {
-            isDisabled: props.isDisabled || false,
-            isInvalid: validation.isInvalid
-        },
-        defaultClassName: "react-aria-TextField"
-    });
-    return /*#__PURE__*/ (React__default).createElement("div", {
-        ...($65484d02dcb7eb3e$export$457c3d6518dd4c6f)(props),
-        ...renderProps,
-        ref: ref,
-        slot: props.slot || undefined,
-        "data-disabled": props.isDisabled || undefined,
-        "data-invalid": validation.isInvalid || undefined
-    }, /*#__PURE__*/ (React__default).createElement(($64fa3d84918910a7$export$2881499e37b75b9a), {
-        values: [
-            [
-                ($01b77f81d0f07f68$export$75b6ee27786ba447),
-                {
-                    ...labelProps,
-                    ref: labelRef
-                }
-            ],
-            [
-                ($3985021b0ad6602f$export$37fb8590cf2c088c),
-                {
-                    ...inputProps,
-                    ref: inputOrTextAreaRef
-                }
-            ],
-            [
-                ($216918bed6669f72$export$2dc6166a7e65358c),
-                {
-                    ...inputProps,
-                    ref: inputOrTextAreaRef
-                }
-            ],
-            [
-                ($514c0188e459b4c0$export$9afb8bc826b033ea),
-                {
-                    slots: {
-                        description: descriptionProps,
-                        errorMessage: errorMessageProps
-                    }
-                }
-            ],
-            [
-                ($ee014567cb39d3f0$export$ff05c3ac10437e03),
-                validation
-            ]
-        ]
-    }, renderProps.children));
-}
-/**
- * A text field allows a user to enter a plain text value with a keyboard.
- */ (forwardRef)($bcdf0525bf22703d$var$TextField);
 
 
 /*
@@ -14375,13 +14287,13 @@ const sizeValues = {
 };
 const Modal = (_a) => {
     var { ariaLabel, ariaLabeledBy, children, className, overlayClassName, footer, header, size = 'md' } = _a, rest = __rest(_a, ["ariaLabel", "ariaLabeledBy", "children", "className", "overlayClassName", "footer", "header", "size"]);
-    return (jsx($f3f84453ead64de5$export$8948f78d83984c69, Object.assign({ isDismissable: true, className: ({ isEntering, isExiting }) => clsx('bg-gray-500 bg-opacity-75 fixed w-screen h-screen top-0 left-0', {
+    return (jsx($f3f84453ead64de5$export$8948f78d83984c69, Object.assign({ isDismissable: true, className: ({ isEntering, isExiting }) => twMerge(clsx('bg-gray-500 bg-opacity-75 fixed w-screen h-screen top-0 left-0', {
             'animate-in fade-in ease-out duration-200': isEntering,
             'animate-out fade-out ease-in duration-150': isExiting,
-        }) }, rest, { children: ({ isEntering, isExiting }) => (jsx("div", Object.assign({ className: "flex justify-center items-center h-full w-full" }, { children: jsx($f3f84453ead64de5$export$2b77a92f1a5ad772, Object.assign({ className: "w-full px-1 flex justify-center", style: { marginTop: '-10vh' } }, { children: jsxs($de32f1b87079253c$export$3ddf2d174ce01153, Object.assign({ className: clsx("bg-white dark:bg-zinc-900 outline-none rounded-lg px-4 py-4 shadow-xl max-w-full", {
+        }), overlayClassName) }, rest, { children: ({ isEntering, isExiting }) => (jsx("div", Object.assign({ className: "flex justify-center items-center h-full w-full" }, { children: jsx($f3f84453ead64de5$export$2b77a92f1a5ad772, Object.assign({ className: "w-full px-1 flex justify-center", style: { marginTop: '-20vh' } }, { children: jsxs($de32f1b87079253c$export$3ddf2d174ce01153, Object.assign({ className: twMerge(clsx("bg-white dark:bg-zinc-900 outline-none rounded-lg px-4 py-4 shadow-xl max-w-full", {
                         'animate-in zoom-in-95 ease-out duration-200': isEntering,
                         'animate-out zoom-out-95 ease-in duration-150': isExiting,
-                    }), style: { width: sizeValues[size] }, "aria-label": ariaLabel, "aria-labelledby": ariaLabeledBy }, { children: [header &&
+                    }), className), style: { width: sizeValues[size] }, "aria-label": ariaLabel, "aria-labelledby": ariaLabeledBy }, { children: [header &&
                             jsx($5cb03073d3f54797$export$a8a3e93435678ff9, Object.assign({ slot: "title", className: "mb-2" }, { children: header })), children, footer &&
                             jsx("div", Object.assign({ className: "mt-4" }, { children: footer }))] })) })) }))) })));
 };
