@@ -60,6 +60,7 @@ All Taila components are built upon React Aria, ensuring they are accessible and
 - MultiSelect (extends React Aria ListBox)
 - SelectItem (extends React Aria ListBoxItem for use in Select fields)
 - ToggleSwitch (extends React Aria ToggleButton)
+- Modal (extends React Aria Modal)
 
 ### Customization
 
