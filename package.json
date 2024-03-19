@@ -1,6 +1,6 @@
 {
   "name": "@dlwiest/taila",
-  "version": "0.0.29",
+  "version": "0.0.30",
   "main": "dist/index.js",
   "module": "dist/index.es.js",
   "files": [
@@ -10,14 +10,14 @@
   "dependencies": {
     "@heroicons/react": "^2.1.1",
     "clsx": "^2.1.0",
-    "tailwind-merge": "^2.2.0"
+    "tailwind-merge": "^2.2.0",
+    "tailwindcss-react-aria-components": "^1.1.1",
+    "@tailwindcss/forms": "^0.5.7"
   },
   "peerDependencies": {
-    "@tailwindcss/forms": "^0.5.7",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "tailwindcss-animate": "^1.0.7",
-    "tailwindcss-react-aria-components": "^1.0.0"
+    "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
     "@babel/preset-react": "^7.23.3",
@@ -54,7 +54,7 @@
     "storybook": "^7.6.7",
     "tailwindcss": "^3.4.1",
     "tailwindcss-animate": "^1.0.7",
-    "tailwindcss-react-aria-components": "^1.0.0",
+    "tailwindcss-react-aria-components": "^1.1.1",
     "typescript": "^4.9.5",
     "web-vitals": "^2.1.4",
     "webpack": "^5.89.0"

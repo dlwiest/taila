@@ -14286,8 +14286,8 @@ const sizeValues = {
     xl: "1140px",
 };
 const Modal = (_a) => {
-    var { ariaLabel, ariaLabeledBy, children, className, overlayClassName, footer, header, size = 'md' } = _a, rest = __rest(_a, ["ariaLabel", "ariaLabeledBy", "children", "className", "overlayClassName", "footer", "header", "size"]);
-    return (jsx($f3f84453ead64de5$export$8948f78d83984c69, Object.assign({ isDismissable: true, className: ({ isEntering, isExiting }) => twMerge(clsx('bg-gray-500 bg-opacity-75 fixed w-screen h-screen top-0 left-0', {
+    var { ariaLabel, ariaLabeledBy, children, className, overlayClassName, footer, header, isOpen = true, size = 'md' } = _a, rest = __rest(_a, ["ariaLabel", "ariaLabeledBy", "children", "className", "overlayClassName", "footer", "header", "isOpen", "size"]);
+    return (jsx($f3f84453ead64de5$export$8948f78d83984c69, Object.assign({ isOpen: isOpen, isDismissable: true, className: ({ isEntering, isExiting }) => twMerge(clsx('bg-gray-500 bg-opacity-75 fixed w-screen h-screen top-0 left-0', {
             'animate-in fade-in ease-out duration-200': isEntering,
             'animate-out fade-out ease-in duration-150': isExiting,
         }), overlayClassName) }, rest, { children: ({ isEntering, isExiting }) => (jsx("div", Object.assign({ className: "flex justify-center items-center h-full w-full" }, { children: jsx($f3f84453ead64de5$export$2b77a92f1a5ad772, Object.assign({ className: "w-full px-1 flex justify-center", style: { marginTop: '-20vh' } }, { children: jsxs($de32f1b87079253c$export$3ddf2d174ce01153, Object.assign({ className: twMerge(clsx("bg-white dark:bg-zinc-900 outline-none rounded-lg px-4 py-4 shadow-xl max-w-full", {
