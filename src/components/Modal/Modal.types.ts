@@ -9,6 +9,7 @@ interface ModalProps extends ModalOverlayProps, React.RefAttributes<HTMLDivEleme
     className?: string;
     footer?: ReactNode;
     header?: ReactNode;
+    isOpen?: boolean;
     overlayClassName?: string;
     size?: Exclude<Sizes, 'xs'>;
 };

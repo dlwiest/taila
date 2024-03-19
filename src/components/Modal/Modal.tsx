@@ -10,9 +10,10 @@ const sizeValues = {
     xl: "1140px",
 };
 
-const Modal = ({ ariaLabel, ariaLabeledBy, children, className, overlayClassName, footer, header, size = 'md', ...rest }: ModalProps) => { 
+const Modal = ({ ariaLabel, ariaLabeledBy, children, className, overlayClassName, footer, header, isOpen = true, size = 'md', ...rest }: ModalProps) => { 
     return (
         <ModalOverlay
+            isOpen={isOpen}
             isDismissable
             className={({ isEntering, isExiting }) => twMerge(clsx(
                     'bg-gray-500 bg-opacity-75 fixed w-screen h-screen top-0 left-0',
