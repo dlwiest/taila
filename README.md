@@ -27,7 +27,7 @@ module.exports = {
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
     // other paths...
-  ],
+  ], 
   plugins: [
     require('@tailwindcss/forms'),
     require('tailwindcss-react-aria-components'),
