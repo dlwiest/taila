@@ -3987,6 +3987,172 @@ class $6db58dc88e78b024$export$2f817fcdc4b89ae0 {
  * the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR REPRESENTATIONS
  * OF ANY KIND, either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
+ */ let $488c6ddbf4ef74c2$var$formatterCache = new Map();
+let $488c6ddbf4ef74c2$var$supportsSignDisplay = false;
+try {
+    // @ts-ignore
+    $488c6ddbf4ef74c2$var$supportsSignDisplay = new Intl.NumberFormat("de-DE", {
+        signDisplay: "exceptZero"
+    }).resolvedOptions().signDisplay === "exceptZero";
+// eslint-disable-next-line no-empty
+} catch (e) {}
+let $488c6ddbf4ef74c2$var$supportsUnit = false;
+try {
+    // @ts-ignore
+    $488c6ddbf4ef74c2$var$supportsUnit = new Intl.NumberFormat("de-DE", {
+        style: "unit",
+        unit: "degree"
+    }).resolvedOptions().style === "unit";
+// eslint-disable-next-line no-empty
+} catch (e) {}
+// Polyfill for units since Safari doesn't support them yet. See https://bugs.webkit.org/show_bug.cgi?id=215438.
+// Currently only polyfilling the unit degree in narrow format for ColorSlider in our supported locales.
+// Values were determined by switching to each locale manually in Chrome.
+const $488c6ddbf4ef74c2$var$UNITS = {
+    degree: {
+        narrow: {
+            default: "\xb0",
+            "ja-JP": " \u5EA6",
+            "zh-TW": "\u5EA6",
+            "sl-SI": " \xb0"
+        }
+    }
+};
+class $488c6ddbf4ef74c2$export$cc77c4ff7e8673c5 {
+    /** Formats a number value as a string, according to the locale and options provided to the constructor. */ format(value) {
+        let res = "";
+        if (!$488c6ddbf4ef74c2$var$supportsSignDisplay && this.options.signDisplay != null) res = $488c6ddbf4ef74c2$export$711b50b3c525e0f2(this.numberFormatter, this.options.signDisplay, value);
+        else res = this.numberFormatter.format(value);
+        if (this.options.style === "unit" && !$488c6ddbf4ef74c2$var$supportsUnit) {
+            var _UNITS_unit;
+            let { unit: unit, unitDisplay: unitDisplay = "short", locale: locale } = this.resolvedOptions();
+            if (!unit) return res;
+            let values = (_UNITS_unit = $488c6ddbf4ef74c2$var$UNITS[unit]) === null || _UNITS_unit === void 0 ? void 0 : _UNITS_unit[unitDisplay];
+            res += values[locale] || values.default;
+        }
+        return res;
+    }
+    /** Formats a number to an array of parts such as separators, digits, punctuation, and more. */ formatToParts(value) {
+        // TODO: implement signDisplay for formatToParts
+        // @ts-ignore
+        return this.numberFormatter.formatToParts(value);
+    }
+    /** Formats a number range as a string. */ formatRange(start, end) {
+        // @ts-ignore
+        if (typeof this.numberFormatter.formatRange === "function") // @ts-ignore
+        return this.numberFormatter.formatRange(start, end);
+        if (end < start) throw new RangeError("End date must be >= start date");
+        // Very basic fallback for old browsers.
+        return `${this.format(start)} \u{2013} ${this.format(end)}`;
+    }
+    /** Formats a number range as an array of parts. */ formatRangeToParts(start, end) {
+        // @ts-ignore
+        if (typeof this.numberFormatter.formatRangeToParts === "function") // @ts-ignore
+        return this.numberFormatter.formatRangeToParts(start, end);
+        if (end < start) throw new RangeError("End date must be >= start date");
+        let startParts = this.numberFormatter.formatToParts(start);
+        let endParts = this.numberFormatter.formatToParts(end);
+        return [
+            ...startParts.map((p)=>({
+                    ...p,
+                    source: "startRange"
+                })),
+            {
+                type: "literal",
+                value: " \u2013 ",
+                source: "shared"
+            },
+            ...endParts.map((p)=>({
+                    ...p,
+                    source: "endRange"
+                }))
+        ];
+    }
+    /** Returns the resolved formatting options based on the values passed to the constructor. */ resolvedOptions() {
+        let options = this.numberFormatter.resolvedOptions();
+        if (!$488c6ddbf4ef74c2$var$supportsSignDisplay && this.options.signDisplay != null) options = {
+            ...options,
+            signDisplay: this.options.signDisplay
+        };
+        if (!$488c6ddbf4ef74c2$var$supportsUnit && this.options.style === "unit") options = {
+            ...options,
+            style: "unit",
+            unit: this.options.unit,
+            unitDisplay: this.options.unitDisplay
+        };
+        return options;
+    }
+    constructor(locale, options = {}){
+        this.numberFormatter = $488c6ddbf4ef74c2$var$getCachedNumberFormatter(locale, options);
+        this.options = options;
+    }
+}
+function $488c6ddbf4ef74c2$var$getCachedNumberFormatter(locale, options = {}) {
+    let { numberingSystem: numberingSystem } = options;
+    if (numberingSystem && locale.includes("-nu-")) {
+        if (!locale.includes("-u-")) locale += "-u-";
+        locale += `-nu-${numberingSystem}`;
+    }
+    if (options.style === "unit" && !$488c6ddbf4ef74c2$var$supportsUnit) {
+        var _UNITS_unit;
+        let { unit: unit, unitDisplay: unitDisplay = "short" } = options;
+        if (!unit) throw new Error('unit option must be provided with style: "unit"');
+        if (!((_UNITS_unit = $488c6ddbf4ef74c2$var$UNITS[unit]) === null || _UNITS_unit === void 0 ? void 0 : _UNITS_unit[unitDisplay])) throw new Error(`Unsupported unit ${unit} with unitDisplay = ${unitDisplay}`);
+        options = {
+            ...options,
+            style: "decimal"
+        };
+    }
+    let cacheKey = locale + (options ? Object.entries(options).sort((a, b)=>a[0] < b[0] ? -1 : 1).join() : "");
+    if ($488c6ddbf4ef74c2$var$formatterCache.has(cacheKey)) return $488c6ddbf4ef74c2$var$formatterCache.get(cacheKey);
+    let numberFormatter = new Intl.NumberFormat(locale, options);
+    $488c6ddbf4ef74c2$var$formatterCache.set(cacheKey, numberFormatter);
+    return numberFormatter;
+}
+function $488c6ddbf4ef74c2$export$711b50b3c525e0f2(numberFormat, signDisplay, num) {
+    if (signDisplay === "auto") return numberFormat.format(num);
+    else if (signDisplay === "never") return numberFormat.format(Math.abs(num));
+    else {
+        let needsPositiveSign = false;
+        if (signDisplay === "always") needsPositiveSign = num > 0 || Object.is(num, 0);
+        else if (signDisplay === "exceptZero") {
+            if (Object.is(num, -0) || Object.is(num, 0)) num = Math.abs(num);
+            else needsPositiveSign = num > 0;
+        }
+        if (needsPositiveSign) {
+            let negative = numberFormat.format(-num);
+            let noSign = numberFormat.format(num);
+            // ignore RTL/LTR marker character
+            let minus = negative.replace(noSign, "").replace(/\u200e|\u061C/, "");
+            if ([
+                ...minus
+            ].length !== 1) console.warn("@react-aria/i18n polyfill for NumberFormat signDisplay: Unsupported case");
+            let positive = negative.replace(noSign, "!!!").replace(minus, "+").replace("!!!", noSign);
+            return positive;
+        } else return numberFormat.format(num);
+    }
+}
+
+/*
+ * Copyright 2020 Adobe. All rights reserved.
+ * This file is licensed to you under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License. You may obtain a copy
+ * of the License at http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software distributed under
+ * the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR REPRESENTATIONS
+ * OF ANY KIND, either express or implied. See the License for the specific language
+ * governing permissions and limitations under the License.
+ */ /*
+ * Copyright 2020 Adobe. All rights reserved.
+ * This file is licensed to you under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License. You may obtain a copy
+ * of the License at http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software distributed under
+ * the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR REPRESENTATIONS
+ * OF ANY KIND, either express or implied. See the License for the specific language
+ * governing permissions and limitations under the License.
  */ /*
  * Copyright 2020 Adobe. All rights reserved.
  * This file is licensed to you under the Apache License, Version 2.0 (the "License");
@@ -4148,6 +4314,28 @@ function $fca6afa0e843324b$export$f12b703ca79dfbb1(strings, packageName) {
     return (React.useMemo)(()=>new ($6db58dc88e78b024$export$2f817fcdc4b89ae0)(locale, dictionary), [
         locale,
         dictionary
+    ]);
+}
+
+
+/*
+ * Copyright 2020 Adobe. All rights reserved.
+ * This file is licensed to you under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License. You may obtain a copy
+ * of the License at http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software distributed under
+ * the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR REPRESENTATIONS
+ * OF ANY KIND, either express or implied. See the License for the specific language
+ * governing permissions and limitations under the License.
+ */ 
+
+
+function $a916eb452884faea$export$b7a616150fdb9f44(options = {}) {
+    let { locale: locale } = ($18f2051aff69b9bf$export$43bb16f9c6d9e3f7)();
+    return (React.useMemo)(()=>new ($488c6ddbf4ef74c2$export$cc77c4ff7e8673c5)(locale, options), [
+        locale,
+        options
     ]);
 }
 
@@ -7986,6 +8174,62 @@ function $40df3f8667284809$export$d55e7ee900f34e93(props, ref) {
  */ 
 
 
+function $204d9ebcedfb8806$export$ed5abd763a836edc(props) {
+    let { value: value = 0, minValue: minValue = 0, maxValue: maxValue = 100, valueLabel: valueLabel, isIndeterminate: isIndeterminate, formatOptions: formatOptions = {
+        style: "percent"
+    } } = props;
+    let domProps = ($65484d02dcb7eb3e$export$457c3d6518dd4c6f)(props, {
+        labelable: true
+    });
+    let { labelProps: labelProps, fieldProps: fieldProps } = ($d191a55c9702f145$export$8467354a121f1b9f)({
+        ...props,
+        // Progress bar is not an HTML input element so it
+        // shouldn't be labeled by a <label> element.
+        labelElementType: "span"
+    });
+    value = ($9446cca9a3875146$export$7d15b64cf5a3a4c4)(value, minValue, maxValue);
+    let percentage = (value - minValue) / (maxValue - minValue);
+    let formatter = ($a916eb452884faea$export$b7a616150fdb9f44)(formatOptions);
+    if (!isIndeterminate && !valueLabel) {
+        let valueToFormat = formatOptions.style === "percent" ? percentage : value;
+        valueLabel = formatter.format(valueToFormat);
+    }
+    return {
+        progressBarProps: ($3ef42575df84b30b$export$9d1611c77c2fe928)(domProps, {
+            ...fieldProps,
+            "aria-valuenow": isIndeterminate ? undefined : value,
+            "aria-valuemin": minValue,
+            "aria-valuemax": maxValue,
+            "aria-valuetext": isIndeterminate ? undefined : valueLabel,
+            role: "progressbar"
+        }),
+        labelProps: labelProps
+    };
+}
+
+/*
+ * Copyright 2020 Adobe. All rights reserved.
+ * This file is licensed to you under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License. You may obtain a copy
+ * of the License at http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software distributed under
+ * the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR REPRESENTATIONS
+ * OF ANY KIND, either express or implied. See the License for the specific language
+ * governing permissions and limitations under the License.
+ */ /*
+ * Copyright 2020 Adobe. All rights reserved.
+ * This file is licensed to you under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License. You may obtain a copy
+ * of the License at http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software distributed under
+ * the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR REPRESENTATIONS
+ * OF ANY KIND, either express or implied. See the License for the specific language
+ * governing permissions and limitations under the License.
+ */ 
+
+
 
 
 
@@ -11243,6 +11487,63 @@ function $f3f84453ead64de5$var$ModalContent(props) {
 }
 
 
+
+
+/*
+ * Copyright 2022 Adobe. All rights reserved.
+ * This file is licensed to you under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License. You may obtain a copy
+ * of the License at http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software distributed under
+ * the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR REPRESENTATIONS
+ * OF ANY KIND, either express or implied. See the License for the specific language
+ * governing permissions and limitations under the License.
+ */ 
+
+
+
+
+const $0393f8ab869a0f1a$export$e9f3bf65a26ce129 = /*#__PURE__*/ (React.createContext)(null);
+function $0393f8ab869a0f1a$var$ProgressBar(props, ref) {
+    [props, ref] = ($64fa3d84918910a7$export$29f1550f4b0d4415)(props, ref, $0393f8ab869a0f1a$export$e9f3bf65a26ce129);
+    let { value: value = 0, minValue: minValue = 0, maxValue: maxValue = 100, isIndeterminate: isIndeterminate = false } = props;
+    value = ($9446cca9a3875146$export$7d15b64cf5a3a4c4)(value, minValue, maxValue);
+    let [labelRef, label] = ($64fa3d84918910a7$export$9d4c57ee4c6ffdd8)();
+    let { progressBarProps: progressBarProps, labelProps: labelProps } = ($204d9ebcedfb8806$export$ed5abd763a836edc)({
+        ...props,
+        label: label
+    });
+    // Calculate the width of the progress bar as a percentage
+    let percentage = isIndeterminate ? undefined : (value - minValue) / (maxValue - minValue) * 100;
+    let renderProps = ($64fa3d84918910a7$export$4d86445c2cf5e3)({
+        ...props,
+        defaultClassName: "react-aria-ProgressBar",
+        values: {
+            percentage: percentage,
+            valueText: progressBarProps["aria-valuetext"],
+            isIndeterminate: isIndeterminate
+        }
+    });
+    return /*#__PURE__*/ (React__default["default"]).createElement("div", {
+        ...progressBarProps,
+        ...renderProps,
+        ref: ref,
+        slot: props.slot || undefined
+    }, /*#__PURE__*/ (React__default["default"]).createElement(($01b77f81d0f07f68$export$75b6ee27786ba447).Provider, {
+        value: {
+            ...labelProps,
+            ref: labelRef,
+            elementType: "span"
+        }
+    }, renderProps.children));
+}
+/**
+ * Progress bars show either determinate or indeterminate progress of an operation
+ * over time.
+ */ const $0393f8ab869a0f1a$export$c17561cb55d4db30 = /*#__PURE__*/ (React.forwardRef)($0393f8ab869a0f1a$var$ProgressBar);
+
+
 /*
  * Copyright 2022 Adobe. All rights reserved.
  * This file is licensed to you under the Apache License, Version 2.0 (the "License");
@@ -14437,6 +14738,12 @@ const SelectItem = (_a) => {
                     }) }, { children: jsxRuntime.jsx(CheckIcon$1, { className: "h-5 w-5", "aria-hidden": "true" }) }))) : null] })) })));
 };
 
+const Spinner = ({ color = 'gray', className }) => {
+    const textColorClass = textColorClasses[color] || textColorClasses.lime;
+    const spinnerClass = twMerge(clsx("animate-spin h-6 w-6", textColorClass), className);
+    return (jsxRuntime.jsx($0393f8ab869a0f1a$export$c17561cb55d4db30, Object.assign({ "aria-label": "Loading...", isIndeterminate: true }, { children: jsxRuntime.jsxs("svg", Object.assign({ className: spinnerClass, viewBox: "0 0 64 64", fill: "none", xmlns: "http://www.w3.org/2000/svg", "data-testid": "spinner-svg" }, { children: [jsxRuntime.jsx("path", { d: "M32 3C35.8083 3 39.5794 3.75011 43.0978 5.20749C46.6163 6.66488 49.8132 8.80101 52.5061 11.4939C55.199 14.1868 57.3351 17.3837 58.7925 20.9022C60.2499 24.4206 61 28.1917 61 32C61 35.8083 60.2499 39.5794 58.7925 43.0978C57.3351 46.6163 55.199 49.8132 52.5061 52.5061C49.8132 55.199 46.6163 57.3351 43.0978 58.7925C39.5794 60.2499 35.8083 61 32 61C28.1917 61 24.4206 60.2499 20.9022 58.7925C17.3837 57.3351 14.1868 55.199 11.4939 52.5061C8.801 49.8132 6.66487 46.6163 5.20749 43.0978C3.7501 39.5794 3 35.8083 3 32C3 28.1917 3.75011 24.4206 5.2075 20.9022C6.66489 17.3837 8.80101 14.1868 11.4939 11.4939C14.1868 8.80099 17.3838 6.66487 20.9022 5.20749C24.4206 3.7501 28.1917 3 32 3L32 3Z", stroke: "currentColor", strokeWidth: "5", strokeLinecap: "round", strokeLinejoin: "round", className: "opacity-50" }), jsxRuntime.jsx("path", { d: "M32 3C36.5778 3 41.0906 4.08374 45.1692 6.16256C49.2477 8.24138 52.7762 11.2562 55.466 14.9605C58.1558 18.6647 59.9304 22.9531 60.6448 27.4748C61.3591 31.9965 60.9928 36.6232 59.5759 40.9762", stroke: "currentColor", strokeWidth: "5", strokeLinecap: "round", strokeLinejoin: "round", className: "opacity-100" })] })) })));
+};
+
 const ToggleSwitch = (_a) => {
     var { children, className, color = 'blue', focusColor, hasError } = _a, rest = __rest(_a, ["children", "className", "color", "focusColor", "hasError"]);
     return (jsxRuntime.jsx($efde0372d7a700fe$export$d2b052e7b4be1756, Object.assign({}, rest, { className: "focus:outline-none" }, { children: ({ isSelected, isFocused }) => (jsxRuntime.jsx("div", Object.assign({ className: clsx(clsx(isFocused ? `ring-2 ${ringColorClasses[hasError ? 'red' : focusColor ? focusColor : color]}` : 'ring-0', hasError ? innerRingClasses['red'] : '', rest.isDisabled ? 'opacity-50 cursor-not-allowed' : '', 'rounded-full pt-1')) }, { children: jsxRuntime.jsx("div", Object.assign({ className: "px-1" }, { children: jsxRuntime.jsx("div", Object.assign({ className: twMerge(clsx(isSelected ? bgColorClasses[hasError ? 'red' : color] : 'bg-gray-200 dark:bg-gray-700', rest.isDisabled ? 'cursor-not-allowed' : 'cursor-pointer', 'relative inline-flex h-6 w-11 flex-shrink-0 rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out'), className) }, { children: jsxRuntime.jsx("span", Object.assign({ "aria-hidden": "true", className: clsx(isSelected ? 'translate-x-5' : 'translate-x-0', rest.isDisabled ? 'cursor-not-allowed' : '', 'pointer-events-none relative inline-block items-center justify-center h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out', textColorClasses[color]) }, { children: children })) })) })) }))) })));
@@ -14447,5 +14754,6 @@ exports.Input = Input;
 exports.Modal = Modal;
 exports.Select = Select;
 exports.SelectItem = SelectItem;
+exports.Spinner = Spinner;
 exports.ToggleSwitch = ToggleSwitch;
 //# sourceMappingURL=index.js.map

@@ -59,6 +59,7 @@ All Taila components are built upon React Aria, ensuring they are accessible and
 - Select (extends React Aria Select)
 - MultiSelect (extends React Aria ListBox)
 - SelectItem (extends React Aria ListBoxItem for use in Select fields)
+- Spinner (extends React Aria ProgressBar)
 - ToggleSwitch (extends React Aria ToggleButton)
 - Modal (extends React Aria Modal)
 

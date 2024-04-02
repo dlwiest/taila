@@ -1,4 +1,4 @@
-import { Button } from '..';
+import { Button, Spinner } from '..';
 import { CheckCircleIcon } from '@heroicons/react/20/solid';
 import { textColorClasses } from '../shared/tailwindClases';
 
@@ -52,3 +52,4 @@ export const Icon = () => (
         </div>
     </div>
 );
+
