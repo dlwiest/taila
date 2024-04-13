@@ -1,3 +1,4 @@
+import { useState, useEffect, useRef } from 'react';
 import { Button } from '..';
 import { CheckCircleIcon } from '@heroicons/react/20/solid';
 import { textColorClasses } from '../shared/tailwindClases';
@@ -53,3 +54,21 @@ export const Icon = () => (
     </div>
 );
 
+export const Loading = () => {
+    const [isLoading, setIsLoading] = useState(false);
+    const loadingTimeout = useRef<NodeJS.Timeout>();
+
+    useEffect(() => {
+        loadingTimeout.current = setTimeout(() => {
+            setIsLoading(false);
+        }, 3000);
+
+        return () => clearTimeout(loadingTimeout.current);
+    }, [isLoading])
+    
+    return (
+        <Button loading={isLoading} onPress={() => setIsLoading(true)} className="w-64" size="sm">
+            Press to Load
+        </Button>
+    )
+};

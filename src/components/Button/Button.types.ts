@@ -10,6 +10,7 @@ interface ButtonProps extends AriaButtonProps {
     rounded?: boolean;
     size?: Sizes;
     variant?: ButtonVariants;
+    loading?: boolean;
     children?: ReactNode;
 };
 

@@ -54,4 +54,15 @@ describe('Button Component', () => {
         expect(screen.getByRole('button', { name: /icon button/i })).toBeInTheDocument();
         expect(screen.getByTestId('icon')).toBeInTheDocument();
     });
+
+    test('Displays spinner when loading prop is true', () => {
+        render(<Button loading>Loading Button</Button>);
+        const spinner = screen.getByTestId('spinner-svg');
+        expect(spinner).toBeInTheDocument();
+    });
+
+    test('Does not display children when loading prop is true', () => {
+        render(<Button loading>Load</Button>);
+        expect(screen.queryByText(/load/i)).not.toBeInTheDocument();
+    });
 });

@@ -5,7 +5,7 @@ import clsx from 'clsx';
 import { twMerge } from 'tailwind-merge';
 
 const Spinner = ({ color = 'gray', className }: SpinnerProps) => {
-    const textColorClass = textColorClasses[color] || textColorClasses.lime;
+    const textColorClass = textColorClasses[color];
     const spinnerClass = twMerge(clsx("animate-spin h-6 w-6", textColorClass), className);
 
     return (

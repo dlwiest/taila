@@ -1,6 +1,6 @@
 {
   "name": "@dlwiest/taila",
-  "version": "0.0.35",
+  "version": "0.0.36",
   "main": "dist/index.js",
   "module": "dist/index.es.js",
   "files": [
@@ -22,6 +22,7 @@
   },
   "devDependencies": {
     "@babel/preset-react": "^7.23.3",
+    "@babel/plugin-proposal-private-property-in-object": "^7.18.0",
     "@gfpacheco/storybook-tailwind-dark-mode": "^1.0.25",
     "@rollup/plugin-node-resolve": "^15.2.3",
     "@storybook/addon-essentials": "^7.6.7",
