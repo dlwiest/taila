@@ -37,7 +37,6 @@ export const Disabled = () => (
 
 export const Icon = () => {
     const [darkMode, setDarkMode] = useState(false);
-    console.log(darkMode);
 
     return (
         <ToggleSwitch onChange={setDarkMode} focusColor="blue" color={darkMode ? 'purple' : 'yellow'}>

@@ -14599,6 +14599,13 @@ const Modal = (_a) => {
                             jsx("div", Object.assign({ className: "mt-4" }, { children: footer }))] })) })) }))) })));
 };
 
+const ProgressBar = (_a) => {
+    var { className, color = 'blue' } = _a, rest = __rest(_a, ["className", "color"]);
+    const outerBarClasses = twMerge('h-2 w-full bg-gray-200 rounded-md', className);
+    const innerBarClasses = twMerge('h-full rounded-md', bgColorClasses[color]);
+    return (jsx($0393f8ab869a0f1a$export$c17561cb55d4db30, Object.assign({}, rest, { children: ({ percentage }) => (jsx("div", Object.assign({ className: outerBarClasses, "data-testid": "progress-bar-outer" }, { children: jsx("div", { className: innerBarClasses, style: { width: `${percentage}%` }, "data-testid": "progress-bar-inner" }) }))) })));
+};
+
 function CheckIcon({
   title,
   titleId,
@@ -14722,5 +14729,5 @@ const ToggleSwitch = (_a) => {
     return (jsx($efde0372d7a700fe$export$d2b052e7b4be1756, Object.assign({}, rest, { className: "focus:outline-none" }, { children: ({ isSelected, isFocused }) => (jsx("div", Object.assign({ className: clsx(clsx(isFocused ? `ring-2 ${ringColorClasses[hasError ? 'red' : focusColor ? focusColor : color]}` : 'ring-0', hasError ? innerRingClasses['red'] : '', rest.isDisabled ? 'opacity-50 cursor-not-allowed' : '', 'rounded-full pt-1')) }, { children: jsx("div", Object.assign({ className: "px-1" }, { children: jsx("div", Object.assign({ className: twMerge(clsx(isSelected ? bgColorClasses[hasError ? 'red' : color] : 'bg-gray-200 dark:bg-gray-700', rest.isDisabled ? 'cursor-not-allowed' : 'cursor-pointer', 'relative inline-flex h-6 w-11 flex-shrink-0 rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out'), className) }, { children: jsx("span", Object.assign({ "aria-hidden": "true", className: clsx(isSelected ? 'translate-x-5' : 'translate-x-0', rest.isDisabled ? 'cursor-not-allowed' : '', 'pointer-events-none relative inline-block items-center justify-center h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out', textColorClasses[color]) }, { children: children })) })) })) }))) })));
 };
 
-export { Button, Input, Modal, Select, SelectItem, Spinner, ToggleSwitch };
+export { Button, Input, Modal, ProgressBar, Select, SelectItem, Spinner, ToggleSwitch };
 //# sourceMappingURL=index.es.js.map

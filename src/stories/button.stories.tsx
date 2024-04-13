@@ -1,4 +1,4 @@
-import { Button, Spinner } from '..';
+import { Button } from '..';
 import { CheckCircleIcon } from '@heroicons/react/20/solid';
 import { textColorClasses } from '../shared/tailwindClases';
 

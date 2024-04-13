@@ -14626,6 +14626,13 @@ const Modal = (_a) => {
                             jsxRuntime.jsx("div", Object.assign({ className: "mt-4" }, { children: footer }))] })) })) }))) })));
 };
 
+const ProgressBar = (_a) => {
+    var { className, color = 'blue' } = _a, rest = __rest(_a, ["className", "color"]);
+    const outerBarClasses = twMerge('h-2 w-full bg-gray-200 rounded-md', className);
+    const innerBarClasses = twMerge('h-full rounded-md', bgColorClasses[color]);
+    return (jsxRuntime.jsx($0393f8ab869a0f1a$export$c17561cb55d4db30, Object.assign({}, rest, { children: ({ percentage }) => (jsxRuntime.jsx("div", Object.assign({ className: outerBarClasses, "data-testid": "progress-bar-outer" }, { children: jsxRuntime.jsx("div", { className: innerBarClasses, style: { width: `${percentage}%` }, "data-testid": "progress-bar-inner" }) }))) })));
+};
+
 function CheckIcon({
   title,
   titleId,
@@ -14752,6 +14759,7 @@ const ToggleSwitch = (_a) => {
 exports.Button = Button;
 exports.Input = Input;
 exports.Modal = Modal;
+exports.ProgressBar = ProgressBar;
 exports.Select = Select;
 exports.SelectItem = SelectItem;
 exports.Spinner = Spinner;
